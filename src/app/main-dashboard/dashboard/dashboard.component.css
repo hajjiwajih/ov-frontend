@@ -1,0 +1,36 @@
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+}
+
+.slider-item button {
+  position: relative;
+  display: none;
+  margin: auto !important;
+}
+
+.slider-item:hover span {
+  display: none;
+}
+
+.slider-item:hover {
+  background: rgba(0, 0, 0, 0.33);
+}
+
+.slider-item:hover button {
+  display: inline;
+  margin: auto !important;
+}
+
+.image-container {
+  display: none;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 99999 !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+}

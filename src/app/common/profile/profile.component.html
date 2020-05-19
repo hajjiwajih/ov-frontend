@@ -1,0 +1,230 @@
+<!-- client info box -->
+<div
+  tabindex="-1"
+  role="menu"
+  aria-hidden="true"
+  class="dropdown-menu-md rm-pointers dropdown-menu dropdown-menu-right show"
+  style="
+    position: absolute;
+    will-change: transform;
+    top: 85px;
+    left: 0px;
+    width: 420px;
+    transform: translate3d(-190px, -23px, 0px);
+  "
+>
+  <div class="dropdown-menu-header">
+    <div class="dropdown-menu-header-inner bg-primary">
+      <div
+        class="menu-header-image opacity-1"
+        style="
+          background-image: url('assets/images/dropdown-header/abstract3.jpg');
+        "
+      ></div>
+      <div class="menu-header-content btn-pane-right">
+        <!-- <div
+class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine"
+>
+<div class="avatar-icon rounded">
+  <img src="assets/images/avatars/1.jpg" alt="Avatar 5" />
+</div>
+</div> -->
+        <div>
+          <h5 class="menu-header-title">
+            {{ user.fname + " " + user.lname }}
+          </h5>
+          <h6 class="menu-header-subtitle">
+            {{ user.email }}
+          </h6>
+          <div class="widget-content-right widget-content-actions">
+            <button
+              title="Edit"
+              class="mr-1 btn-icon btn-icon-only btn btn-light btn-sm"
+              (click)="editInfo('email')"
+            >
+              <i class="pe-7s-tools btn-icon-wrapper"> </i>
+            </button>
+          </div>
+        </div>
+        <div class="menu-header-btn-pane">
+          <button class="btn btn-success" *ngIf="user.emailVerified">
+            Vérifié
+          </button>
+          <button class="btn btn-warning" *ngIf="!user.emailVerified">
+            Non vérifié
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <!-- <li class="list-group-item">
+      <div class="widget-content pt-4 pb-4 pr-1 pl-1">
+        <div class="text-center">
+          <h5 class="mb-0">
+            <span class="pr-1">
+              <b class="text-info">{{ 100 }}</b>
+              commandes effectées, </span
+            ><br />
+            <span
+              ><b class="text-success">{{ 10 }}</b> validées</span
+            >
+            <span><br /><b class="text-danger"> 90</b> rejetées</span>
+          </h5>
+        </div>
+      </div>
+    </li> -->
+    <li class="list-group-item" *ngIf="user.role == 'client'">
+      <div class="widget-content p-0">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-left center-elem mr-2">
+            <i class="pe-7s-info text-muted fsize-2"></i>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">
+              REF
+              <span class="text-success">{{ user.autoID }}</span>
+            </div>
+          </div>
+          <!-- <div class="widget-content-right widget-content-actions">
+            <button class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm">
+              <i class="pe-7s-tools btn-icon-wrapper"> </i>
+            </button>
+            <button class="btn-icon btn-icon-only btn btn-success btn-sm">
+              <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" *ngIf="user.role == 'client'">
+      <div class="widget-content p-0">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-left center-elem mr-2">
+            <i class="pe-7s-news-paper text-muted fsize-2"></i>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">
+              NUM PATENTE
+              <span class="text-secondary">{{ user.username }}</span>
+            </div>
+          </div>
+          <!-- <div class="widget-content-right widget-content-actions">
+            <button class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm">
+              <i class="pe-7s-tools btn-icon-wrapper"> </i>
+            </button>
+            <button class="btn-icon btn-icon-only btn btn-success btn-sm">
+              <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" *ngIf="user.role == 'client'">
+      <div class="widget-content p-0">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-left center-elem mr-2">
+            <i class="pe-7s-id text-muted fsize-2"></i>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">
+              NUM CIN
+              <span class="text-secondary">{{ user.cin }}</span>
+            </div>
+          </div>
+          <!-- <div class="widget-content-right widget-content-actions">
+            <button class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm">
+              <i class="pe-7s-tools btn-icon-wrapper"> </i>
+            </button>
+            <button class="btn-icon btn-icon-only btn btn-success btn-sm">
+              <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="widget-content p-0">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-left center-elem mr-2">
+            <i class="pe-7s-phone text-muted fsize-2"></i>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">
+              Tél
+              <span class="text-success"
+                >(+216) {{ user.phone || "---------" }}</span
+              >
+            </div>
+          </div>
+          <div class="widget-content-right widget-content-actions">
+            <button
+              title="Edit"
+              class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm"
+              (click)="editInfo('Téléphone')"
+            >
+              <i class="pe-7s-tools btn-icon-wrapper"> </i>
+            </button>
+            <!-- <button class="btn-icon btn-icon-only btn btn-success btn-sm">
+              <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="widget-content p-0">
+        <div class="widget-content-wrapper">
+          <div class="widget-content-left center-elem mr-2">
+            <i class="pe-7s-timer text-muted fsize-2"></i>
+          </div>
+          <div class="widget-content-left">
+            <div class="widget-heading">
+              INSCRIT LE
+              <span class="text-secondary">{{
+                user.creationAt | date: "short":"fr"
+              }}</span>
+            </div>
+          </div>
+          <!-- <div class="widget-content-right widget-content-actions">
+            <button class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm">
+              <i class="pe-7s-tools btn-icon-wrapper"> </i>
+            </button>
+            <button class="btn-icon btn-icon-only btn btn-success btn-sm">
+              <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </li>
+    <li class="p-0 list-group-item">
+      <div class="grid-menu grid-menu-2col">
+        <div class="no-gutters row">
+          <div class="col-sm-6">
+            <div class="p-1">
+              <button
+                class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success"
+              >
+                <i class="lnr-bus text-success opacity-7 btn-icon-wrapper mb-2">
+                </i>
+                Activity
+              </button>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="p-1">
+              <button
+                class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-focus"
+              >
+                <i class="lnr-gift text-focus opacity-7 btn-icon-wrapper mb-2">
+                </i>
+                Settings
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

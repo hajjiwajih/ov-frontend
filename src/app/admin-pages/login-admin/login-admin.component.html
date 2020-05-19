@@ -1,0 +1,181 @@
+<!-- Progress bar -->
+<div class="progress-line"></div>
+
+<div class="app-container app-theme-white body-tabs-shadow">
+  <div class="app-container">
+    <div class="h-100">
+      <div class="h-100 no-gutters row">
+        <div class="d-none d-lg-block col-lg-4">
+          <div class="slider-light">
+            <div class="slick-slider">
+              <div>
+                <div
+                  class="h-100 d-flex justify-content-center align-items-center bg-plum-plate"
+                  tabindex="-1"
+                >
+                  <div
+                    class="slide-img-bg"
+                    style="
+                      background-image: url('assets/images/originals/city.jpg');
+                    "
+                  ></div>
+                  <div class="slider-content">
+                    <h3>Orange Voucher</h3>
+                    <p>
+                      Vous pouvez utiliser le portail d'administration pour
+                      gérer d'autres utilisateurs, groupes et rôles afin de
+                      contrôler l'accès aux applications et aux ressources
+                      disponibles sur un serveur portail.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="h-100 d-flex justify-content-center align-items-center bg-premium-dark"
+                  tabindex="-1"
+                >
+                  <div
+                    class="slide-img-bg"
+                    style="
+                      background-image: url('assets/images/originals/citynights.jpg');
+                    "
+                  ></div>
+                  <div class="slider-content">
+                    <h3>Orange Voucher</h3>
+                    <p>
+                      Vous pouvez utiliser le portail d'administration pour
+                      gérer d'autres utilisateurs, groupes et rôles afin de
+                      contrôler l'accès aux applications et aux ressources
+                      disponibles sur un serveur portail.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="h-100 d-flex justify-content-center align-items-center bg-sunny-morning"
+                  tabindex="-1"
+                >
+                  <div
+                    class="slide-img-bg"
+                    style="
+                      background-image: url('assets/images/originals/citydark.jpg');
+                    "
+                  ></div>
+                  <div class="slider-content">
+                    <h3>Orange Voucher</h3>
+                    <p>
+                      Vous pouvez utiliser le portail d'administration pour
+                      gérer d'autres utilisateurs, groupes et rôles afin de
+                      contrôler l'accès aux applications et aux ressources
+                      disponibles sur le serveur portail.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8"
+        >
+          <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+            <div class="app-logo" style="width: auto;">
+              <h3 style="font-weight: 500;">
+                <img src="../../../assets/images/orange.png" width="15%" />
+                <span style="color: #f1745e;">Orange</span>
+                <span style="color: #f7c193;">Voucher</span>
+                <!-- <span style="font-size: 1rem; color: #f7c193;">oucher</span> -->
+              </h3>
+            </div>
+            <h4 class="mb-0">
+              <span class="d-block">Bienvenue à nouveau,</span>
+              <span
+                >Veuillez vous connecter à votre compte administrateur.</span
+              >
+            </h4>
+
+            <div class="divider row"></div>
+            <div>
+              <form [formGroup]="loginForm" (submit)="onSubmit()">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="position-relative form-group">
+                      <label for="exampleEmail" class="">Login</label
+                      ><input
+                        name="login"
+                        id="exampleEmail"
+                        placeholder="Login ici..."
+                        type="text"
+                        class="form-control"
+                        formControlName="login"
+                        [(ngModel)]="user.username"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="position-relative form-group">
+                      <label for="examplePassword" class="">Password</label
+                      ><input
+                        name="password"
+                        id="examplePassword"
+                        placeholder="Password ici..."
+                        type="password"
+                        class="form-control"
+                        formControlName="password"
+                        [(ngModel)]="user.password"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="position-relative form-check">
+                  <input
+                    name="check"
+                    id="exampleCheck"
+                    type="checkbox"
+                    class="form-check-input"
+                  /><label for="exampleCheck" class="form-check-label"
+                    >Rester connecté</label
+                  >
+                </div>
+
+                <div class="divider row"></div>
+                <h6 class="mb-0">
+                  <a [routerLink]="['/login']" class="text-primary"
+                    >Connecter en tant que client</a
+                  >
+                  <br />
+                  <br />
+                  <a
+                    [routerLink]="['/forgot-password']"
+                    class="text-secondary"
+                    style="text-decoration: underline;"
+                    >Réinitialiser Mot de passe</a
+                  >
+                </h6>
+
+                <div class="d-flex align-items-center">
+                  <div class="ml-auto">
+                    <!-- <a [routerLink]="['/forgot-password']" class="btn-lg btn btn-link">Reset Password</a> -->
+                    <button
+                      type="submit"
+                      (click)="onSubmit()"
+                      class="btn btn-primary btn-lg"
+                    >
+                      Se Connecter
+                    </button>
+                  </div>
+                  <!-- Notifications -->
+                </div>
+              </form>
+            </div>
+            <div class="p-2">
+              <p-messages [(value)]="msgs"></p-messages>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

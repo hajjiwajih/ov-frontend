@@ -1,0 +1,36 @@
+/* .card-body {
+  padding: 1.25rem 2.25rem !important;
+} */
+.ellipsed {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+}
+
+.block-loader {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  background: #ffffff;
+  opacity: 0.8;
+}
+
+.sk-circle {
+  position: absolute;
+  top: 30%;
+  right: 47%;
+  z-index: 9999;
+}
+.sk-circle-dot {
+  --sk-color: rgb(255, 104, 34);
+}
+
+.order_details_table {
+  background: #e5ecee;
+  padding: 1.5rem;
+}

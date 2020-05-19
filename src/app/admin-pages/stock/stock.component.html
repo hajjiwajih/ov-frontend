@@ -1,0 +1,91 @@
+<!-- Notifications -->
+
+<div class="row">
+  <div class="p-2">
+    <!-- <p-toast key="note"></p-toast> -->
+  </div>
+
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <!-- loader screen -->
+      <div class="block-loader"></div>
+      <div class="sk-circle">
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+      </div>
+
+      <div class="card-body">
+        <h3 class="ml-4 mt-4">
+          Liste Des Vouchers Reçus
+        </h3>
+
+        <div class="mr-4 mb-4">
+          <div class="card-body m-2">
+            <table
+              style="width: 100%;"
+              id="voucherTables"
+              class="table table-hover table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>VOUCHER</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT TOTALE</th>
+                  <th style="text-transform: uppercase;">
+                    reçu LE
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let voucher of vouchers; let idx = index">
+                  <td>{{ idx + 1 }}</td>
+                  <td>
+                    {{
+                      voucher.filename.substring(
+                        voucher.filename.search("VOUCHER")
+                      )
+                    }}
+                  </td>
+                  <td>{{ voucher.nbCodes }}</td>
+                  <td>{{ voucher.ticketAmount / 1000 }} DT</td>
+                  <td>
+                    {{ (voucher.ticketAmount * voucher.nbCodes) / 1000 }} DT
+                  </td>
+                  <td>{{ voucher.issueDate | date: "short":"fr" }}</td>
+                </tr> -->
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>VOUCHER</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT TOTALE</th>
+                  <th style="text-transform: uppercase;">
+                    reçu LE
+                  </th>
+                </tr>
+                <tr>
+                  <th colspan="3" style="text-align: right;">Total:</th>
+                  <th id="sum"></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

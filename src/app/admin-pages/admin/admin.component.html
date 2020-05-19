@@ -1,0 +1,351 @@
+<div class="app-container app-theme-gray">
+  <div class="app-main">
+    <div class="app-sidebar-overlay d-none animated fadeIn"></div>
+    <div class="app-main__outer">
+      <div class="app-main__inner">
+        <div class="header-mobile-wrapper">
+          <div class="app-header__logo">
+            <!-- <a href="#" data-toggle="tooltip" data-placement="bottom" title="Orange Voucher Admin Template" class="logo-src"></a> -->
+            <img
+              src="../../../assets/images/logo-sm.png"
+              alt="logo"
+              data-placement="bottom"
+              title="Orange Voucher Admin Template"
+            />
+
+            <button
+              type="button"
+              class="hamburger hamburger--elastic mobile-toggle-sidebar-nav"
+            >
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+            <div class="app-header__menu">
+              <span>
+                <button
+                  type="button"
+                  class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav"
+                >
+                  <span class="btn-icon-wrapper">
+                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                  </span>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="app-header">
+          <div class="page-title-heading">
+            Orange Voucher
+            <button class="mt-2 mr-2 btn-icon btn-sm btn-pill btn btn-focus">
+              <i class="pe-7s-upload btn-icon-wrapper"> </i>Admin
+            </button>
+            <div class="page-title-subheading">
+              Portail web de gestion Back Office & Administration |
+              {{ companyName }}
+              <span style="font-size: x-large;">&trade;</span>
+            </div>
+          </div>
+          <div class="app-header-right">
+            <!-- <div class="search-wrapper">
+                            <i class="search-icon-wrapper typcn typcn-zoom-outline"></i>
+                            <input type="text" placeholder="Recherche...">
+                        </div> -->
+            <button
+              class="btn-icon btn-sm btn-pill btn btn-light"
+              aria-haspopup="true"
+              aria-expanded="true"
+              data-toggle="dropdown"
+              (click)="toggleProfile()"
+            >
+              <div class="dropdown">
+                <a
+                  class="dot-btn-wrapper dd-chart-btn-2"
+                  style="padding: 0;"
+                  aria-haspopup="true"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i
+                    class="dot-btn-icon typcn typcn-user-outline text-success"
+                  ></i>
+                  <!-- <div class="badge badge-dot badge-abs badge-dot-sm badge-success">active</div> -->
+                  <h6 style="margin: auto 8px;">{{ currentAdminEmail }}</h6>
+                </a>
+              </div>
+            </button>
+
+            <!-- profile section -->
+            <app-profile [user]="mAdmin" *ngIf="displayProfile"></app-profile>
+            <!--  end profile section -->
+
+            <div class="header-btn-lg pr-0">
+              <div class="header-dots">
+                <div class="dropdown">
+                  <button
+                    type="button"
+                    data-title="Notifications"
+                    data-toggle="popover-custom-bg"
+                    data-bg-class="text-dark bg-warm-flame"
+                    data-content="Aucune notification non lue"
+                    class="p-0 btn btn-link"
+                    data-original-title=""
+                    title=""
+                  >
+                    <i class="typcn typcn-bell"></i>
+                    <!-- <span class="badge badge-dot badge-dot-sm badge-danger">Notifications</span> -->
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="header-btn-lg pr-0">
+              <div class="widget-content p-0">
+                <div class="widget-content-wrapper">
+                  <div class="widget-content-left">
+                    <div
+                      class="widget-content-right mr-2"
+                      style="margin-bottom: -16px;"
+                    >
+                      <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
+                                                </button> -->
+
+                      <div
+                        class="font-icon-wrapper"
+                        style="font-size: 1.5rem; cursor: pointer;"
+                        (click)="navigate('monitor/change-password')"
+                      >
+                        <i
+                          class="typcn typcn-key-outline"
+                          aria-hidden="true"
+                          style="font-size: 1.5rem; cursor: pointer;"
+                          title="Copy to use power-off"
+                        ></i>
+                        <p>Mot de passe</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="widget-content p-0">
+                <div class="widget-content-wrapper">
+                  <div class="widget-content-left">
+                    <div
+                      class="widget-content-right mr-2"
+                      style="margin-bottom: -16px;"
+                    >
+                      <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
+                                                </button> -->
+
+                      <div
+                        class="font-icon-wrapper"
+                        style="font-size: 1.5rem; cursor: pointer;"
+                        (click)="logout()"
+                      >
+                        <i
+                          class="fa fa-fw"
+                          aria-hidden="true"
+                          style="font-size: 1.5rem; cursor: pointer;"
+                          title="Copy to use power-off"
+                          ></i
+                        >
+                        <p>Déconnexion</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="app-header-overlay d-none animated fadeIn"></div>
+        </div>
+        <div
+          class="app-inner-layout app-inner-layout-page app-layout-menu-open"
+        >
+          <div class="app-inner-bar">
+            <div class="inner-bar-left">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a href="javascript:void(0)" class="nav-link show-menu-btn">
+                    <i class="fa fa-align-left mr-2"></i>
+                    <span class="hide-text-md">Afficher menu</span>
+                  </a>
+                  <a href="javascript:void(0)" class="nav-link close-menu-btn">
+                    <i class="fa fa-align-right mr-2"></i>
+                    <span class="hide-text-md">Fermer menu</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="inner-bar-center">
+              <ul class="nav">
+                <!-- <li class="nav-item">
+                  <a role="tab" data-toggle="tab" class="nav-link">
+                    <span>Accueil</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a role="tab" data-toggle="tab" class="nav-link">
+                    <span>Dashboard</span>
+                  </a>
+                </li> -->
+                <li class="nav-item">
+                  <a
+                    role="tab"
+                    data-toggle="tab"
+                    class="nav-link"
+                    [routerLink]="['/monitor']"
+                  >
+                    <span>Accueil</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="inner-bar-right">
+              <!-- <ul class="nav">
+                <li class="nav-item">
+                  <a href="javascript:void(0);" class="nav-link">
+                    <span class="hide-text-md">Show right drawer</span>
+                    <i class="fa fa-align-right ml-2"></i>
+                  </a>
+                </li>
+              </ul> -->
+            </div>
+          </div>
+          <div class="app-inner-layout__wrapper">
+            <div class="app-inner-layout__sidebar">
+              <div class="app-layout__sidebar-inner dropdown-menu-rounded">
+                <div class="nav flex-column">
+                  <div class="nav-item-header text-primary nav-item">
+                    Liens Rapides
+                  </div>
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'monitor/active'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('monitor/active')"
+                    >Commandes Actives
+                    <span
+                      *ngIf="newOrders"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light': activatedLink == 'monitor/active'
+                      }"
+                      >{{ newOrders }}</span
+                    ></a
+                  >
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'monitor/validated'
+                    }"
+                    (click)="navigate('monitor/validated')"
+                    [routerLink]=""
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Validées</a
+                  >
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'monitor/rejected'
+                    }"
+                    (click)="navigate('monitor/rejected')"
+                    [routerLink]=""
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    title=""
+                    >Commandes Rejetées</a
+                  >
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'monitor/clients'
+                    }"
+                    (click)="navigate('monitor/clients')"
+                    [routerLink]=""
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    title=""
+                    >Clients</a
+                  >
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'monitor/stocks'
+                    }"
+                    (click)="navigate('monitor/stocks')"
+                    [routerLink]=""
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    title=""
+                    >Stock Reçu
+                    <span
+                      *ngIf="newVouchers"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light': activatedLink == 'monitor/stocks'
+                      }"
+                      >{{ newVouchers }}</span
+                    ></a
+                  >
+                  <!-- <a
+                    class="dropdown-item"
+                    href="javascript:void(0)"
+                    data-title="Mise à Jour"
+                    data-placement="right"
+                    data-toggle="popover-custom-bg"
+                    data-bg-class="text-light bg-focus"
+                    data-content="Cette fonctionnalité sera ajoutée dans les prochaines versions"
+                    data-original-title=""
+                    title=""
+                    >Mise à Jour</a
+                  >
+                  <a
+                    class="dropdown-item"
+                    href="javascript:void(0)"
+                    data-title="Open Tickets"
+                    data-placement="right"
+                    data-toggle="popover-custom-bg"
+                    data-bg-class="text-light bg-focus"
+                    data-content="Cette fonctionnalité sera ajoutée dans les prochaines versions"
+                    data-original-title=""
+                    title=""
+                    >Problèmes</a
+                  > -->
+                </div>
+              </div>
+            </div>
+            <div class="app-inner-layout__content">
+              <div class="tab-content">
+                <div class="container-fluid">
+                  <!-- Router link -->
+                  <router-outlet></router-outlet>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center text-dark opacity-8 mt-3 mb-4">
+          Copyright © DITRIOT 2020
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input type="button" hidden id="start-tour" class="start-tour" />
+</div>

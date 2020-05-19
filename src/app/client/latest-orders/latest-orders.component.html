@@ -1,0 +1,319 @@
+<!-- Notifications -->
+<div class="row animated fadeIn">
+  <div class="col-md-6 col-lg-4">
+    <div
+      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+    >
+      <div class="widget-chat-wrapper-outer">
+        <div class="widget-chart-content">
+          <h6 class="widget-subheading">
+            Validées
+          </h6>
+          <div class="widget-chart-flex">
+            <div class="widget-numbers mb-0 w-100">
+              <div class="widget-chart-flex">
+                <div
+                  *ngIf="loaders[0]"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="fsize-4" *ngIf="!loaders[0]">
+                  <small class="opacity-5"></small>
+                  {{ countings[0] }}
+                  <span style="font-size: 1.4rem;"
+                    >&nbsp;&nbsp; ( {{ stats[0] }} TND)</span
+                  >
+                </div>
+                <div class="ml-auto">
+                  <div
+                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                  >
+                    <span class="text-success pl-2">{{ percents[0] }}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div
+      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+    >
+      <div class="widget-chat-wrapper-outer">
+        <div class="widget-chart-content">
+          <h6 class="widget-subheading">
+            Rejetées
+          </h6>
+          <div class="widget-chart-flex">
+            <div class="widget-numbers mb-0 w-100">
+              <div class="widget-chart-flex">
+                <div
+                  *ngIf="loaders[1]"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="fsize-4 text-danger" *ngIf="!loaders[1]">
+                  <small class="opacity-5 text-muted"></small>
+                  {{ countings[1] }}
+                  <span style="font-size: 1.4rem;"
+                    >&nbsp;&nbsp; ({{ stats[1] }} TND)</span
+                  >
+                </div>
+                <div class="ml-auto">
+                  <div
+                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                  >
+                    <span class="text-danger pl-2">
+                      <span class="pr-1">
+                        <!-- <i class="fa fa-angle-up"></i> -->
+                      </span>
+                      {{ percents[1] }}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div
+      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+    >
+      <div class="widget-chat-wrapper-outer">
+        <div class="widget-chart-content">
+          <h6 class="widget-subheading">Non Validées</h6>
+          <div class="widget-chart-flex">
+            <div class="widget-numbers mb-0 w-100">
+              <div class="widget-chart-flex">
+                <div
+                  *ngIf="loaders[2]"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="fsize-4" *ngIf="!loaders[2]">
+                  <span class="text-success pr-2">
+                    <!-- <i class="fa fa-angle-down"></i> -->
+                  </span>
+                  <small class="opacity-5"></small>
+                  {{ countings[2] }}
+                  <span style="font-size: 1.4rem;"
+                    >&nbsp;&nbsp; ({{ stats[2] }} TND)</span
+                  >
+                </div>
+                <div class="ml-auto">
+                  <div
+                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                  >
+                    <span class="text-info pl-2">
+                      <span class="pr-1">
+                        <!-- <i class="fa fa-angle-down"></i> -->
+                      </span>
+                      {{ percents[2] }}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="p-2">
+    <!-- <p-toast key="note"></p-toast> -->
+  </div>
+
+  <!-- modal view -->
+
+  <p-dialog
+    header="Détail Commande"
+    [(visible)]="displayModal"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="order_details_table">
+      <h2>Détails de la commande</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre Des Codes</th>
+              <th scope="col">Montant Code de recharge</th>
+              <th
+                scope="col"
+                *ngIf="!selectedOrder.validated && !selectedOrder.isRejected"
+              >
+                Totale Commande
+              </th>
+              <th scope="col">Date Émission</th>
+              <th scope="col" *ngIf="selectedOrder.validated">
+                Date Validation
+              </th>
+              <th scope="col" *ngIf="selectedOrder.isRejected">Date Refus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <h5>x {{ selectedOrder.nbCodes }}</h5>
+              </td>
+              <td>
+                <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
+              </td>
+              <td *ngIf="!selectedOrder.validated && !selectedOrder.isRejected">
+                <p>
+                  <b>TOT </b>
+                  {{
+                    (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000
+                  }}
+                  DT
+                </p>
+              </td>
+
+              <td>
+                <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
+              </td>
+              <td *ngIf="selectedOrder.isRejected || selectedOrder.validated">
+                <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <h4 class="text-secondary">
+                  Commentaire
+                  <span *ngIf="selectedOrder.isRejected">[Refus]</span>
+                </h4>
+              </td>
+              <td>
+                <h5></h5>
+              </td>
+              <td>
+                <p [ngClass]="{ 'text-danger': selectedOrder.isRejected }">
+                  <b>{{ selectedOrder.comment }}</b>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+            Annuler
+          </button> -->
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="displayModal = false"
+        >
+          Annuler
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <!-- loader screen -->
+      <div class="block-loader"></div>
+      <div class="sk-circle">
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+      </div>
+
+      <div class="card-body">
+        <h4 class="ml-4 mt-4">
+          Parcourir les dernières commandes effectuées
+        </h4>
+        <h6 class="ml-4 mt-4">
+          Dernière mise à jour : <b>{{ currentDate | date: "medium":"fr" }}</b>
+        </h6>
+        <div class="card-header-tab card-header">
+          <div
+            class="card-header-title font-size-lg text-capitalize font-weight-normal"
+          >
+            <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+            </i
+            >Mes Commandes
+          </div>
+
+          <!-- <div class="btn-actions-pane-right mr-2">
+            <div role="group" class="btn-group-sm btn-group">
+              <button
+                class="btn-icon btn btn-focus"
+                (click)="refreshOrders()"
+              >
+                <i class="pe-7s-refresh-2 fa-spin btn-icon-wrapper"> </i
+                >Actualiser
+              </button>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="mr-4 mb-4">
+          <div class="card-body m-2">
+            <table
+              style="width: 100%;"
+              id="orderTables"
+              class="table table-hover table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>REF COMMANDE</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT COMMANDE</th>
+                  <th>DATE EMISSION</th>
+                  <th>ETAT</th>
+                  <th>DATE VALIDATION / REFUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <th>REF COMMANDE</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT COMMANDE</th>
+                  <th>DATE EMISSION</th>
+                  <th>ETAT</th>
+                  <th>DATE VALIDATION / REFUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

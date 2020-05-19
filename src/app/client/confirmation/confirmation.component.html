@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <div class="card-body">
+        <h5 class="card-title text-danger">
+          Veuillez confirmer les détails de votre commande
+        </h5>
+        <br />
+        <div class="order_details_table">
+          <h2>Détails de la commande</h2>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Client</th>
+                  <th scope="col">Nombre Des Codes</th>
+                  <th scope="col">Montant Code de recharge</th>
+                  <th scope="col">Date Émission</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p><b>REF </b> {{ ref }}</p>
+                  </td>
+                  <td>
+                    <h5>x {{ order.nbCodes }}</h5>
+                  </td>
+                  <td>
+                    <h5>{{ order.ticketAmount / 1000 }} DT</h5>
+                  </td>
+                  <td>
+                    <p>{{ order.issueDate | date: "short":"fr" }}</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <h4>Commentaire</h4>
+                  </td>
+                  <td>
+                    <h5></h5>
+                  </td>
+                  <td>
+                    <p>{{ order.comment }}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div role="group" class="btn-group-sm btn-group nav">
+            <button
+              class="mb-2 mr-2 btn btn-shadow btn-secondary"
+              (click)="dismissOrder()"
+            >
+              Annuler Commande
+            </button>
+            <button
+              class="mb-2 mr-2 btn btn-shadow btn-primary"
+              (click)="confirmOrder()"
+            >
+              Procéder
+            </button>
+          </div>
+        </div>
+        <small class="form-text text-muted">
+          Celui-ci vous a été donné sur votre reçu et dans l'e-mail de
+          confirmation que vous auriez dû recevoir.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

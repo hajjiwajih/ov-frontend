@@ -1,0 +1,205 @@
+<!-- Notifications -->
+
+<div class="row">
+  <div class="p-2">
+    <!-- <p-toast key="note"></p-toast> -->
+  </div>
+
+  <!-- modal view -->
+
+  <p-dialog
+    header="Détail Commande"
+    [(visible)]="displayModal"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="order_details_table">
+      <h2>Détails de la commande</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre Des Codes</th>
+              <th scope="col">Montant Code de recharge</th>
+              <th scope="col" *ngIf="!isValidated && !isRejected">
+                Totale Commande
+              </th>
+              <th scope="col">Date Émission</th>
+              <th scope="col" *ngIf="isValidated">Date Validation</th>
+              <th scope="col" *ngIf="isRejected">Date Refus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <h5>x {{ selectedOrder.nbCodes }}</h5>
+              </td>
+              <td>
+                <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
+              </td>
+              <td *ngIf="!isValidated && !isRejected">
+                <p>
+                  <b>TOT </b>
+                  {{
+                    (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000
+                  }}
+                  DT
+                </p>
+              </td>
+
+              <td>
+                <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
+              </td>
+              <td *ngIf="isRejected || isValidated">
+                <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <h4 class="text-secondary">
+                  Commentaire <span *ngIf="isRejected">[Refus]</span>
+                </h4>
+              </td>
+              <td>
+                <h5></h5>
+              </td>
+              <td>
+                <p [ngClass]="{ 'text-danger': isRejected }">
+                  <b>{{ selectedOrder.comment }}</b>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+          Annuler
+        </button> -->
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="displayModal = false"
+        >
+          Annuler
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <!-- loader screen -->
+      <div class="block-loader"></div>
+      <div class="sk-circle">
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+      </div>
+
+      <div class="card-body">
+        <h2 class="card-title ml-4 mt-4">
+          Liste Des Commandes
+          <div
+            [ngClass]="{
+              'badge badge-pill ml-2': true,
+              'badge-success': isValidated,
+              'badge-info': !isValidated && !isRejected,
+              'badge-danger': !isValidated && isRejected
+            }"
+          >
+            {{ title }}
+          </div>
+        </h2>
+
+        <div class="mr-4 mb-4">
+          <div class="card-body m-2">
+            <table
+              style="width: 100%;"
+              id="orderTables"
+              class="table table-hover table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>REF COMMANDE</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT COMMANDE</th>
+                  <th>DATE EMISSION</th>
+                  <th>DATE VALIDATION</th>
+                  <th>DATE REFUS</th>
+
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let order of orders">
+                  <td>{{ order.orderAuto }}</td>
+                  <td>{{ order.nbCodes }}</td>
+                  <td>{{ order.ticketAmount / 1000 }} DT</td>
+                  <td>{{ (order.ticketAmount * order.nbCodes) / 1000 }} DT</td>
+                  <td>{{ order.issueDate | date: "short":"fr" }}</td>
+                  <td *ngIf="isValidated || isRejected">
+                    {{ order.validationDate | date: "short":"fr" }}
+                  </td>
+                  <td>
+                    <button
+                      class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+                      aria-expanded="false"
+                      (click)="showDialog(order)"
+                    >
+                      <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
+                    </button>
+
+                    <button
+                      *ngIf="isValidated"
+                      class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-focus collapsed"
+                      aria-expanded="false"
+                      (click)="downloadCSV(order)"
+                    >
+                      <i class="pe-7s-cloud-download btn-icon-wrapper"> </i
+                      >Télécharger
+                    </button>
+                  </td>
+                </tr> -->
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>REF COMMANDE</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT COMMANDE</th>
+                  <th>DATE EMISSION</th>
+                  <th>DATE VALIDATION</th>
+                  <th>DATE REFUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+                <tr>
+                  <th colspan="3" style="text-align: right;">Total:</th>
+                  <th id="sum"></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

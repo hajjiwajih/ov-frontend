@@ -1,0 +1,112 @@
+<!-- Notifications -->
+
+<div class="row">
+  <div class="p-2">
+    <!-- <p-toast key="note"></p-toast> -->
+  </div>
+
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <!-- loader screen -->
+      <div class="block-loader"></div>
+      <div class="sk-circle">
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+      </div>
+
+      <div class="card-body">
+        <h3 class="ml-4 mt-4">
+          Liste Des Clients
+        </h3>
+
+        <div class="mr-4 mb-4">
+          <div class="card-body m-2">
+            <table
+              style="width: 100%;"
+              id="clientTables"
+              class="table table-hover table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>REF CLIENT</th>
+                  <th>NUM PATENTE</th>
+                  <th>NUM CIN</th>
+                  <th>NOM & PRENOM</th>
+                  <th>INSCRIT LE</th>
+                  <th style="text-transform: uppercase;">état COMPTE</th>
+                  <th style="text-transform: uppercase;">
+                    dernière commande validée
+                  </th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let client of modifiedClients">
+                  <td>{{ client.autoID }}</td>
+                  <td>{{ client.username }}</td>
+                  <td>{{ client.cin }}</td>
+                  <td>{{ client.fname + " " + client.lname }}</td>
+                  <td>{{ client.creationAt | date: "short":"fr" }}</td>
+                  <td>
+                    <div
+                      [ngClass]="{
+                        'badge badge-pill ml-2': true,
+                        'badge-success': client.emailVerified,
+                        'badge-danger': !client.emailVerified
+                      }"
+                    >
+                      {{ client.emailVerified ? "Vérifié" : "Non Vérifié" }}
+                    </div>
+                  </td>
+                  <td *ngIf="client.lastValidatedOrder">
+                    {{
+                      client.lastValidatedOrder.validationDate
+                        | date: "short":"fr"
+                    }}
+                  </td>
+                  <td *ngIf="!client.lastValidatedOrder">
+                    {{ "-------------" }}
+                  </td>
+                  <td>
+                    <button
+                      class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+                      aria-expanded="false"
+                      (click)="openProfile(client)"
+                    >
+                      <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>REF CLIENT</th>
+                  <th>NUM PATENTE</th>
+                  <th>NUM CIN</th>
+                  <th>NOM & PRENOM</th>
+                  <th>INSCRIT LE</th>
+                  <th style="text-transform: uppercase;">état COMPTE</th>
+                  <th style="text-transform: uppercase;">
+                    dernière commande validée
+                  </th>
+
+                  <th>ACTIONS</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,425 @@
+<!-- Modal View -->
+<!-- <app-modal></app-modal> -->
+
+<div class="row">
+  <div class="col-md-6 col-xl-6">
+    <div
+      class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card"
+    >
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="widget-heading">Stock Disponible</div>
+          <div class="widget-subheading">Nombre des codes disponibles</div>
+        </div>
+        <div class="widget-content-right">
+          <div class="widget-numbers">
+            <div
+              *ngIf="isStockLoading"
+              class="spinner-border spinner-border"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+            <span *ngIf="!isStockLoading"
+              >{{ availableTickets }}
+              <span style="font-size: 1.5rem;"
+                >({{ amountStocks }} TND)</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger"
+      (click)="openStockDetails('available')"
+    >
+      Détail
+    </button>
+  </div>
+  <div class="col-md-6 col-xl-6">
+    <div
+      class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card"
+    >
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="widget-heading">Stock Vendu</div>
+          <div class="widget-subheading">Montant des codes vendus</div>
+        </div>
+        <div class="widget-content-right">
+          <div class="widget-numbers">
+            <div
+              *ngIf="isSoldLoading"
+              class="spinner-border spinner-border"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+            <span *ngIf="!isSoldLoading"
+              >{{ amountSails }}
+              <span style="font-size: 1.5rem;"> TND</span></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
+      (click)="openStockDetails('sold')"
+    >
+      Détail
+    </button>
+  </div>
+  <!-- <div class="col-md-6 col-xl-4">
+    <div
+      class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card"
+    >
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="widget-heading">Commandes</div>
+          <div class="widget-subheading">Somme des commandes effectuées</div>
+        </div>
+        <div class="widget-content-right">
+          <div class="widget-numbers">
+            <div
+              *ngIf="isCmdLoading"
+              class="spinner-border spinner-border"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+            <span *ngIf="!isCmdLoading">{{ totalOrders }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success"
+      (click)="openStockDetails('orders')"
+    >
+      Détail
+    </button>
+  </div> -->
+</div>
+<div
+  class="mbg-3 h-auto pl-0 pr-0 bg-transparent no-border card-header"
+  *ngIf="displayDetails"
+>
+  <div class="card-header-title fsize-2 text-capitalize font-weight-normal">
+    Par Montant
+  </div>
+</div>
+<div class="row animated fadeIn" *ngIf="displayDetails">
+  <div class="col-md-6 col-lg-4">
+    <div
+      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+    >
+      <div class="widget-chat-wrapper-outer">
+        <div class="widget-chart-content">
+          <h6 class="widget-subheading">
+            1 DT
+          </h6>
+          <div class="widget-chart-flex">
+            <div class="widget-numbers mb-0 w-100">
+              <div class="widget-chart-flex">
+                <div
+                  *ngIf="loaders[0]"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="fsize-4" *ngIf="!loaders[0]">
+                  <small class="opacity-5"></small>
+                  {{ stocks[0] }}
+                  <span *ngIf="!orderHidden" style="font-size: 1.4rem;"
+                    >&nbsp;&nbsp; ( {{ totalPerType[0] }} TND)</span
+                  >
+                </div>
+                <div class="ml-auto">
+                  <div
+                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                  >
+                    <span class="text-success pl-2">{{ percents[0] }}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div
+      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+    >
+      <div class="widget-chat-wrapper-outer">
+        <div class="widget-chart-content">
+          <h6 class="widget-subheading">
+            5 DT
+          </h6>
+          <div class="widget-chart-flex">
+            <div class="widget-numbers mb-0 w-100">
+              <div class="widget-chart-flex">
+                <div
+                  *ngIf="loaders[1]"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="fsize-4 text-danger" *ngIf="!loaders[1]">
+                  <small class="opacity-5 text-muted"></small>
+                  {{ stocks[1] }}
+                  <span *ngIf="!orderHidden" style="font-size: 1.4rem;"
+                    >&nbsp;&nbsp; ({{ totalPerType[1] }} TND)</span
+                  >
+                </div>
+                <div class="ml-auto">
+                  <div
+                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                  >
+                    <span class="text-danger pl-2">
+                      <span class="pr-1">
+                        <!-- <i class="fa fa-angle-up"></i> -->
+                      </span>
+                      {{ percents[1] }}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <div
+      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+    >
+      <div class="widget-chat-wrapper-outer">
+        <div class="widget-chart-content">
+          <h6 class="widget-subheading">10 DT</h6>
+          <div class="widget-chart-flex">
+            <div class="widget-numbers mb-0 w-100">
+              <div class="widget-chart-flex">
+                <div
+                  *ngIf="loaders[2]"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="fsize-4" *ngIf="!loaders[2]">
+                  <span class="text-success pr-2">
+                    <!-- <i class="fa fa-angle-down"></i> -->
+                  </span>
+                  <small class="opacity-5"></small>
+                  {{ stocks[2] }}
+                  <span *ngIf="!orderHidden" style="font-size: 1.4rem;"
+                    >&nbsp;&nbsp; ({{ totalPerType[2] }} TND)</span
+                  >
+                </div>
+                <div class="ml-auto">
+                  <div
+                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                  >
+                    <span class="text-info pl-2">
+                      <span class="pr-1">
+                        <!-- <i class="fa fa-angle-down"></i> -->
+                      </span>
+                      {{ percents[2] }}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="p-2">
+    <!-- <p-toast key="note"></p-toast> -->
+  </div>
+
+  <!-- modal view -->
+  <p-dialog
+    header="Détail Commande"
+    [(visible)]="displayModal"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="order_details_table">
+      <h2>Détails de la commande</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Client</th>
+              <th scope="col">Nombre Des Codes</th>
+              <th scope="col">Montant Code de recharge</th>
+              <th scope="col">Date Émission</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p><b>REF </b> {{ selectedOrder.clientRef }}</p>
+              </td>
+              <td>
+                <h5>x {{ selectedOrder.nbCodes }}</h5>
+              </td>
+              <td>
+                <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
+              </td>
+              <td>
+                <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <h4 class="text-secondary">
+                  Commentaire <span *ngIf="isRejected">[Refus]</span>
+                </h4>
+              </td>
+              <td>
+                <h5></h5>
+              </td>
+              <td>
+                <p [ngClass]="{ 'text-danger': isRejected }">
+                  <b>{{ selectedOrder.comment }}</b>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+          Annuler
+        </button> -->
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="displayModal = false"
+        >
+          Annuler
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <!-- loader screen -->
+      <div class="block-loader"></div>
+      <div class="sk-circle">
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title ml-4 mt-4">
+          Liste Des Commandes
+          <div
+            [ngClass]="{
+              'badge badge-pill ml-2': true,
+              'badge-success': isValidated,
+              'badge-info': !isValidated && !isRejected,
+              'badge-danger': !isValidated && isRejected
+            }"
+          >
+            {{ title }}
+          </div>
+        </h2>
+
+        <div class="mr-4 mb-4">
+          <div class="card-body m-2">
+            <table
+              style="width: 100%;"
+              id="orderTables"
+              class="table table-hover table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>REF COMMANDE</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT COMMANDE</th>
+                  <th>REF CLIENT</th>
+                  <th>DATE EMISSION</th>
+                  <th>DATE VALIDATION</th>
+                  <th>DATE REFUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <th>REF COMMANDE</th>
+                  <th>NB CODES</th>
+                  <th>MONTANT CODE RECHARGE</th>
+                  <th>MONTANT COMMANDE</th>
+                  <th>REF CLIENT</th>
+
+                  <th>DATE EMISSION</th>
+                  <th>DATE VALIDATION</th>
+                  <th>DATE REFUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+                <tr>
+                  <th colspan="3" style="text-align: right;">Total:</th>
+                  <th id="sum"></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="main-card mb-3 card" style="height: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">Passer une commande</h5>
+        <form [formGroup]="orderForm" id="orderForm">
+          <div class="position-relative form-group">
+            <label for="codes" class="">Nombre des Codes * </label
+            ><input
+              name="nb_codes"
+              id="codes"
+              placeholder="0"
+              type="number"
+              class="form-control"
+              formControlName="nbCodes"
+              [(ngModel)]="order.nbCodes"
+              required
+            />
+          </div>
+          <div class="position-relative form-group">
+            <label for="codes" class="">Montant Code de Recharge * </label
+            ><select
+              name="amount_codes"
+              id="amount"
+              class="form-control dropdown"
+              (change)="changeAmount($event)"
+              required
+            >
+              <option selected disabled value="Choisir le montant"
+                >Choisir le montant</option
+              >
+              <option *ngFor="let amount of amountOptions" [ngValue]="amount"
+                >{{ amount }} DT</option
+              >
+            </select>
+          </div>
+          <!-- <div class="position-relative form-group">
+            <label for="exampleSelect" class="">Date d'émission</label
+            ><input
+              name="issue_date"
+              id="issue_date"
+              type="text"
+              class="form-control"
+              [value]="order.issueDate | date: 'short':'fr'"
+              disabled
+            />
+          </div> -->
+          <div class="position-relative form-group">
+            <label for="exampleEmail" class="" hidden>Code Client</label
+            ><input
+              name="code_client"
+              id="code_client"
+              placeholder="#C128533"
+              type="text"
+              class="form-control"
+              [value]="order.clientId"
+              disabled
+              hidden
+            />
+          </div>
+
+          <div class="position-relative form-group">
+            <label for="exampleText" class="">Commentaires</label
+            ><textarea
+              #comments
+              name="comments"
+              id="comments"
+              class="form-control"
+              placeholder="Dire quelque chose..."
+            ></textarea>
+            <small class="form-text text-muted"
+              >(*) Pour passer votre commande, veuillez entrer votre le nombre
+              des codes dans la case ci-dessus et appuyez sur le bouton
+              "Procéder".
+            </small>
+          </div>
+          <button
+            class="mt-1 btn btn-primary"
+            (click)="placeOrder(comments.value)"
+          >
+            Procéder
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="main-card mb-3 card" style="height: 100%;">
+      <div class="card-body">
+        <!-- <h5 class="card-title">Sizing</h5> -->
+        <div class="text-center">
+          <div
+            class="preview d-inline-block"
+            style="
+              width: 433px;
+              overflow: hidden;
+              height: 465px;
+              max-width: 800px;
+              max-height: 537px;
+            "
+          >
+            <img
+              src="../../../assets/images/order.jpg"
+              style="
+                display: block;
+                width: 100%;
+                height: auto;
+                min-width: 0px !important;
+                min-height: 0px !important;
+                max-width: none !important;
+                max-height: none !important;
+                /* transform: translateX(-576.577px) translateY(-189.498px); */
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,116 @@
+<!-- Progress bar -->
+<div class="progress-line"></div>
+
+<div class="app-container app-theme-white body-tabs-shadow">
+  <div class="app-container">
+    <form [formGroup]="loginForm">
+      <div class="h-100 bg-plum-plate bg-animation">
+        <div class="d-flex h-100 justify-content-center align-items-center">
+          <div class="mx-auto app-login-box col-md-8">
+            <div class="align-items-center" style="width: 20%; margin: 0 auto;">
+              <h4 style="font-weight: 500;">
+                <img src="../../../assets/images/orange.png" width="75px" />
+                <span style="font-size: 1.5rem; color: #eccfca;">Orange</span>
+                <span style="font-size: 1.4rem; color: #ffa66d;"
+                  >&nbsp;Voucher</span
+                >
+                <!-- <span style="font-size: 1.5rem; color: #ffa66d;">oucher</span> -->
+              </h4>
+            </div>
+
+            <div class="modal-dialog w-100 mx-auto">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="h5 modal-title text-center">
+                    <h4 class="mt-2">
+                      <div>Bienvenue à nouveau,</div>
+                      <span
+                        >Veuillez vous connecter à votre compte
+                        ci-dessous.</span
+                      >
+                    </h4>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="position-relative form-group">
+                        <input
+                          name="login"
+                          id="exampleEmail"
+                          placeholder="CIN / N° Patente"
+                          type="text"
+                          class="form-control"
+                          formControlName="login"
+                          [(ngModel)]="user.username"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="position-relative form-group">
+                        <input
+                          name="password"
+                          id="examplePassword"
+                          placeholder="Mot de passe..."
+                          type="password"
+                          class="form-control"
+                          formControlName="password"
+                          [(ngModel)]="user.password"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="position-relative form-check">
+                    <input
+                      name="check"
+                      id="exampleCheck"
+                      type="checkbox"
+                      class="form-check-input"
+                    /><label for="exampleCheck" class="form-check-label"
+                      >Rester connecté</label
+                    >
+                  </div>
+                  <div class="divider"></div>
+                  <h6 class="mb-0">
+                    Pas de compte?
+                    <a [routerLink]="['/signup']" class="text-primary"
+                      >Créer votre compte</a
+                    >
+                    <br />
+                    <br />
+                    <a
+                      [routerLink]="['/forgot-password']"
+                      class="text-secondary"
+                      style="text-decoration: underline;"
+                      >Réinitialiser Mot de passe</a
+                    >
+                  </h6>
+                </div>
+                <div class="modal-footer clearfix">
+                  <div class="float-left">
+                    <!-- <a [routerLink]="['/forgot-password']" class="btn-lg btn btn-link">Reset Password</a> -->
+                  </div>
+                  <div class="float-right">
+                    <button
+                      type="submit"
+                      (click)="onSubmit()"
+                      class="btn btn-primary btn-lg"
+                    >
+                      Se Connecter
+                    </button>
+                  </div>
+
+                  <!-- Notifications -->
+                </div>
+                <div class="p-2">
+                  <p-messages [(value)]="msgs"></p-messages>
+                </div>
+              </div>
+            </div>
+            <div class="text-center text-white opacity-8 mt-3">
+              Copyright © DITRIOT 2020
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
