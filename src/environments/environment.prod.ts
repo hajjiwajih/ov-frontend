@@ -8,7 +8,6 @@ export const environment = {
   api_url_orders: "http://192.168.0.122:3500/api/orders",
   api_url_tickets: "http://192.168.0.122:3500/api/tickets",
   api_url_vouchers: "http://192.168.0.122:3500/api/vouchers",
-  api_url_vouchers: "http://192.168.0.122:3500/api/vouchers",
 
   socketIO_endpoint: "http://localhost:4000"
     
