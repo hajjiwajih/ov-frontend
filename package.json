@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --prod --disable-host-check",
+    "start": "ng serve --prod --host simple-toolchain-20200520161051958.eu-de.mybluemix.net --disable-host-check",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
