@@ -2,13 +2,13 @@ export const environment = {
   production: true,
   enableDebug: false,
   // env [test]
-  companyName: "Orange",
-  api_url: "http://192.168.0.122:3501/api",
-  api_url_users: "http://192.168.0.122:3501/api/users",
-  api_url_orders: "http://192.168.0.122:3501/api/orders",
-  api_url_tickets: "http://192.168.0.122:3501/api/tickets",
-  api_url_vouchers: "http://192.168.0.122:3501/api/vouchers",
+  companyName: "Symtelecom",
+  api_url: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api",
+  api_url_users: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/users",
+  api_url_orders: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/orders",
+  api_url_tickets: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/tickets",
+  api_url_vouchers: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/vouchers",
 
-  socketIO_endpoint: "http://localhost:4001"
+  socketIO_endpoint: "https://socketioapi.eu-de.cf.appdomain.cloud"
     
 };
