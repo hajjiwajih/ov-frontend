@@ -9,6 +9,6 @@ export const environment = {
   api_url_tickets: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/tickets",
   api_url_vouchers: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/vouchers",
 
-  socketIO_endpoint: "https://socketioapi.eu-de.cf.appdomain.cloud"
+  socketIO_endpoint: "https://socketio.eu-de.cf.appdomain.cloud"
     
 };
