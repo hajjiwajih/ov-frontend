@@ -3,11 +3,11 @@ export const environment = {
   enableDebug: false,
   // env [test]
   companyName: "Symtelecom",
-  api_url: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api",
-  api_url_users: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/users",
-  api_url_orders: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/orders",
-  api_url_tickets: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/tickets",
-  api_url_vouchers: "https://orangevoucherapi.eu-de.cf.appdomain.cloud/api/vouchers",
+  api_url: "https://voucher.hajji.tn/api",
+  api_url_users: "https://voucher.hajji.tn/api/users",
+  api_url_orders: "https://voucher.hajji.tn/api/orders",
+  api_url_tickets: "https://voucher.hajji.tn/api/tickets",
+  api_url_vouchers: "https://voucher.hajji.tn/api/vouchers",
 
   socketIO_endpoint: "https://socketio.eu-de.cf.appdomain.cloud"
     
