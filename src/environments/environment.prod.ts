@@ -9,6 +9,6 @@ export const environment = {
   api_url_tickets: "https://voucher.hajji.tn/api/tickets",
   api_url_vouchers: "https://voucher.hajji.tn/api/vouchers",
 
-  socketIO_endpoint: "https://socketio.eu-de.cf.appdomain.cloud"
+  socketIO_endpoint: "https://voucher.hajji.tn"
     
 };
