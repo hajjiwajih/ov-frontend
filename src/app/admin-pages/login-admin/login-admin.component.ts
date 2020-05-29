@@ -82,8 +82,8 @@ export class LoginAdminComponent implements OnInit {
                 "Vous ne pouvez pas vous connecter maintenant ! serveur indisponible",
             });
           }
-          // this.router.navigateByUrl("admin");
-          window.location.assign("monitor");
+          this.router.navigateByUrl("admin");
+          // window.location.assign("monitor");
         });
       },
       (error) => {
