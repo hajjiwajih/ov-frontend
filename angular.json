@@ -18,7 +18,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets","Staticfile.txt"],
+            "assets": ["src/favicon.ico", "src/assets","src/Staticfile.txt"],
             "styles": [
               "src/styles.css",
               "node_modules/spinkit/spinkit.min.css",
