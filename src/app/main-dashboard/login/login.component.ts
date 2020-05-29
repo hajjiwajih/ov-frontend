@@ -82,8 +82,8 @@ export class LoginComponent implements OnInit {
                 "Vous ne pouvez pas vous connecter maintenant ! serveur indisponible",
             });
           }
-          // this.router.navigateByUrl("portal");
-          window.location.assign("portal");
+          this.router.navigateByUrl("portal");
+          // window.location.assign("portal");
         });
       },
       (error) => {
