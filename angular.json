@@ -18,7 +18,12 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              { "glob": "nginx.conf", "input": "./", "output": "./../" },
+              { "glob": "mime.types", "input": "./", "output": "./../" }
+            ],
             "styles": [
               "src/styles.css",
               "node_modules/spinkit/spinkit.min.css",
