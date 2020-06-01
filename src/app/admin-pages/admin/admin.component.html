@@ -278,7 +278,14 @@
                     data-scrollto="tooltip"
                     role="button"
                     title=""
-                    >Clients</a
+                    >Clients<span
+                      *ngIf="newClients"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light': activatedLink == 'monitor/clients'
+                      }"
+                      >{{ newClients }}</span
+                    ></a
                   >
                   <a
                     [ngClass]="{

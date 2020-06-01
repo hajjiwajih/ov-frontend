@@ -1,20 +1,19 @@
+import { ActivatedRoute, RouterStateSnapshot } from "@angular/router";
+import { UserService } from "./../../services/user.service";
 import { FormControl } from "@angular/forms";
 import { FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "./../../services/user.service";
 import { Component, OnInit } from "@angular/core";
 declare var $: any;
 
 @Component({
-  selector: "app-change-password",
-  templateUrl: "./change-password.component.html",
-  styleUrls: ["./change-password.component.css"],
+  selector: "app-password-expiry",
+  templateUrl: "./password-expiry.component.html",
+  styleUrls: ["./password-expiry.component.css"],
 })
-export class ChangePasswordComponent implements OnInit {
+export class PasswordExpiryComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   resetPasswordForm = new FormGroup({
@@ -30,22 +29,28 @@ export class ChangePasswordComponent implements OnInit {
   isSubmitted = false;
   isComplete = true;
 
+  checkedPwd = false;
   isLoading = false;
 
-  checkedPwd = false;
+  returnUrl: string = "";
 
   ngOnInit() {
+    this.route.queryParams.subscribe(
+      (params) => (this.returnUrl = params["returnUrl"])
+    );
+    this.userService.getUserById("undefined").subscribe();
     let _self = this;
     // indecate password strength
     $(document).ready(function () {
       $("#password").keyup(function () {
         _self.checkPasswordStrength();
+        console.log("check");
       });
       _self.togglePassword();
     });
   }
 
-  changePassword() {
+  resetPassword() {
     this.isComplete = true;
     // validate password
 
@@ -57,11 +62,9 @@ export class ChangePasswordComponent implements OnInit {
           this.isSubmitted = true;
           let idUser = localStorage.getItem("currentUserId");
           let role = localStorage.getItem("role");
-          this.userService.logout().subscribe((res) => console.log(res));
+          this.userService.unvalidateTokens(idUser);
           setTimeout(() => {
             this.isLoading = false;
-            if (role == "admin") this.router.navigateByUrl("/login-admin");
-            else this.router.navigateByUrl("/login");
           }, 2000);
         },
         (err) => {

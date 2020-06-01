@@ -76,6 +76,58 @@ export function appendDtActions(aData, nRow, isClient, args) {
   }
 }
 
+export function appendDtAdminActions(aData, nRow, args) {
+  $(`td:eq(${args.column})`, nRow).html("");
+  if (args.valid)
+    $(`td:eq(${args.column})`, nRow).append(
+      `<button
+    class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+    aria-expanded="false"
+    >
+    <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
+    </button>
+
+    <button disabled
+    class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-focus collapsed"
+    aria-expanded="false"
+    >
+    <i class="pe-7s-check btn-icon-wrapper"> </i
+    >Valider
+    </button>
+    <button disabled
+    class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-danger collapsed"
+    aria-expanded="false"
+    >
+    <i class="pe-7s-close btn-icon-wrapper"> </i
+    >Refuser
+    </button>`
+    );
+  else
+    $(`td:eq(${args.column})`, nRow).append(
+      `<button
+      class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+      aria-expanded="false"
+      >
+      <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
+      </button>
+  
+      <button
+      class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-focus collapsed"
+      aria-expanded="false"
+      >
+      <i class="pe-7s-check btn-icon-wrapper"> </i
+      >Valider
+      </button>
+      <button 
+    class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-danger collapsed"
+    aria-expanded="false"
+    >
+    <i class="pe-7s-close btn-icon-wrapper"> </i
+    >Refuser
+    </button>`
+    );
+}
+
 export function appendDtBadges(aData, nRow, args) {
   $(`td:eq(${args.column})`, nRow).html("");
   if (aData.validated)
@@ -100,6 +152,26 @@ export function appendDtBadges(aData, nRow, args) {
       class="badge badge-pill ml-2 badge-info"
     >
     NON VALIDÉE
+    </div>`
+    );
+}
+
+export function appendDtAdminBadges(aData, nRow, args) {
+  $(`td:eq(${args.column})`, nRow).html("");
+  if (aData.emailVerified)
+    $(`td:eq(${args.column})`, nRow).append(
+      `<div
+      class="badge badge-pill ml-2 badge-success"
+    >
+    Vérifié
+    </div>`
+    );
+  else
+    $(`td:eq(${args.column})`, nRow).append(
+      `<div
+      class="badge badge-pill ml-2 badge-danger"
+    >
+    Non Vérifié
     </div>`
     );
 }

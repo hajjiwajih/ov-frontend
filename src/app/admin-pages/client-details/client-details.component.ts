@@ -92,6 +92,7 @@ export class ClientDetailsComponent implements OnInit {
 
   initDatatable(idTable) {
     $(document).ready(function () {
+      $.fn.dataTable.moment("D/M/YYYY HH:mm");
       $(idTable).DataTable({
         responsive: true,
         language: {

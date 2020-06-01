@@ -25,11 +25,15 @@
                   <div class="h5 modal-title text-center">
                     <h4 class="mt-2">
                       <div>Bienvenue Cher Client,</div>
-                      <span>Votre compte à été crée avec succés.</span>
+                      <span
+                        >Votre demande d'inscription a été crée avec
+                        succés.</span
+                      >
                     </h4>
                     <h4 class="mt-2">
                       <div class="text-success">
-                        Veuillez vérifier votre email pour se connecter
+                        Vous devriez attendre de notre part un courriel
+                        d'approbation dans les prochaines minutes.
                       </div>
                     </h4>
                     <div>
@@ -75,6 +79,10 @@
                   <div class="form-row">
                     <div class="col-md-6">
                       <div class="position-relative form-group">
+                        <label for="examplePassword" class="ml-2"
+                          >N° Patente</label
+                        >
+
                         <input
                           name="login"
                           id="patente"
@@ -89,6 +97,7 @@
 
                     <div class="col-md-6">
                       <div class="position-relative form-group">
+                        <label for="examplePassword" class="ml-2">CIN</label>
                         <input
                           name="cin"
                           id="cin"
@@ -103,6 +112,7 @@
 
                     <div class="col-md-6">
                       <div class="position-relative form-group">
+                        <label for="examplePassword" class="ml-2">Nom</label>
                         <input
                           name="fname"
                           id="exampleFname"
@@ -117,6 +127,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="position-relative form-group">
+                        <label for="exampleLname" class="ml-2">Prénom</label>
                         <input
                           name="lname"
                           id="exampleLname"
@@ -130,45 +141,88 @@
                       </div>
                     </div>
                     <div class="col-md-12">
+                      <label for="exampleEmail" class="ml-2">Email</label>
+
                       <div class="position-relative form-group">
-                        <input
-                          name="email"
-                          id="exampleEmail"
-                          placeholder="Email"
-                          type="email"
-                          class="form-control"
-                          formControlName="email"
-                          [(ngModel)]="user.email"
-                          required
-                        />
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i
+                                class="fa fa-inbox"
+                                style="cursor: pointer;"
+                              ></i>
+                            </div>
+                          </div>
+
+                          <input
+                            name="email"
+                            id="exampleEmail"
+                            placeholder="Email"
+                            type="email"
+                            class="form-control"
+                            formControlName="email"
+                            [(ngModel)]="user.email"
+                            required
+                          />
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-12">
+                      <label for="password" class="ml-2">Mot de passe</label>
+
                       <div class="position-relative form-group">
-                        <input
-                          name="password"
-                          id="password"
-                          placeholder="Mot de passe "
-                          type="password"
-                          class="form-control"
-                          formControlName="password"
-                          [(ngModel)]="user.password"
-                          required
-                        />
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i
+                                class="fa fa-eye-slash"
+                                style="cursor: pointer;"
+                                id="eye"
+                              ></i>
+                            </div>
+                          </div>
+
+                          <input
+                            name="password"
+                            id="password"
+                            placeholder="Mot de passe "
+                            type="password"
+                            class="form-control"
+                            formControlName="password"
+                            [(ngModel)]="user.password"
+                            required
+                          />
+                        </div>
                       </div>
                     </div>
 
                     <div class="col-md-12">
+                      <label for="confirm_password" class="ml-2"
+                        >Confirmer Mot de passe</label
+                      >
+
                       <div class="position-relative form-group">
-                        <input
-                          id="confirm_password"
-                          name="confirm_password"
-                          placeholder="Confirmer Mot de passe ..."
-                          type="password"
-                          class="form-control"
-                          formControlName="confirmPassword"
-                          required
-                        />
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i
+                                class="fa fa-eye-slash"
+                                style="cursor: pointer;"
+                                id="eye_confirm"
+                              ></i>
+                            </div>
+                          </div>
+
+                          <input
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Confirmer Mot de passe ..."
+                            type="password"
+                            class="form-control"
+                            formControlName="confirmPassword"
+                            required
+                          />
+                        </div>
                       </div>
                       <div class="invalid-feedback">
                         Mot de passe inadéquate.

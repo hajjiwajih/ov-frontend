@@ -7,6 +7,8 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { catchError } from "rxjs/operators";
 declare var $: any;
 
+const PWD_EXPIRED_CODE = 402;
+
 @Component({
   selector: "app-login-admin",
   templateUrl: "./login-admin.component.html",
@@ -32,6 +34,13 @@ export class LoginAdminComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem("currentUserId"))
       this.router.navigateByUrl("monitor");
+
+    let _self = this;
+    // indecate password strength
+    $(document).ready(function () {
+      _self.togglePassword();
+      window.scrollTo(0, 0);
+    });
   }
   onSubmit() {
     console.log("Login submited ", this.loginForm.value);
@@ -82,8 +91,8 @@ export class LoginAdminComponent implements OnInit {
                 "Vous ne pouvez pas vous connecter maintenant ! serveur indisponible",
             });
           }
-          this.router.navigateByUrl("monitor");
-          // window.location.assign("monitor");
+          // this.router.navigateByUrl("admin");
+          window.location.assign("monitor");
         });
       },
       (error) => {
@@ -102,6 +111,26 @@ export class LoginAdminComponent implements OnInit {
             detail:
               "Utilisateur non reconnu, vous pouvez d'abord vérifier vos données ou contacter notre support.",
           });
+        } else if (error.error.error.code == PWD_EXPIRED_CODE) {
+          console.log("Pasword has expired");
+          setTimeout(function () {
+            $(".progress-line").removeClass("flex-display");
+            $("button:submit").attr("disabled", false);
+          }, 1000);
+          this.msgs.push({
+            severity: "info",
+            summary: "PASSWORD HAS EXPIRED",
+            detail:
+              " Veuillez changer votre mot de passe au moins une fois tous les 90 jours ",
+          });
+          setTimeout(() => {
+            this.router.navigate(["/expiry-password"], {
+              queryParams: {
+                access_token: error.error.error.name,
+                returnUrl: "/login-admin",
+              },
+            });
+          }, 1000);
         } else {
           console.log("A problem occurred, try again later");
           setTimeout(function () {
@@ -111,10 +140,28 @@ export class LoginAdminComponent implements OnInit {
           this.msgs.push({
             severity: "info",
             summary: "Error Message",
-            detail: "Login et Mot de passe obligatoires",
+            detail: "Service non disponible, essayez de nouveau plus tard",
           });
         }
       }
     );
+  }
+
+  togglePassword() {
+    $("#eye").click(function () {
+      if ($(this).hasClass("fa-eye-slash")) {
+        $(this).removeClass("fa-eye-slash");
+
+        $(this).addClass("fa-eye");
+
+        $("#password").attr("type", "text");
+      } else {
+        $(this).removeClass("fa-eye");
+
+        $(this).addClass("fa-eye-slash");
+
+        $("#password").attr("type", "password");
+      }
+    });
   }
 }

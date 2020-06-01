@@ -33,28 +33,57 @@
                   <div class="form-row">
                     <div class="col-md-12">
                       <div class="position-relative form-group">
-                        <input
-                          name="login"
-                          id="exampleEmail"
-                          placeholder="CIN / N° Patente"
-                          type="text"
-                          class="form-control"
-                          formControlName="login"
-                          [(ngModel)]="user.username"
-                        />
+                        <label for="exampleEmail" class="sr-only ml-2"
+                          >Login</label
+                        >
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i
+                                class="fa fa-user-circle"
+                                style="cursor: pointer;"
+                              ></i>
+                            </div>
+                          </div>
+
+                          <input
+                            name="login"
+                            id="exampleEmail"
+                            placeholder="CIN / N° Patente"
+                            type="text"
+                            class="form-control"
+                            formControlName="login"
+                            [(ngModel)]="user.username"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="position-relative form-group">
-                        <input
-                          name="password"
-                          id="examplePassword"
-                          placeholder="Mot de passe..."
-                          type="password"
-                          class="form-control"
-                          formControlName="password"
-                          [(ngModel)]="user.password"
-                        />
+                        <label for="examplePassword" class="sr-only ml-2"
+                          >Mot de passe</label
+                        >
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i
+                                class="fa fa-eye-slash"
+                                id="eye"
+                                style="cursor: pointer;"
+                              ></i>
+                            </div>
+                          </div>
+
+                          <input
+                            name="password"
+                            id="password"
+                            placeholder="Mot de passe..."
+                            type="password"
+                            class="form-control"
+                            formControlName="password"
+                            [(ngModel)]="user.password"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -86,7 +115,7 @@
                 </div>
                 <div class="modal-footer clearfix">
                   <div class="float-left">
-                    <a [routerLink]="['/login-admin']" class="btn-lg btn btn-link">Admin Panel</a>
+                    <!-- <a [routerLink]="['/forgot-password']" class="btn-lg btn btn-link">Reset Password</a> -->
                   </div>
                   <div class="float-right">
                     <button

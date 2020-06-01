@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
 
   msgs: Message[] = [];
 
-  constructor(private loginService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
     this.user = {
       _id: "",
       username: "",
@@ -55,6 +55,7 @@ export class SignupComponent implements OnInit {
       $("#password").keyup(function () {
         _self.checkPasswordStrength();
       });
+      _self.togglePassword();
     });
   }
 
@@ -79,9 +80,10 @@ export class SignupComponent implements OnInit {
     ) {
       $(".progress-line").addClass("flex-display");
       $("button:submit").attr("disabled", true);
-      this.loginService.addUser(this.user).subscribe(
+      this.userService.addUser(this.user).subscribe(
         (createdUser) => {
           this.isSubmitted = true;
+          this.userService.triggerEvent("newClient", createdUser);
           setTimeout(function () {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
@@ -200,5 +202,38 @@ export class SignupComponent implements OnInit {
         return false;
       }
     }
+  }
+
+  togglePassword() {
+    $("#eye").click(function () {
+      if ($(this).hasClass("fa-eye-slash")) {
+        $(this).removeClass("fa-eye-slash");
+
+        $(this).addClass("fa-eye");
+
+        $("#password").attr("type", "text");
+      } else {
+        $(this).removeClass("fa-eye");
+
+        $(this).addClass("fa-eye-slash");
+
+        $("#password").attr("type", "password");
+      }
+    });
+    $("#eye_confirm").click(function () {
+      if ($(this).hasClass("fa-eye-slash")) {
+        $(this).removeClass("fa-eye-slash");
+
+        $(this).addClass("fa-eye");
+
+        $("#confirm_password").attr("type", "text");
+      } else {
+        $(this).removeClass("fa-eye");
+
+        $(this).addClass("fa-eye-slash");
+
+        $("#confirm_password").attr("type", "password");
+      }
+    });
   }
 }

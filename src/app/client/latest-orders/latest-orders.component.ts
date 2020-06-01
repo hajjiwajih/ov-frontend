@@ -96,6 +96,7 @@ export class LatestOrdersComponent implements OnInit {
         }, 700);
 
         $(document).ready(function () {
+          $.fn.dataTable.moment("D/M/YYYY HH:mm");
           let table = $("#orderTables").DataTable({
             responsive: true,
             language: {
@@ -330,23 +331,26 @@ export class LatestOrdersComponent implements OnInit {
       this.stats[0] += order.nbCodes * order.ticketAmount;
     });
     this.stats[0] /= 1000;
+    this.stats[0] = numberWithSpaces(this.stats[0]);
     rejectedOrders.forEach((order) => {
       this.stats[1] += order.nbCodes * order.ticketAmount;
     });
     this.stats[1] /= 1000;
+    this.stats[1] = numberWithSpaces(this.stats[1]);
     nonValidatedOrders.forEach((order) => {
       this.stats[2] += order.nbCodes * order.ticketAmount;
     });
     this.stats[2] /= 1000;
+    this.stats[2] = numberWithSpaces(this.stats[2]);
     // percents
     this.percents[0] = Math.round(
-      (validatedOrders.length / this.orders.length) * 100
+      (validatedOrders.length / (this.orders.length || 1)) * 100
     );
     this.percents[1] = Math.round(
-      (rejectedOrders.length / this.orders.length) * 100
+      (rejectedOrders.length / (this.orders.length || 1)) * 100
     );
     this.percents[2] = Math.round(
-      (nonValidatedOrders.length / this.orders.length) * 100
+      (nonValidatedOrders.length / (this.orders.length || 1)) * 100
     );
     // update loaders
     this.loaders = [false, false, false];

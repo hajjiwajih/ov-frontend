@@ -45,26 +45,10 @@
                   <th style="text-transform: uppercase;">
                     reçu LE
                   </th>
+                  <th>VLIDE</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- <tr *ngFor="let voucher of vouchers; let idx = index">
-                  <td>{{ idx + 1 }}</td>
-                  <td>
-                    {{
-                      voucher.filename.substring(
-                        voucher.filename.search("VOUCHER")
-                      )
-                    }}
-                  </td>
-                  <td>{{ voucher.nbCodes }}</td>
-                  <td>{{ voucher.ticketAmount / 1000 }} DT</td>
-                  <td>
-                    {{ (voucher.ticketAmount * voucher.nbCodes) / 1000 }} DT
-                  </td>
-                  <td>{{ voucher.issueDate | date: "short":"fr" }}</td>
-                </tr> -->
-              </tbody>
+              <tbody></tbody>
               <tfoot>
                 <tr>
                   <th>VOUCHER</th>
@@ -74,15 +58,21 @@
                   <th style="text-transform: uppercase;">
                     reçu LE
                   </th>
+                  <th>VLIDE</th>
                 </tr>
                 <tr>
                   <th colspan="3" style="text-align: right;">Total:</th>
                   <th id="sum"></th>
                   <th></th>
                   <th></th>
+                  <th></th>
                 </tr>
               </tfoot>
             </table>
+            <small class="form-text text-danger ml-2">
+              (*) Les lignes marquées en rouge indiquent un inconvénient lors de
+              l'insertion des nouveaux stocks.
+            </small>
           </div>
         </div>
       </div>

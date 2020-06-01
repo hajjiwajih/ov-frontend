@@ -31,15 +31,21 @@ export class ResetPasswordComponent implements OnInit {
 
   isLoading = false;
 
+  returnUrl: string = "";
+
   ngOnInit() {
-    this.userService.getUserById("no_one").subscribe();
+    this.route.queryParams.subscribe(
+      (params) => (this.returnUrl = params["returnUrl"])
+    );
+
+    this.userService.getUserById("undefined").subscribe();
     let _self = this;
     // indecate password strength
     $(document).ready(function () {
       $("#password").keyup(function () {
         _self.checkPasswordStrength();
-        console.log("check");
       });
+      _self.togglePassword();
     });
   }
 
@@ -50,6 +56,7 @@ export class ResetPasswordComponent implements OnInit {
         (res) => {
           console.log(res);
           this.isSubmitted = true;
+          this.userService.logout().subscribe((uid) => console.log(uid));
           setTimeout(() => {
             this.isLoading = false;
           }, 700);
@@ -127,5 +134,38 @@ export class ResetPasswordComponent implements OnInit {
         return false;
       }
     }
+  }
+
+  togglePassword() {
+    $("#eye").click(function () {
+      if ($(this).hasClass("fa-eye-slash")) {
+        $(this).removeClass("fa-eye-slash");
+
+        $(this).addClass("fa-eye");
+
+        $("#password").attr("type", "text");
+      } else {
+        $(this).removeClass("fa-eye");
+
+        $(this).addClass("fa-eye-slash");
+
+        $("#password").attr("type", "password");
+      }
+    });
+    $("#eye_confirm").click(function () {
+      if ($(this).hasClass("fa-eye-slash")) {
+        $(this).removeClass("fa-eye-slash");
+
+        $(this).addClass("fa-eye");
+
+        $("#confirmation").attr("type", "text");
+      } else {
+        $(this).removeClass("fa-eye");
+
+        $(this).addClass("fa-eye-slash");
+
+        $("#confirmation").attr("type", "password");
+      }
+    });
   }
 }

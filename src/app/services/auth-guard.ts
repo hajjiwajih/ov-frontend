@@ -31,6 +31,7 @@ export class AuthGuard implements CanActivate {
     // temp access token to reset password
     if (route.queryParams["access_token"]) {
       localStorage.setItem("token", route.queryParams["access_token"]);
+      localStorage.setItem("uid", route.queryParams["uid"]);
       return true;
     }
 

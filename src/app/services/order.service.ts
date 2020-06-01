@@ -68,7 +68,7 @@ export class OrderService {
   }
 
   getOrderTickets(id) {
-    return this.client.get<Ticket[]>(this.apiUrl + "/" + id + "/tickets");
+    return this.client.get<Ticket[]>(this.ticketsUrl + "/orderTickets/" + id);
   }
 
   deleteOrder(idOrder: string) {

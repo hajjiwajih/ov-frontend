@@ -1,3 +1,4 @@
+import { PasswordExpiryComponent } from "./main-dashboard/password-expiry/password-expiry.component";
 import { LatestOrdersComponent } from "./client/latest-orders/latest-orders.component";
 import { ChangePasswordComponent } from "./main-dashboard/change-password/change-password.component";
 import { StockComponent } from "./admin-pages/stock/stock.component";
@@ -38,6 +39,12 @@ const routes: Routes = [
   {
     path: "reset-password",
     component: ResetPasswordComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ["any"] },
+  },
+  {
+    path: "expiry-password",
+    component: PasswordExpiryComponent,
     canActivate: [AuthGuard],
     data: { roles: ["any"] },
   },
@@ -144,11 +151,11 @@ const routes: Routes = [
   // otherwise redirect to 404 page
   // { path: '404', component: NotFoundComponent },
   { path: "500", component: ServerErrorComponent },
-  { path: "**", component: PageNotFoundComponent },
+  { path: "**", component: LoginComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash:true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

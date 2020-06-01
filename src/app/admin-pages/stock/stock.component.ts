@@ -47,6 +47,7 @@ export class StockComponent implements OnInit {
       this.notificationService.clearNotification({ type: "voucher" });
       let _self = this;
       $(document).ready(function () {
+        $.fn.dataTable.moment("D/M/YYYY HH:mm");
         $("#voucherTables").DataTable({
           responsive: true,
           language: {
@@ -73,9 +74,29 @@ export class StockComponent implements OnInit {
             { data: "ticketAmount" },
             { data: "ticketAmount" },
             { data: "issueDate" },
+            { data: "valid" },
           ],
           order: [[0, "desc"]],
           columnDefs: [
+            {
+              targets: 0,
+              render: function (data, type, row) {
+                if (row.valid) return data.substring(data.search("VOUCHER"));
+                else
+                  return (
+                    '<span style="color:red">' +
+                    data.substring(data.search("VOUCHER")) +
+                    "</span>"
+                  );
+              },
+            },
+            {
+              visible: false,
+              targets: 5,
+              render: function (data, type, row) {
+                return data;
+              },
+            },
             {
               targets: 2,
               render: function (data, type, row) {
@@ -112,8 +133,9 @@ export class StockComponent implements OnInit {
             let sumCol = [];
             let nbCodeCol = api.column(1).data().toArray();
             let amountCol = api.column(2).data().toArray();
+            let validCol = api.column(5).data().toArray();
             nbCodeCol.forEach((element, index) => {
-              sumCol.push(element * amountCol[index]);
+              if (validCol[index]) sumCol.push(element * amountCol[index]);
             });
             var total = sumCol.reduce(function (a, b) {
               return intVal(a) + intVal(b);
@@ -123,8 +145,9 @@ export class StockComponent implements OnInit {
             sumCol = [];
             nbCodeCol = api.column(1, { page: "current" }).data().toArray();
             amountCol = api.column(2, { page: "current" }).data().toArray();
+            validCol = api.column(5, { page: "current" }).data().toArray();
             nbCodeCol.forEach((element, index) => {
-              sumCol.push(element * amountCol[index]);
+              if (validCol[index]) sumCol.push(element * amountCol[index]);
             });
 
             var pageTotal = sumCol.reduce(function (a, b) {

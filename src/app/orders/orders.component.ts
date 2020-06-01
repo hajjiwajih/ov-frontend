@@ -110,6 +110,7 @@ export class OrdersComponent implements OnInit {
           }, 700);
 
           $(document).ready(function () {
+            $.fn.dataTable.moment("D/M/YYYY HH:mm");
             let table = $("#orderTables").DataTable({
               responsive: true,
               language: {
@@ -282,18 +283,18 @@ export class OrdersComponent implements OnInit {
         this.isStockLoading = false;
       }, 700);
     });
-    this.orderService.getSoldTicketsCount().subscribe((sold) => {
-      this.soldTickets = sold.count;
-      setTimeout(() => {
-        this.isSoldLoading = false;
-      }, 700);
-    });
-    this.orderService.getOrderCount().subscribe((orders) => {
-      this.totalOrders = orders.count;
-      setTimeout(() => {
-        this.isCmdLoading = false;
-      }, 700);
-    });
+    // this.orderService.getSoldTicketsCount().subscribe((sold) => {
+    //   this.soldTickets = sold.count;
+    //   setTimeout(() => {
+    //     this.isSoldLoading = false;
+    //   }, 700);
+    // });
+    // this.orderService.getOrderCount().subscribe((orders) => {
+    //   this.totalOrders = orders.count;
+    //   setTimeout(() => {
+    //     this.isCmdLoading = false;
+    //   }, 700);
+    // });
 
     let amountStocks = 0;
     let amountSails = 0;
@@ -301,13 +302,16 @@ export class OrdersComponent implements OnInit {
       this.orderService.countTicketsByAmount(amount).subscribe((available) => {
         this.stocks[index] = available.count;
         amountStocks += (available.count * amount) / 1000;
+        console.log(available.count, amount, amountStocks);
         this.amountStocks = numberWithSpaces(amountStocks);
         if (index + 1 == this.amounts.length)
           this.amounts.forEach((amount, index) => {
             this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
               this.stocks[index] = sold.count;
               amountSails += (sold.count * amount) / 1000;
+              console.log(sold.count, amount, amountSails);
               this.amountSails = numberWithSpaces(amountSails);
+              this.isSoldLoading = false;
             });
           });
       });
@@ -616,6 +620,7 @@ export class OrdersComponent implements OnInit {
 
   getStockDetails() {
     this.orderHidden = false;
+    this.percents = [0, 0, 0];
     this.loaders = [true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.countTicketsByAmount(amount).subscribe((available) => {
@@ -623,31 +628,33 @@ export class OrdersComponent implements OnInit {
         let totalPerType = 0;
         totalPerType = (available.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        setTimeout(() => {
+        if (this.availableTickets)
           this.percents[index] = Math.round(
             (available.count / this.availableTickets) * 100
           );
-          this.loaders[index] = false;
-        }, 700);
+        else this.percents[index] = 0;
+        this.loaders[index] = false;
       });
     });
   }
 
   getSailsDetails() {
     this.orderHidden = false;
+    this.percents = [0, 0, 0];
     this.loaders = [true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
         this.stocks[index] = sold.count;
         let totalPerType = 0;
+        console.log(this.percents[index], sold.count, amount, this.soldTickets);
         totalPerType = (sold.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        setTimeout(() => {
+        if (parseInt(this.amountSails))
           this.percents[index] = Math.round(
-            (sold.count / this.soldTickets) * 100
+            (sold.count / parseInt(this.amountSails)) * 100
           );
-          this.loaders[index] = false;
-        }, 700);
+        else this.percents[index] = 0;
+        this.loaders[index] = false;
       });
     });
   }

@@ -3,4 +3,5 @@ export interface Voucher {
   nbCodes?: number;
   ticketAmount?: number;
   issueDate?: string;
+  valid?: boolean;
 }

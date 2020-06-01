@@ -6,6 +6,7 @@ import { User } from "./../models/user";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { LatLng } from "@agm/core";
+import { Socket } from "ngx-socket-io";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,18 @@ export class UserService {
   private apiUrl = environment.api_url_users;
   private serverUrl = environment.api_url;
 
-  constructor(private client: HttpClient, private router: Router) {}
+  newClient: Observable<User>;
+  constructor(private client: HttpClient, private socket: Socket) {
+    this.newClient = this.socket.fromEvent<User>("client/new");
+  }
+
+  triggerEvent(event: string, client?: User) {
+    switch (event) {
+      case "newClient":
+        this.socket.emit("newClient", client);
+        break;
+    }
+  }
 
   getUsers() {
     return this.client.get<User[]>(this.apiUrl);
@@ -43,6 +55,23 @@ export class UserService {
     const headers = new Headers({ "Content-Type": "application/json" });
 
     return this.client.post<User>(this.apiUrl, user);
+  }
+
+  verifyAccount(clientId: string) {
+    const headers = new Headers({ "Content-Type": "application/json" });
+
+    return this.client.post<string>(this.apiUrl + "/verify-account", {
+      uid: clientId,
+    });
+  }
+
+  rejectAccount(clientId: string, msg: string) {
+    const headers = new Headers({ "Content-Type": "application/json" });
+
+    return this.client.post<string>(this.apiUrl + "/reject-account", {
+      uid: clientId,
+      desc: msg,
+    });
   }
 
   updateUser(user: User, id: string) {
@@ -131,7 +160,9 @@ export class UserService {
   unvalidateTokens(id: string) {
     // const headers = new Headers({ "Content-Type": "application/json" });
     this.clearSession();
-    return this.client.delete(this.apiUrl + "/" + id + "/accessTokens");
+    return this.client
+      .delete(this.apiUrl + "/" + id + "/accessTokens")
+      .subscribe();
   }
 
   //
@@ -184,5 +215,6 @@ export class UserService {
     localStorage.removeItem("role");
     localStorage.removeItem("email");
     localStorage.removeItem("login");
+    localStorage.removeItem("uid");
   }
 }

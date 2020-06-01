@@ -85,6 +85,7 @@ export class ClientOrdersComponent implements OnInit {
           }, 700);
 
           $(document).ready(function () {
+            $.fn.dataTable.moment("D/M/YYYY HH:mm");
             let table = $("#orderTables").DataTable({
               responsive: true,
               language: {

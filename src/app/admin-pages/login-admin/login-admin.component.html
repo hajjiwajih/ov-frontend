@@ -102,30 +102,53 @@
                 <div class="form-row">
                   <div class="col-md-6">
                     <div class="position-relative form-group">
-                      <label for="exampleEmail" class="">Login</label
-                      ><input
-                        name="login"
-                        id="exampleEmail"
-                        placeholder="Login ici..."
-                        type="text"
-                        class="form-control"
-                        formControlName="login"
-                        [(ngModel)]="user.username"
-                      />
+                      <label for="exampleEmail" class="">Login</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i
+                              class="fa fa-user-circle"
+                              style="cursor: pointer;"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <input
+                          name="login"
+                          id="exampleEmail"
+                          placeholder="Login ici..."
+                          type="text"
+                          class="form-control"
+                          formControlName="login"
+                          [(ngModel)]="user.username"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="position-relative form-group">
-                      <label for="examplePassword" class="">Password</label
-                      ><input
-                        name="password"
-                        id="examplePassword"
-                        placeholder="Password ici..."
-                        type="password"
-                        class="form-control"
-                        formControlName="password"
-                        [(ngModel)]="user.password"
-                      />
+                      <label for="examplePassword" class="">Password</label>
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i
+                              class="fa fa-eye-slash"
+                              id="eye"
+                              style="cursor: pointer;"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <input
+                          name="password"
+                          id="password"
+                          placeholder="Password ici..."
+                          type="password"
+                          class="form-control"
+                          formControlName="password"
+                          [(ngModel)]="user.password"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

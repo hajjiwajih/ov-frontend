@@ -43,6 +43,7 @@ import { StockComponent } from "./admin-pages/stock/stock.component";
 import { ChangePasswordComponent } from "./main-dashboard/change-password/change-password.component";
 import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
 import { LatestOrdersComponent } from './client/latest-orders/latest-orders.component';
+import { PasswordExpiryComponent } from './main-dashboard/password-expiry/password-expiry.component';
 
 // fr local binding
 registerLocaleData(localeFr, "fr-FR", localeFrExtra);
@@ -77,6 +78,7 @@ const config: SocketIoConfig = {
     StockComponent,
     ChangePasswordComponent,
     LatestOrdersComponent,
+    PasswordExpiryComponent,
   ],
   imports: [
     BrowserModule,

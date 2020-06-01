@@ -27,17 +27,20 @@ export class AdminComponent implements OnInit {
 
   addedSub$: Subscription;
   addedSubVoucher$: Subscription;
+  addedSubClient$: Subscription;
 
   newOrders: number = 0;
 
   newVouchers: number = 0;
+
+  newClients: number = 0;
 
   displayProfile: boolean = false;
 
   constructor(
     private userService: UserService,
     private orderService: OrderService,
-    private vouchzeService: VoucherService,
+    private voucherService: VoucherService,
     private router: Router,
     private notificationService: NotificationService
   ) {
@@ -46,11 +49,14 @@ export class AdminComponent implements OnInit {
       if (notif.type == "order" && !notif.valid && !notif.reject)
         this.newOrders++;
       if (notif.type == "voucher") this.newVouchers++;
+      if (notif.type == "client") this.newClients++;
     });
+
     notificationService.resetObs$.subscribe((req) => {
       setTimeout(() => {
         if (req.type == "order") this.newOrders = 0;
         if (req.type == "voucher") this.newVouchers = 0;
+        if (req.type == "client") this.newClients = 0;
       }, 3000);
     });
   }
@@ -65,6 +71,7 @@ export class AdminComponent implements OnInit {
     // subscribe to incoming events
     this.subscribeToNewOrders();
     this.subscribeToNewVoucher();
+    this.subscribeToNewClients();
   }
 
   logout() {
@@ -94,6 +101,7 @@ export class AdminComponent implements OnInit {
   ngOnDestroy() {
     if (this.addedSub$) this.addedSub$.unsubscribe();
     if (this.addedSubVoucher$) this.addedSubVoucher$.unsubscribe();
+    if (this.addedSubClient$) this.addedSubClient$.unsubscribe();
   }
 
   subscribeToNewOrders() {
@@ -107,8 +115,9 @@ export class AdminComponent implements OnInit {
       });
     });
   }
+
   subscribeToNewVoucher() {
-    this.addedSubVoucher$ = this.vouchzeService.newVoucher.subscribe(
+    this.addedSubVoucher$ = this.voucherService.newVoucher.subscribe(
       (voucher) => {
         console.log("new order", voucher);
         // currently displaying validated orders
@@ -117,5 +126,15 @@ export class AdminComponent implements OnInit {
         });
       }
     );
+  }
+
+  subscribeToNewClients() {
+    this.addedSubClient$ = this.userService.newClient.subscribe((client) => {
+      console.log("new client", client);
+      // currently displaying validated orders
+      this.notificationService.pushNotification({
+        type: "client",
+      });
+    });
   }
 }
