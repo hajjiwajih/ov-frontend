@@ -144,6 +144,25 @@ export class UserService {
     });
   }
 
+  loginAdmin(user: User) {
+    let headers: HttpHeaders = new HttpHeaders();
+    // const headers = new Headers({ 'Content-Type': 'application/json' });
+    // head.append('Access-Control-Allow-Headers', 'Content-Type');
+    // head.append('Access-Control-Allow-Methods', 'POST');
+    // head.append('Access-Control-Allow-Origin', '*');
+
+    headers.append("No-Auth", "True");
+
+    // change life time sessionToken
+    let creds = {
+      email: user.email,
+      password: user.password,
+    };
+    return this.client.post<LoginToken>(this.apiUrl + "/login", creds, {
+      headers,
+    });
+  }
+
   logout() {
     // const headers = new Headers({ "Content-Type": "application/json" });
     let token = localStorage.getItem("token");

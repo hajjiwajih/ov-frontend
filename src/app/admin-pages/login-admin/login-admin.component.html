@@ -106,21 +106,18 @@
                       <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
-                            <i
-                              class="fa fa-user-circle"
-                              style="cursor: pointer;"
-                            ></i>
+                            <i class="fa fa-inbox" style="cursor: pointer;"></i>
                           </div>
                         </div>
 
                         <input
                           name="login"
                           id="exampleEmail"
-                          placeholder="Login ici..."
-                          type="text"
+                          placeholder="Email ici..."
+                          type="email"
                           class="form-control"
                           formControlName="login"
-                          [(ngModel)]="user.username"
+                          [(ngModel)]="user.email"
                         />
                       </div>
                     </div>

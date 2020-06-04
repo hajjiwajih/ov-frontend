@@ -26,7 +26,7 @@ export class LoginAdminComponent implements OnInit {
 
   constructor(private loginService: UserService, private router: Router) {
     this.user = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -50,7 +50,7 @@ export class LoginAdminComponent implements OnInit {
     this.msgs.pop();
     this._this = this;
     console.log(this.user);
-    this.loginService.login(this.user).subscribe(
+    this.loginService.loginAdmin(this.user).subscribe(
       (_loginToken) => {
         localStorage.setItem("token", _loginToken.id);
         this.loginService.getUserById(_loginToken.userId).subscribe((user) => {
