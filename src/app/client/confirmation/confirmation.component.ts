@@ -94,11 +94,11 @@ export class ConfirmationComponent implements OnInit {
       },
     ]).then((result) => {
       console.log(result);
-      if (result.value) {
+      // if (result.value) {
         // setTimeout(() => {
         this.router.navigateByUrl("portal");
         // }, 700);
-      }
+      // }
     });
   }
 

@@ -82,31 +82,57 @@
                         <label for="examplePassword" class="ml-2"
                           >N° Patente</label
                         >
-
-                        <input
-                          name="login"
-                          id="patente"
-                          placeholder="N° Patente"
-                          type="text"
-                          class="form-control"
-                          formControlName="login"
-                          [(ngModel)]="user.username"
-                        />
+                        <div class="position-relative form-group">
+                          <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                <i
+                                  class="fa fa-info-circle"
+                                  title="Votre numéro patente doit étre composé de 7 chiffres puis 1 caractére en majuscule!"
+                                  style="cursor: pointer;"
+                                ></i>
+                              </div>
+                            </div>
+                            <input
+                              name="login"
+                              id="patente"
+                              placeholder="N° Patente"
+                              type="text"
+                              class="form-control"
+                              formControlName="login"
+                              [(ngModel)]="user.username"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="position-relative form-group">
                         <label for="examplePassword" class="ml-2">CIN</label>
-                        <input
-                          name="cin"
-                          id="cin"
-                          placeholder="CIN"
-                          type="text"
-                          class="form-control"
-                          formControlName="cin"
-                          [(ngModel)]="user.cin"
-                        />
+                        <div class="position-relative form-group">
+                          <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                <i
+                                  class="fa fa-info-circle"
+                                  title="Votre numéro CIN doit étre composé de 8 chiffres!"
+                                  style="cursor: pointer;"
+                                ></i>
+                              </div>
+                            </div>
+
+                            <input
+                              name="cin"
+                              id="cin"
+                              placeholder="CIN"
+                              type="text"
+                              class="form-control"
+                              formControlName="cin"
+                              [(ngModel)]="user.cin"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
 

@@ -50,11 +50,48 @@ export class SignupComponent implements OnInit {
       else this.router.navigateByUrl("monitor");
 
     let _self = this;
-    // indecate password strength
+
+    // form validation
     $(document).ready(function () {
+      var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
+      var cinPattern = /^([0-9]{8})$/; // 8 digits
+
+      $("#cin")[0].setCustomValidity("cin empty");
+      $("#patente")[0].setCustomValidity("login empty");
+      $("#signupForm").addClass("was-validated");
+
+      // input validation
+      $("#patente").keyup(function () {
+        if ($(this).val().match(loginPattern)) {
+          this.setCustomValidity("");
+        } else {
+          this.setCustomValidity("Login field pattern didn't match");
+        }
+      });
+
+      // input validation
+      $("#cin").keyup(function () {
+        if ($(this).val().match(cinPattern)) {
+          this.setCustomValidity("");
+        } else {
+          this.setCustomValidity("CIN field pattern didn't match");
+        }
+      });
+
+      // input validation
       $("#password").keyup(function () {
         _self.checkPasswordStrength();
       });
+
+      // input validation
+      $("#confirm_password").keyup(function () {
+        if ($(this).val() == $("#password").val()) {
+          this.setCustomValidity("");
+        } else {
+          this.setCustomValidity("Passwords must match");
+        }
+      });
+
       _self.togglePassword();
     });
   }
@@ -73,11 +110,7 @@ export class SignupComponent implements OnInit {
     // decorate form
     console.log(this.user);
     // add user
-    if (
-      this.signupForm.valid &&
-      this.validateForm() &&
-      this.checkPasswordStrength()
-    ) {
+    if (this.validateForm() && this.checkPasswordStrength()) {
       $(".progress-line").addClass("flex-display");
       $("button:submit").attr("disabled", true);
       this.userService.addUser(this.user).subscribe(
@@ -124,6 +157,8 @@ export class SignupComponent implements OnInit {
 
   validateForm() {
     $("#signupForm").addClass("was-validated");
+    console.log($("#signupForm"));
+
     // required fields
     if (
       !this.signupForm.get("login").value &&
@@ -136,11 +171,42 @@ export class SignupComponent implements OnInit {
         if ($(this).val()) {
           this.setCustomValidity("");
         } else {
-          this.setCustomValidity("Passwords must match");
+          this.setCustomValidity("Login field empty");
         }
       });
       return false;
     }
+
+    // if (
+    //   this.signupForm.get("login").value &&
+    //   !this.signupForm.get("login").value.match(loginPattern)
+    // ) {
+    //   $("#patente")[0].setCustomValidity("login empty");
+
+    //   $("#patente").keyup(function () {
+    //     if ($(this).val().match(loginPattern)) {
+    //       this.setCustomValidity("");
+    //     } else {
+    //       this.setCustomValidity("Login field pattern didn't match");
+    //     }
+    //   });
+    //   return false;
+    // }
+
+    // if (
+    //   this.signupForm.get("cin").value &&
+    //   !this.signupForm.get("cin").value.match(cinPattern)
+    // ) {
+    //   $("#cin")[0].setCustomValidity("cin empty");
+    //   $("#cin").keyup(function () {
+    //     if ($(this).val().match(cinPattern)) {
+    //       this.setCustomValidity("");
+    //     } else {
+    //       this.setCustomValidity("CIN field pattern didn't match");
+    //     }
+    //   });
+    //   return false;
+    // }
 
     // password mismatch
     if (
@@ -178,6 +244,7 @@ export class SignupComponent implements OnInit {
       $("#password-strength-status").html(
         "Weak (should be atleast 7 characters.)"
       );
+      $("#password")[0].setCustomValidity("Passwords weak");
       return false;
     } else {
       if (
@@ -190,6 +257,7 @@ export class SignupComponent implements OnInit {
         );
         $("#password-strength-container").addClass("alert-success");
         $("#password-strength-status").html("Strong Password");
+        $("#password")[0].setCustomValidity("");
         return true;
       } else {
         $("#password-strength-container").removeClass(
@@ -199,6 +267,7 @@ export class SignupComponent implements OnInit {
         $("#password-strength-status").html(
           "Medium (should include alphabets, numbers and special characters.)"
         );
+        $("#password")[0].setCustomValidity("Passwords meduim");
         return false;
       }
     }
