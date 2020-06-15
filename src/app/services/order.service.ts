@@ -31,6 +31,12 @@ export class OrderService {
     );
   }
 
+  /**
+   * Fetch all customer related orders
+   * @param idClient
+   * @param valid
+   * @param rejected
+   */
   getClientOrders(idClient: string, valid: boolean, rejected: boolean) {
     if (valid)
       return this.client.get<Order[]>(
@@ -42,16 +48,29 @@ export class OrderService {
       );
   }
 
+  /**
+   * Fetch all customer related orders | ordered by datetime
+   * @param idClient
+   */
   getLatestClientOrders(idClient: string) {
     return this.client.get<Order[]>(
       `${this.apiUrl}?filter={"where":{"clientId":"${idClient}"}}`
     );
   }
 
+  /**
+   * Fetch last order for each customer ID passed
+   * @param ids
+   */
   getLastValidatedOrders(ids: string[]) {
     return this.client.post<any>(`${this.apiUrl}/lastValidatedOrders`, ids);
   }
 
+  /**
+   * Fetch all orders with @flag {validated} @flag {isRejected}
+   * @param valid
+   * @param rejected
+   */
   getOrders(valid: boolean, rejected: boolean) {
     if (valid)
       return this.client.get<Order[]>(
@@ -63,24 +82,45 @@ export class OrderService {
       );
   }
 
+  /**
+   * Fetch order by ID
+   * @param id
+   */
   getOrderById(id) {
     return this.client.get<Order>(this.apiUrl + "/" + id);
   }
 
+  /**
+   * Fetch all related order tickets
+   * @param id
+   */
   getOrderTickets(id) {
     return this.client.get<Ticket[]>(this.ticketsUrl + "/orderTickets/" + id);
   }
 
+  /**
+   * Remove persisted order
+   * @param idOrder
+   */
   deleteOrder(idOrder: string) {
     return this.client.delete(this.apiUrl + "/" + idOrder);
   }
 
+  /**
+   * Persist one order
+   * @param order
+   */
   addOrder(order: Order) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
     return this.client.post<Order>(this.apiUrl, order);
   }
 
+  /**
+   * Emit socket.io event on new action
+   * @param event
+   * @param order
+   */
   triggerEvent(event: string, order?: Order) {
     switch (event) {
       case "newOrder":
@@ -95,6 +135,10 @@ export class OrderService {
     }
   }
 
+  /**
+   * Count all tickets by amount / price type
+   * @param amount
+   */
   getOrderCount(amount?) {
     const headers = new Headers({ "Content-Type": "application/json" });
     if (amount)
@@ -104,6 +148,10 @@ export class OrderService {
     else return this.client.get<any>(`${this.apiUrl}/count`);
   }
 
+  /**
+   * Count sold tickets by amount / price type
+   * @param amount
+   */
   getSoldTicketsCount(amount?) {
     const headers = new Headers({ "Content-Type": "application/json" });
     if (amount)
@@ -116,6 +164,10 @@ export class OrderService {
       );
   }
 
+  /**
+   * Count stock tickets by amount / price type
+   * @param amount
+   */
   countTickets(amount?) {
     const headers = new Headers({ "Content-Type": "application/json" });
     return this.client.get<any>(
@@ -123,6 +175,10 @@ export class OrderService {
     );
   }
 
+  /**
+   * Count stock tickets by amount / price type
+   * @param amount
+   */
   countTicketsByAmount(amount: number) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
@@ -130,6 +186,11 @@ export class OrderService {
       `${this.ticketsUrl}/count?where={"and":[{"amount":${amount}},{"or": [{"orderId":{"exists": false}},{"orderId":null}]}]}`
     );
   }
+
+  /**
+   * Fetch stock tickets by amount / price type on limit @count
+   * @param count
+   */
 
   getTickets(count: number) {
     const headers = new Headers({ "Content-Type": "application/json" });
@@ -139,12 +200,23 @@ export class OrderService {
     );
   }
 
+  /**
+   * Update order by ID
+   * @param order
+   * @param id
+   */
   updateOrder(order: Order, id: string) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
     return this.client.patch(this.apiUrl + `/${id}`, order);
   }
 
+  /**
+   * Update tickets and make them relate to one order
+   * @param orderId
+   * @param ticketCount
+   * @param amount
+   */
   updateTickets(orderId: string, ticketCount: number, amount: number) {
     const headers = new Headers({ "Content-Type": "application/json" });
 

@@ -30,6 +30,10 @@ export class ConfirmationComponent implements OnInit {
     this.ref = localStorage.getItem("currentUserRef");
   }
 
+  /**
+   * Show overview details
+   * Confirm order creation
+   */
   confirmOrder() {
     Swal.queue([
       {
@@ -95,13 +99,16 @@ export class ConfirmationComponent implements OnInit {
     ]).then((result) => {
       console.log(result);
       // if (result.value) {
-        // setTimeout(() => {
-        this.router.navigateByUrl("portal");
-        // }, 700);
+      // setTimeout(() => {
+      this.router.navigateByUrl("portal");
+      // }, 700);
       // }
     });
   }
 
+  /**
+   * dismiss order dialog
+   */
   dismissOrder() {
     this.location.back();
   }

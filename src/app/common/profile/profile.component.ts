@@ -15,6 +15,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * Edit profile infos (email & phone)
+   * @param attr
+   */
   editInfo(attr) {
     switch (attr) {
       case "email":

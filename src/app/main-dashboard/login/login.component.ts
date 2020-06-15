@@ -63,6 +63,10 @@ export class LoginComponent implements OnInit {
               $(".progress-line").removeClass("flex-display");
               $("button:submit").attr("disabled", false);
             }, 1000);
+            /**
+             * Error message primefaces
+             */
+
             this.msgs.push({
               severity: "warn",
               summary: "Error Message",
@@ -84,6 +88,11 @@ export class LoginComponent implements OnInit {
               $(".progress-line").removeClass("flex-display");
               $("button:submit").attr("disabled", false);
             }, 1000);
+
+            /**
+             * Error message primefaces
+             */
+
             this.msgs.push({
               severity: "warn",
               summary: "Error Message",
@@ -105,6 +114,11 @@ export class LoginComponent implements OnInit {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
           }, 1000);
+
+          /**
+           * Error message primefaces
+           */
+
           this.msgs.push({
             severity: "error",
             summary: "Message",
@@ -117,6 +131,10 @@ export class LoginComponent implements OnInit {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
           }, 1000);
+          /**
+           * Error message primefaces
+           */
+
           this.msgs.push({
             severity: "info",
             summary: "PASSWORD HAS EXPIRED",
@@ -137,6 +155,10 @@ export class LoginComponent implements OnInit {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
           }, 1000);
+          /**
+           * Error message primefaces
+           */
+
           this.msgs.push({
             severity: "info",
             summary: "Error Message",

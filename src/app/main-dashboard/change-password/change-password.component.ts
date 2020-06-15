@@ -45,6 +45,9 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
 
+  /**
+   * Submit password change form
+   */
   changePassword() {
     this.isComplete = true;
     // validate password
@@ -80,10 +83,6 @@ export class ChangePasswordComponent implements OnInit {
     // required fields
 
     // password mismatch
-    // console.log(
-    //   this.resetPasswordForm.get("confirmPassword").value,
-    //   this.resetPasswordForm.get("password").value
-    // );
     if (
       this.resetPasswordForm.get("confirmPassword").value !=
       this.resetPasswordForm.get("newPassword").value
@@ -152,6 +151,9 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
+  /**
+   * Toggle password visibility
+   */
   togglePassword() {
     $("#eye_old").click(function () {
       if ($(this).hasClass("fa-eye-slash")) {
