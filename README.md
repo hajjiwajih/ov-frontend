@@ -1,8 +1,48 @@
-# Orange Voucher Web App
+# Must Voucher Web App
 
 ## About
 
-- A web application developed for ticket sales management within SIM reseller companies using **Angular 9, Loopback 3, MongoDB**.
+- A web application developed for phone reload tickets from Orange Tunisie to SymteleCOM entreprise and from SymteleCOM to their customers using **Angular 9, Loopback 3, MongoDB**.
+
+- The Orange voucher web application allows SymteleCOM customers to place an order on phone reload tickets and view the progress and history of the request. The application also allows SymteleCOM's administrator to check, validate, refuse and consult customer requests. Orange Voucher simply makes it easy for the customer request transaction and Administrator Verification.
+
+- The Orange Voucher web application allows Orange Tunisia to sell ther vouchers more easier than before and allows Symtelecom to resell the tickets to ther customers as well as to create appropriate profiles using our Api.
+
+## Flow
+When observing Orange Voucher capabilities, our elegant application will provide the following set of features.
+User Roles :
+•	Administrator
+•	Customer
+
+
+User Stories :
+
+	**Customer :**
+Every Customer will be able to do :
+1.	Login with his login & password.
+2.	Ordering
+3.	Consult validated orders
+4.	Consult refused orders
+5.	Consult non-validated orders
+6.	Change email address
+7.	Change the phone number
+8.	Change the password / Reset password
+ 
+
+	**Administrator :**
+Every Administrator will be able to do :
+1.	Login with his login & password
+2.	View active orders
+3.	View refused orders
+4.	View non-validated orders
+5.	View customers list
+6.	Consult the stock received (Stock available, Stock sold, orders)
+7.	Accept / refuse an order from the customer
+8.	Change email address
+9.	Change the phone number
+10.	Change the password / Reset password
+11.	Accept/Refuse customers requests
+
 
 ## Architecture
 
