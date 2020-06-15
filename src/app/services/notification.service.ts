@@ -1,5 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+/**
+ * @service NotificationService capture socketIo events
+ * update UI correspondingly
+ */
 
 @Injectable({
   providedIn: "root",

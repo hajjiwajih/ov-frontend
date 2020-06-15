@@ -177,37 +177,6 @@ export class SignupComponent implements OnInit {
       return false;
     }
 
-    // if (
-    //   this.signupForm.get("login").value &&
-    //   !this.signupForm.get("login").value.match(loginPattern)
-    // ) {
-    //   $("#patente")[0].setCustomValidity("login empty");
-
-    //   $("#patente").keyup(function () {
-    //     if ($(this).val().match(loginPattern)) {
-    //       this.setCustomValidity("");
-    //     } else {
-    //       this.setCustomValidity("Login field pattern didn't match");
-    //     }
-    //   });
-    //   return false;
-    // }
-
-    // if (
-    //   this.signupForm.get("cin").value &&
-    //   !this.signupForm.get("cin").value.match(cinPattern)
-    // ) {
-    //   $("#cin")[0].setCustomValidity("cin empty");
-    //   $("#cin").keyup(function () {
-    //     if ($(this).val().match(cinPattern)) {
-    //       this.setCustomValidity("");
-    //     } else {
-    //       this.setCustomValidity("CIN field pattern didn't match");
-    //     }
-    //   });
-    //   return false;
-    // }
-
     // password mismatch
     if (
       this.signupForm.get("confirmPassword").value !=

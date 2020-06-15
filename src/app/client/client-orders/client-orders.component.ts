@@ -158,6 +158,7 @@ export class ClientOrdersComponent implements OnInit {
                 });
               },
               footerCallback: function (row, data, start, end, display) {
+                // sumup the totals
                 var api = this.api(),
                   data;
 
@@ -246,6 +247,9 @@ export class ClientOrdersComponent implements OnInit {
     if (this.rejectionSub$) this.rejectionSub$.unsubscribe();
   }
 
+  /**
+   * Subscribe to newly confirmed orders
+   */
   subscribeToValidatedOrders() {
     this.validationSub$ = this.orderService.validatedOrder.subscribe(
       (order) => {
@@ -260,6 +264,9 @@ export class ClientOrdersComponent implements OnInit {
     );
   }
 
+  /**
+   * Subscribe to newly rejected orders
+   */
   subscribeToRejectedOrders() {
     this.rejectionSub$ = this.orderService.rejectedOrder.subscribe((order) => {
       if (this.isRejected) {
@@ -272,6 +279,10 @@ export class ClientOrdersComponent implements OnInit {
     });
   }
 
+  /**
+   * Add new row on top of the list
+   * @param order
+   */
   addRow(order: Order) {
     // currently displaying validated orders
     const addedRow = $("#orderTables").DataTable().row.add(order).draw(false);
@@ -283,6 +294,10 @@ export class ClientOrdersComponent implements OnInit {
     }, 2000);
   }
 
+  /**
+   * delete row from datatable list
+   * @param order
+   */
   deleteRow(order: Order) {
     let displayedOrders = $("#orderTables")
       .DataTable()
@@ -308,6 +323,10 @@ export class ClientOrdersComponent implements OnInit {
     }, 2000);
   }
 
+  /**
+   * find row with specific index
+   * @param index
+   */
   findRow(index) {
     var info = $("#orderTables").DataTable().page.info();
     var pageLength = $("#orderTables").DataTable().page.len();
@@ -324,6 +343,10 @@ export class ClientOrdersComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Download tickets in CSV format
+   * @param order
+   */
   downloadCSV(order: Order) {
     this.orderService.getOrderTickets(order.idOrder).subscribe((tickets) => {
       console.log(tickets);
@@ -364,6 +387,10 @@ export class ClientOrdersComponent implements OnInit {
     });
   }
 
+  /**
+   * Show order info dialog
+   * @param order
+   */
   showDialog(order: Order) {
     this.selectedOrder = order;
     this.displayModal = true;

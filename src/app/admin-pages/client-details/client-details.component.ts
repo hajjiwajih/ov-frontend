@@ -59,18 +59,28 @@ export class ClientDetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.clientId = params["id"];
       this.getClientInfo();
+
+      // intialialize order history tables
       this.initClientOrders(true, false); // validated
       this.initClientOrders(false, false); // non validated
       this.initClientOrders(false, true); // rejected
     });
   }
 
+  /**
+   * Get customer info
+   */
   getClientInfo() {
     this.userService.getUserById(this.clientId).subscribe((clientInfo) => {
       this.mClient = clientInfo;
     });
   }
 
+  /**
+   * Initialize order history component for the customer
+   * @param valid
+   * @param rejected
+   */
   initClientOrders(valid, rejected) {
     this.obs$ = this.orderService
       .getClientOrders(this.clientId, valid, rejected)
@@ -90,6 +100,10 @@ export class ClientDetailsComponent implements OnInit {
       });
   }
 
+  /**
+   * Initialize datatable
+   * @param idTable
+   */
   initDatatable(idTable) {
     $(document).ready(function () {
       $.fn.dataTable.moment("D/M/YYYY HH:mm");
@@ -120,11 +134,10 @@ export class ClientDetailsComponent implements OnInit {
     this.obs$.unsubscribe();
   }
 
-  refreshUsers() {
-    this.obs$.unsubscribe();
-    window.location.reload();
-  }
-
+  /**
+   * Open order dialog info
+   * @param order
+   */
   showDialog(order: Order) {
     this.selectedOrder = order;
     this.displayModal = true;

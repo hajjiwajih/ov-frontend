@@ -62,6 +62,7 @@ export class ClientListingComponent implements OnInit {
       this.clients = list;
       console.log(this.clients);
 
+      // map customer ids to fetch their last orders
       let ids = this.clients.map((user) => user.id);
       console.log(ids);
       this.mappingObs$ = this.orderService
@@ -84,6 +85,8 @@ export class ClientListingComponent implements OnInit {
             $(".block-loader").fadeOut(500);
             $(".sk-circle").fadeOut(500);
           }, 700);
+
+          // intialize customer datatable
           let _self = this;
           $(document).ready(function () {
             $.fn.dataTable.moment("D/M/YYYY HH:mm");
@@ -190,15 +193,18 @@ export class ClientListingComponent implements OnInit {
     if (this.mappingObs$) this.mappingObs$.unsubscribe();
   }
 
-  refreshUsers() {
-    this.obs$.unsubscribe();
-    window.location.reload();
-  }
-
+  /**
+   * open profile section
+   * @param client
+   */
   openProfile(client) {
     this.router.navigate(["monitor/clients", client.id]);
   }
 
+  /**
+   * Confirm customer subscription
+   * @param client
+   */
   validateAccount(client: User) {
     let status = false;
     if (!client.emailVerified)
@@ -266,6 +272,9 @@ export class ClientListingComponent implements OnInit {
       });
   }
 
+  /**
+   * reject customer subscription
+   */
   rejectAccount(client: User) {
     let status = false;
     if (!client.emailVerified)
@@ -345,6 +354,9 @@ export class ClientListingComponent implements OnInit {
       });
   }
 
+  /**
+   * Subscribe to newly added customers
+   */
   subscribeToNewClients() {
     this.addedSub$ = this.userService.newClient.subscribe((voucher) => {
       console.log("new voucher", voucher);
@@ -352,6 +364,10 @@ export class ClientListingComponent implements OnInit {
     });
   }
 
+  /**
+   * Add new customer to the top of list
+   * @param client
+   */
   addRow(client: User) {
     // currently displaying validated orders
     const addedRow = $("#clientTables").DataTable().row.add(client).draw(false);

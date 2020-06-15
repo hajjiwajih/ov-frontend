@@ -42,9 +42,11 @@ export class LoginAdminComponent implements OnInit {
       window.scrollTo(0, 0);
     });
   }
+
+  /**
+   * Submit login form
+   */
   onSubmit() {
-    console.log("Login submited ", this.loginForm.value);
-    console.log($("button:submit"));
     $(".progress-line").addClass("flex-display");
     $("button:submit").attr("disabled", true);
     this.msgs.pop();
@@ -63,6 +65,10 @@ export class LoginAdminComponent implements OnInit {
               $(".progress-line").removeClass("flex-display");
               $("button:submit").attr("disabled", false);
             }, 1000);
+
+            /**
+             * Error message primefaces
+             */
             this.msgs.push({
               severity: "warn",
               summary: "Error Message",
@@ -84,6 +90,10 @@ export class LoginAdminComponent implements OnInit {
               $(".progress-line").removeClass("flex-display");
               $("button:submit").attr("disabled", false);
             }, 1000);
+
+            /**
+             * Error message primefaces
+             */
             this.msgs.push({
               severity: "warn",
               summary: "Error Message",
@@ -105,6 +115,10 @@ export class LoginAdminComponent implements OnInit {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
           }, 1000);
+
+          /**
+           * Error message primefaces
+           */
           this.msgs.push({
             severity: "error",
             summary: "Message",
@@ -117,6 +131,10 @@ export class LoginAdminComponent implements OnInit {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
           }, 1000);
+
+          /**
+           * Error message primefaces
+           */
           this.msgs.push({
             severity: "info",
             summary: "PASSWORD HAS EXPIRED",
@@ -137,6 +155,11 @@ export class LoginAdminComponent implements OnInit {
             $(".progress-line").removeClass("flex-display");
             $("button:submit").attr("disabled", false);
           }, 1000);
+
+          /**
+           * Error message primefaces
+           */
+
           this.msgs.push({
             severity: "info",
             summary: "Error Message",
@@ -147,6 +170,9 @@ export class LoginAdminComponent implements OnInit {
     );
   }
 
+  /**
+   * toggle password visibilty
+   */
   togglePassword() {
     $("#eye").click(function () {
       if ($(this).hasClass("fa-eye-slash")) {

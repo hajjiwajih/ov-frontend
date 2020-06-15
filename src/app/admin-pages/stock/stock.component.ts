@@ -31,6 +31,7 @@ export class StockComponent implements OnInit {
   ) {
     this.selectedVoucher = {};
   }
+
   ngOnInit() {
     //   this.activatedLink = params.category;
 
@@ -45,6 +46,8 @@ export class StockComponent implements OnInit {
 
       // clear new notification
       this.notificationService.clearNotification({ type: "voucher" });
+
+      // initialize datatable
       let _self = this;
       $(document).ready(function () {
         $.fn.dataTable.moment("D/M/YYYY HH:mm");
@@ -117,6 +120,7 @@ export class StockComponent implements OnInit {
             },
           ],
           footerCallback: function (row, data, start, end, display) {
+            // sumup total
             var api = this.api(),
               data;
 
@@ -175,11 +179,9 @@ export class StockComponent implements OnInit {
     if (this.addedSub$) this.addedSub$.unsubscribe();
   }
 
-  refreshUsers() {
-    this.obs$.unsubscribe();
-    window.location.reload();
-  }
-
+  /**
+   * Subscribe to newly added vouchers
+   */
   subscribeToNewVouchers() {
     this.addedSub$ = this.voucherService.newVoucher.subscribe((voucher) => {
       console.log("new voucher", voucher);
@@ -187,6 +189,10 @@ export class StockComponent implements OnInit {
     });
   }
 
+  /**
+   * Add new voucher row on top of the list
+   * @param voucher
+   */
   addRow(voucher: Voucher) {
     // currently displaying validated orders
     const addedRow = $("#voucherTables")

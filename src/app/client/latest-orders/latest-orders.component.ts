@@ -95,6 +95,7 @@ export class LatestOrdersComponent implements OnInit {
           $(".sk-circle").fadeOut(500);
         }, 700);
 
+        // intialize datatable
         $(document).ready(function () {
           $.fn.dataTable.moment("D/M/YYYY HH:mm");
           let table = $("#orderTables").DataTable({
@@ -214,6 +215,10 @@ export class LatestOrdersComponent implements OnInit {
     });
   }
 
+  /**
+   * Update row in datatable list
+   * @param order
+   */
   updateRow(order: Order) {
     // find & replace
     // only displayed orders (visible & not visible)
@@ -309,6 +314,9 @@ export class LatestOrdersComponent implements OnInit {
     this.displayModal = true;
   }
 
+  /**
+   * Show relevant stats about all customer submitted orders
+   */
   showStats() {
     // filter by status
     let validatedOrders = this.orders.filter(
@@ -352,7 +360,7 @@ export class LatestOrdersComponent implements OnInit {
     this.percents[2] = Math.round(
       (nonValidatedOrders.length / (this.orders.length || 1)) * 100
     );
-    // update loaders
+    // update loaders -> set back to default
     this.loaders = [false, false, false];
   }
 }

@@ -33,7 +33,6 @@ import { ClientOrdersComponent } from "./client/client-orders/client-orders.comp
 import { ConfirmationComponent } from "./client/confirmation/confirmation.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { VerifyComponent } from "./main-dashboard/verify/verify.component";
-import { AddAdminComponent } from "./admin-pages/add-admin/add-admin.component";
 import { ResetPasswordComponent } from "./main-dashboard/reset-password/reset-password.component";
 import { DialogModule } from "primeng/dialog";
 import { ClientListingComponent } from "./admin-pages/client-listing/client-listing.component";
@@ -42,8 +41,8 @@ import { ProfileComponent } from "./common/profile/profile.component";
 import { StockComponent } from "./admin-pages/stock/stock.component";
 import { ChangePasswordComponent } from "./main-dashboard/change-password/change-password.component";
 import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
-import { LatestOrdersComponent } from './client/latest-orders/latest-orders.component';
-import { PasswordExpiryComponent } from './main-dashboard/password-expiry/password-expiry.component';
+import { LatestOrdersComponent } from "./client/latest-orders/latest-orders.component";
+import { PasswordExpiryComponent } from "./main-dashboard/password-expiry/password-expiry.component";
 
 // fr local binding
 registerLocaleData(localeFr, "fr-FR", localeFrExtra);
@@ -70,7 +69,6 @@ const config: SocketIoConfig = {
     ConfirmationComponent,
     OrdersComponent,
     VerifyComponent,
-    AddAdminComponent,
     ResetPasswordComponent,
     ClientListingComponent,
     ClientDetailsComponent,

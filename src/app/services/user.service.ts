@@ -20,6 +20,11 @@ export class UserService {
     this.newClient = this.socket.fromEvent<User>("client/new");
   }
 
+  /**
+   * Emit socket.io event on new action
+   * @param event
+   * @param client
+   */
   triggerEvent(event: string, client?: User) {
     switch (event) {
       case "newClient":
@@ -28,16 +33,26 @@ export class UserService {
     }
   }
 
+  /**
+   * Fetch all users
+   */
   getUsers() {
     return this.client.get<User[]>(this.apiUrl);
   }
 
+  /**
+   * Fetch all customers
+   */
   getClients() {
     return this.client.get<User[]>(
       `${this.apiUrl}?filter={"where":{"role":"client"}}`
     );
   }
 
+  /**
+   * Fetch user by ID
+   * @param id
+   */
   getUserById(id) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -47,16 +62,28 @@ export class UserService {
     return this.client.get<User>(this.apiUrl + "/" + id);
   }
 
+  /**
+   * Delete user by ID
+   * @param idUser
+   */
   deleteUser(idUser: string) {
     return this.client.delete(this.apiUrl + "/" + idUser);
   }
 
+  /**
+   * Add new user
+   * @param user
+   */
   addUser(user: User) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
     return this.client.post<User>(this.apiUrl, user);
   }
 
+  /**
+   * Verify new customer account
+   * @param clientId
+   */
   verifyAccount(clientId: string) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
@@ -65,6 +92,11 @@ export class UserService {
     });
   }
 
+  /**
+   * Reject new customer subscription
+   * @param clientId
+   * @param msg
+   */
   rejectAccount(clientId: string, msg: string) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
@@ -74,12 +106,21 @@ export class UserService {
     });
   }
 
+  /**
+   * Update user by ID
+   * @param user
+   * @param id
+   */
   updateUser(user: User, id: string) {
     const headers = new Headers({ "Content-Type": "application/json" });
 
     return this.client.patch(this.apiUrl + `/${id}`, user);
   }
 
+  /**
+   * Request user reqet password mail
+   * @param email
+   */
   requestResetPassword(email: string) {
     let headers: HttpHeaders = new HttpHeaders();
     headers.append("No-Auth", "True");
@@ -95,6 +136,11 @@ export class UserService {
     );
   }
 
+  /**
+   * Request user mail change
+   * @param email
+   * @param change
+   */
   requestEmailChange(email: string, change: string) {
     return this.client.post<any>(this.apiUrl + "/request-email-change", {
       userId: localStorage.getItem("currentUserId"),
@@ -103,6 +149,11 @@ export class UserService {
     });
   }
 
+  /**
+   * Reset user password
+   * @param password
+   * @param passwordConfirm
+   */
   resetPassword(password: string, passwordConfirm: string) {
     let headers: HttpHeaders = new HttpHeaders();
 
@@ -112,6 +163,11 @@ export class UserService {
     });
   }
 
+  /**
+   * Change user password
+   * @param oldPwd
+   * @param newPwd
+   */
   changePassword(oldPwd: string, newPwd: string) {
     // const headers = new Headers({ "Content-Type": "application/json" });
     let token = localStorage.getItem("token");
@@ -125,6 +181,10 @@ export class UserService {
     );
   }
 
+  /**
+   * Login only customer
+   * @param user
+   */
   login(user: User) {
     let headers: HttpHeaders = new HttpHeaders();
     // const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -144,6 +204,10 @@ export class UserService {
     });
   }
 
+  /**
+   * login only Admin
+   * @param user
+   */
   loginAdmin(user: User) {
     let headers: HttpHeaders = new HttpHeaders();
     // const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -163,6 +227,9 @@ export class UserService {
     });
   }
 
+  /**
+   * Logout action
+   */
   logout() {
     // const headers = new Headers({ "Content-Type": "application/json" });
     let token = localStorage.getItem("token");
@@ -176,6 +243,10 @@ export class UserService {
     );
   }
 
+  /**
+   * delete all tokens related to one user
+   * @param id
+   */
   unvalidateTokens(id: string) {
     // const headers = new Headers({ "Content-Type": "application/json" });
     this.clearSession();
@@ -184,7 +255,10 @@ export class UserService {
       .subscribe();
   }
 
-  //
+  /**
+   * Signup new customer
+   * @param user
+   */
   signup(user: User): Observable<any> {
     let headers: HttpHeaders = new HttpHeaders();
     headers.append("No-Auth", "True");
@@ -202,19 +276,10 @@ export class UserService {
     }
   }
 
-  getLocation(): LatLng {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        return { lat: latitude, lng: longitude };
-      });
-    } else {
-      console.log("No support for geolocation");
-      return null;
-    }
-  }
-
+  /**
+   * Match only allowed roles to access pages
+   * @param allowedRoles
+   */
   roleMatch(allowedRoles): boolean {
     var isMatch = false;
     var userRoles: string = localStorage.getItem("role");

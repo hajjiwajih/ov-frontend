@@ -25,6 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req.headers.set("Access-Control-Allow-Methods", "GET");
     req.headers.set("Access-Control-Allow-Origin", "*");
     console.log(req);
+    // no auth required for these routes
     if (
       req.url.includes("/login") ||
       req.url.includes("/request-password-reset") ||
@@ -40,6 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
       console.log(clonedReq);
       return next.handle(clonedReq);
     } else if (localStorage.getItem("token") != null) {
+      // auth required for these routes
       const clonedreq = req.clone({
         headers: new HttpHeaders({
           Authorization: localStorage.getItem("token"),

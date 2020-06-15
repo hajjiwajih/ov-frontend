@@ -80,13 +80,7 @@ export class PasswordExpiryComponent implements OnInit {
 
   validateForm() {
     $("#resetForm").addClass("was-validated");
-    // required fields
-
     // password mismatch
-    // console.log(
-    //   this.resetPasswordForm.get("confirmPassword").value,
-    //   this.resetPasswordForm.get("password").value
-    // );
     if (
       this.resetPasswordForm.get("confirmPassword").value !=
       this.resetPasswordForm.get("newPassword").value
