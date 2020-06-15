@@ -74,6 +74,9 @@ export class AdminComponent implements OnInit {
     this.subscribeToNewClients();
   }
 
+  /**
+   * Logout action
+   */
   logout() {
     this.userService.logout().subscribe((res) => {
       this.router.navigateByUrl("login-admin");
@@ -81,15 +84,25 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  /**
+   * Navigate pages with sidebar links
+   * @param route
+   */
   navigate(route) {
     this.activatedLink = route;
     this.router.navigateByUrl(route);
   }
 
+  /**
+   * Toggle profile section
+   */
   toggleProfile() {
     this.displayProfile = !this.displayProfile;
   }
 
+  /**
+   * Fetch admin infos
+   */
   getAdminInfo() {
     this.userService
       .getUserById(this.currentAdminId)
@@ -98,12 +111,18 @@ export class AdminComponent implements OnInit {
       });
   }
 
+  /**
+   * lifecycle method to clean memory
+   */
   ngOnDestroy() {
     if (this.addedSub$) this.addedSub$.unsubscribe();
     if (this.addedSubVoucher$) this.addedSubVoucher$.unsubscribe();
     if (this.addedSubClient$) this.addedSubClient$.unsubscribe();
   }
 
+  /**
+   * subscribe to incoming orders
+   */
   subscribeToNewOrders() {
     this.addedSub$ = this.orderService.newOrder.subscribe((order) => {
       console.log("new order", order);
@@ -116,6 +135,9 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  /**
+   * Subscribe to incoming vouchers
+   */
   subscribeToNewVoucher() {
     this.addedSubVoucher$ = this.voucherService.newVoucher.subscribe(
       (voucher) => {
@@ -128,6 +150,9 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  /**
+   * Subscribe to incoming customers
+   */
   subscribeToNewClients() {
     this.addedSubClient$ = this.userService.newClient.subscribe((client) => {
       console.log("new client", client);

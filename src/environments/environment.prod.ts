@@ -4,12 +4,12 @@ export const environment = {
   // env [test]
   companyName: "Symtelecom",
   // api routes
-  api_url: "https://orange.ditriot.com:8443/api",
-  api_url_users: "https://orange.ditriot.com:8443/api/users",
-  api_url_orders: "https://orange.ditriot.com:8443/api/orders",
-  api_url_tickets: "https://orange.ditriot.com:8443/api/tickets",
-  api_url_vouchers: "https://orange.ditriot.com:8443/api/vouchers",
+  api_url: "https://ditriot.com:9443/api",
+  api_url_users: "https://ditriot.com:9443/api/users",
+  api_url_orders: "https://ditriot.com:9443/api/orders",
+  api_url_tickets: "https://ditriot.com:9443/api/tickets",
+  api_url_vouchers: "https://ditriot.com:9443/api/vouchers",
   // socket server
-  socketIO_endpoint: "https://orange.ditriot.com:8443",
+  socketIO_endpoint: "https://ditriot.com:9443",
 
 };

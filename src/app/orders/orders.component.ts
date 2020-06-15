@@ -81,8 +81,6 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    //   this.activatedLink = params.category;
-
     // stats component
     this.getStats();
 
@@ -276,28 +274,23 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  /**
+   * Highlight and calculate overall stats
+   *
+   */
   getStats() {
+    // available stocks
     this.orderService.countTickets().subscribe((available) => {
       this.availableTickets = available.count;
       setTimeout(() => {
         this.isStockLoading = false;
       }, 700);
     });
-    // this.orderService.getSoldTicketsCount().subscribe((sold) => {
-    //   this.soldTickets = sold.count;
-    //   setTimeout(() => {
-    //     this.isSoldLoading = false;
-    //   }, 700);
-    // });
-    // this.orderService.getOrderCount().subscribe((orders) => {
-    //   this.totalOrders = orders.count;
-    //   setTimeout(() => {
-    //     this.isCmdLoading = false;
-    //   }, 700);
-    // });
 
     let amountStocks = 0;
     let amountSails = 0;
+
+    // tickets per amount
     this.amounts.forEach((amount, index) => {
       this.orderService.countTicketsByAmount(amount).subscribe((available) => {
         this.stocks[index] = available.count;
@@ -329,10 +322,6 @@ export class OrdersComponent implements OnInit {
     this.addedSub$ = this.orderService.newOrder.subscribe((order) => {
       console.log("new order", order);
       if (this.isValidated || this.isRejected) {
-        // currently displaying validated orders
-        // this.notificationService.pushNotification({
-        //   valid: false,
-        //   reject: false,
         // });
       } else {
         this.addRow(order);
@@ -618,6 +607,9 @@ export class OrdersComponent implements OnInit {
     this.displayModal = true;
   }
 
+  /**
+   * Count available ticket per amount / price type
+   */
   getStockDetails() {
     this.orderHidden = false;
     this.percents = [0, 0, 0];
@@ -638,6 +630,9 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  /**
+   * Count sold ticket per amount / price type
+   */
   getSailsDetails() {
     this.orderHidden = false;
     this.percents = [0, 0, 0];
@@ -659,6 +654,10 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  /**
+   * Count orders per amount / price type
+   */
+
   getOrderDetails() {
     this.orderHidden = true;
     this.loaders = [true, true, true];
@@ -674,6 +673,10 @@ export class OrdersComponent implements OnInit {
       });
     });
   }
+
+  /**
+   * show stat details
+   */
 
   openStockDetails(type) {
     this.displayDetails = true;

@@ -49,6 +49,10 @@ export class PlaceOrderComponent implements OnInit {
     this.order.issueDate = new Date();
   }
 
+  /**
+   * Add order details
+   * @param comments
+   */
   placeOrder(comments) {
     if (this.validateForm()) {
       this.order.comment = comments;
@@ -58,12 +62,19 @@ export class PlaceOrderComponent implements OnInit {
     }
   }
 
+  /**
+   * Amount / price change handler
+   * @param event
+   */
   changeAmount(event) {
     $("#amount")[0].setCustomValidity("");
     this.order.ticketAmount =
       this.amountOptions[event.target.options.selectedIndex - 1] * 1000;
   }
 
+  /**
+   * Form validation
+   */
   validateForm() {
     let isValid = true;
     $("#orderForm").addClass("was-validated");

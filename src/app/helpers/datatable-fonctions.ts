@@ -1,5 +1,18 @@
+/**
+ * @utilities some utility functions related to datatable manipulation
+ * add dynamically custom buttons
+ * add dynamically custom badges
+ */
+
 declare var $: any;
 
+/**
+ * add dynamically custom buttons
+ * @param aData
+ * @param nRow
+ * @param isClient
+ * @param args
+ */
 export function appendDtActions(aData, nRow, isClient, args) {
   if (isClient) {
     $(`td:eq(${args.column})`, nRow).html("");
@@ -76,6 +89,12 @@ export function appendDtActions(aData, nRow, isClient, args) {
   }
 }
 
+/**
+ * add dynamically custom buttons (admin)
+ * @param aData
+ * @param nRow
+ * @param args
+ */
 export function appendDtAdminActions(aData, nRow, args) {
   $(`td:eq(${args.column})`, nRow).html("");
   if (args.valid)
@@ -128,6 +147,12 @@ export function appendDtAdminActions(aData, nRow, args) {
     );
 }
 
+/**
+ * add dynamically custom badges
+ * @param aData
+ * @param nRow
+ * @param args
+ */
 export function appendDtBadges(aData, nRow, args) {
   $(`td:eq(${args.column})`, nRow).html("");
   if (aData.validated)
@@ -156,6 +181,12 @@ export function appendDtBadges(aData, nRow, args) {
     );
 }
 
+/**
+ * add dynamically custom buttons (admin)
+ * @param aData
+ * @param nRow
+ * @param args
+ */
 export function appendDtAdminBadges(aData, nRow, args) {
   $(`td:eq(${args.column})`, nRow).html("");
   if (aData.emailVerified)

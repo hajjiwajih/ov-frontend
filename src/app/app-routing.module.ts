@@ -79,24 +79,20 @@ const routes: Routes = [
         component: ChangePasswordComponent,
       },
       {
-        // only alpha version
         path: "confirm",
         component: ConfirmationComponent,
       },
       {
-        // only alpha version
         path: "validated-orders",
         component: ClientOrdersComponent,
         data: { valid: true, rejected: false },
       },
       {
-        // only alpha version
         path: "non-validated-orders",
         component: ClientOrdersComponent,
         data: { valid: false, rejected: false },
       },
       {
-        // only alpha version
         path: "rejected-orders",
         component: ClientOrdersComponent,
         data: { valid: false, rejected: true },
