@@ -4,33 +4,42 @@
     <div
       class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
     >
-      <div class="widget-chat-wrapper-outer">
-        <div class="widget-chart-content">
-          <h6 class="widget-subheading">
-            Validées
-          </h6>
-          <div class="widget-chart-flex">
-            <div class="widget-numbers mb-0 w-100">
-              <div class="widget-chart-flex">
-                <div
-                  *ngIf="loaders[0]"
-                  class="spinner-border spinner-border"
-                  role="status"
-                >
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div class="fsize-4" *ngIf="!loaders[0]">
-                  <small class="opacity-5"></small>
-                  {{ countings[0] }}
-                  <span style="font-size: 1.4rem;"
-                    >&nbsp;&nbsp; ( {{ stats[0] }} TND)</span
-                  >
-                </div>
-                <div class="ml-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 px-0 my-auto">
+            <img
+              src="../../../assets/icons/validated.png"
+              width="56px"
+              alt="validated_orders"
+            />
+          </div>
+          <div class="widget-chart-content col-8 px-0 mx-auto">
+            <h6 class="widget-subheading">
+              Validées
+            </h6>
+            <div class="widget-chart-flex">
+              <div class="widget-numbers mb-0 w-100">
+                <div class="widget-chart-flex">
                   <div
-                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                    *ngIf="loaders[0]"
+                    class="spinner-border spinner-border"
+                    role="status"
                   >
-                    <span class="text-success pl-2">{{ percents[0] }}%</span>
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="fsize-4" *ngIf="!loaders[0]">
+                    <small class="opacity-5"></small>
+                    {{ countings[0] }}
+                    <span style="font-size: 1.1rem;"
+                      >&nbsp;&nbsp; ( {{ stats[0] }} TND)</span
+                    >
+                  </div>
+                  <div class="ml-auto">
+                    <div
+                      class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                    >
+                      <span class="text-success pl-4">{{ percents[0] }}%</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -44,38 +53,47 @@
     <div
       class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
     >
-      <div class="widget-chat-wrapper-outer">
-        <div class="widget-chart-content">
-          <h6 class="widget-subheading">
-            Rejetées
-          </h6>
-          <div class="widget-chart-flex">
-            <div class="widget-numbers mb-0 w-100">
-              <div class="widget-chart-flex">
-                <div
-                  *ngIf="loaders[1]"
-                  class="spinner-border spinner-border"
-                  role="status"
-                >
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div class="fsize-4 text-danger" *ngIf="!loaders[1]">
-                  <small class="opacity-5 text-muted"></small>
-                  {{ countings[1] }}
-                  <span style="font-size: 1.4rem;"
-                    >&nbsp;&nbsp; ({{ stats[1] }} TND)</span
-                  >
-                </div>
-                <div class="ml-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 px-0 my-auto">
+            <img
+              src="../../../assets/icons/rejected.png"
+              width="56px"
+              alt="rejected_orders"
+            />
+          </div>
+          <div class="widget-chart-content col-8 px-0 mx-auto">
+            <h6 class="widget-subheading">
+              Rejetées
+            </h6>
+            <div class="widget-chart-flex">
+              <div class="widget-numbers mb-0 w-100">
+                <div class="widget-chart-flex">
                   <div
-                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                    *ngIf="loaders[1]"
+                    class="spinner-border spinner-border"
+                    role="status"
                   >
-                    <span class="text-danger pl-2">
-                      <span class="pr-1">
-                        <!-- <i class="fa fa-angle-up"></i> -->
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="fsize-4 text-danger" *ngIf="!loaders[1]">
+                    <small class="opacity-5 text-muted"></small>
+                    {{ countings[1] }}
+                    <span style="font-size: 1.1rem;"
+                      >&nbsp;&nbsp; ({{ stats[1] }} TND)</span
+                    >
+                  </div>
+                  <div class="ml-auto">
+                    <div
+                      class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                    >
+                      <span class="text-danger pl-2">
+                        <span class="pr-1">
+                          <!-- <i class="fa fa-angle-up"></i> -->
+                        </span>
+                        {{ percents[1] }}%
                       </span>
-                      {{ percents[1] }}%
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -89,39 +107,48 @@
     <div
       class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
     >
-      <div class="widget-chat-wrapper-outer">
-        <div class="widget-chart-content">
-          <h6 class="widget-subheading">Non Validées</h6>
-          <div class="widget-chart-flex">
-            <div class="widget-numbers mb-0 w-100">
-              <div class="widget-chart-flex">
-                <div
-                  *ngIf="loaders[2]"
-                  class="spinner-border spinner-border"
-                  role="status"
-                >
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <div class="fsize-4" *ngIf="!loaders[2]">
-                  <span class="text-success pr-2">
-                    <!-- <i class="fa fa-angle-down"></i> -->
-                  </span>
-                  <small class="opacity-5"></small>
-                  {{ countings[2] }}
-                  <span style="font-size: 1.4rem;"
-                    >&nbsp;&nbsp; ({{ stats[2] }} TND)</span
-                  >
-                </div>
-                <div class="ml-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 px-0 my-auto">
+            <img
+              src="../../../assets/icons/non validated.png"
+              width="56px"
+              alt="non_validated_orders"
+            />
+          </div>
+          <div class="widget-chart-content col-8 px-0 mx-auto">
+            <h6 class="widget-subheading">Non Validées</h6>
+            <div class="widget-chart-flex">
+              <div class="widget-numbers mb-0 w-100">
+                <div class="widget-chart-flex">
                   <div
-                    class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                    *ngIf="loaders[2]"
+                    class="spinner-border spinner-border"
+                    role="status"
                   >
-                    <span class="text-info pl-2">
-                      <span class="pr-1">
-                        <!-- <i class="fa fa-angle-down"></i> -->
-                      </span>
-                      {{ percents[2] }}%
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="fsize-4" *ngIf="!loaders[2]">
+                    <span class="text-success pr-2">
+                      <!-- <i class="fa fa-angle-down"></i> -->
                     </span>
+                    <small class="opacity-5"></small>
+                    {{ countings[2] }}
+                    <span style="font-size: 1.1rem;"
+                      >&nbsp;&nbsp; ({{ stats[2] }} TND)</span
+                    >
+                  </div>
+                  <div class="ml-auto">
+                    <div
+                      class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
+                    >
+                      <span class="text-info pl-2">
+                        <span class="pr-1">
+                          <!-- <i class="fa fa-angle-down"></i> -->
+                        </span>
+                        {{ percents[2] }}%
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
