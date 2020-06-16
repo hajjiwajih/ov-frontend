@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 })
 export class ProfileComponent implements OnInit {
   @Input() user: User;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -118,6 +118,16 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
+  }
+
+  logout() {
+    this.userService.logout().subscribe((res) => {
+      this.router.navigateByUrl("login");
+    });
+  }
+
+  navigate(route) {
+    this.router.navigateByUrl(route);
   }
 
   editPhone() {

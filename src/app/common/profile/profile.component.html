@@ -23,20 +23,35 @@
       ></div>
       <div class="menu-header-content btn-pane-right">
         <!-- <div
-class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine"
->
-<div class="avatar-icon rounded">
-  <img src="assets/images/avatars/1.jpg" alt="Avatar 5" />
-</div>
-</div> -->
+          class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine"
+          >
+          <div class="avatar-icon rounded">
+            <img src="assets/images/avatars/1.jpg" alt="Avatar 5" />
+          </div>
+        </div> -->
+        <!-- <div style="display: inline; border-radius: 50%;">
+          <img src="../../../assets/images/user img.png" alt="user_img" width="60px">
+        </div> -->
         <div>
-          <h5 class="menu-header-title">
+          <h5 class="menu-header-title" style="display: inline;">
             {{ user.fname + " " + user.lname }}
           </h5>
-          <h6 class="menu-header-subtitle">
+          <div style="display: inline;">
+            <button
+              class="btn btn-success py-0 ml-3 mb-1"
+              *ngIf="user.emailVerified"
+            >
+              Vérifié
+            </button>
+            <button class="btn btn-warning" *ngIf="!user.emailVerified">
+              Non vérifié
+            </button>
+          </div>
+          <h6 class="menu-header-subtitle my-2">
             {{ user.email }}
           </h6>
-          <div class="widget-content-right widget-content-actions">
+
+          <!-- <div class="widget-content-right widget-content-actions">
             <button
               title="Edit"
               class="mr-1 btn-icon btn-icon-only btn btn-light btn-sm"
@@ -44,15 +59,14 @@ class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine"
             >
               <i class="pe-7s-tools btn-icon-wrapper"> </i>
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="menu-header-btn-pane">
-          <button class="btn btn-success" *ngIf="user.emailVerified">
-            Vérifié
-          </button>
-          <button class="btn btn-warning" *ngIf="!user.emailVerified">
-            Non vérifié
-          </button>
+          <div class="widget-content-right mr-2">
+            <button class="btn-pill btn-shadow btn-shine btn btn-danger" (click)="logout()">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -216,6 +230,7 @@ class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine"
             <div class="p-1">
               <button
                 class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-focus"
+                (click)="navigate('portal/account-settings')"
               >
                 <i class="lnr-gift text-focus opacity-7 btn-icon-wrapper mb-2">
                 </i>
