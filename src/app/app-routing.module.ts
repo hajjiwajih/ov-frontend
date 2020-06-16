@@ -3,7 +3,7 @@ import { LatestOrdersComponent } from "./client/latest-orders/latest-orders.comp
 import { ChangePasswordComponent } from "./main-dashboard/change-password/change-password.component";
 import { StockComponent } from "./admin-pages/stock/stock.component";
 import { ClientDetailsComponent } from "./admin-pages/client-details/client-details.component";
-import { AddAdminComponent } from "./admin-pages/add-admin/add-admin.component";
+// import { AddAdminComponent } from "./admin-pages/add-admin/add-admin.component";
 import { VerifyComponent } from "./main-dashboard/verify/verify.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { ClientOrdersComponent } from "./client/client-orders/client-orders.component";
