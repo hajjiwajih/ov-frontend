@@ -11201,7 +11201,7 @@ button,
 }
 .app-header .page-title-subheading {
   padding: 3px 0 0;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   opacity: 0.6;
   font-weight: 300;
   display: block;
@@ -38531,6 +38531,19 @@ span.multiselect-native-select select {
 }
 
 
+/* Front End refactoring */
+
+.sym__voucher {
+  display: inline;
+  font-size: 22px;
+  font-weight: bold
+}
+
+.profile__toggle {
+  border-radius: .5rem;
+}
+
+
 @media (min-width: 1250px) {
   .app-main .app-main__inner {
     width: 79.8%;
@@ -38554,5 +38567,11 @@ span.multiselect-native-select select {
 
   .app-inner-layout.app-inner-layout-page.app-layout-menu-open .app-inner-layout__wrapper .app-inner-layout__sidebar .app-layout__sidebar-inner {
     padding-right: 13px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .logo__container {
+    display: none;
   }
 }
