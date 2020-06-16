@@ -84,11 +84,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.userService.logout().subscribe((res) => {
-      this.router.navigateByUrl("login");
-    });
-  }
+  // Removed from here and moved to Profile component
+
+  // logout() {
+  //   this.userService.logout().subscribe((res) => {
+  //     this.router.navigateByUrl("login");
+  //   });
+  // }
 
   navigate(route) {
     this.activatedLink = route;

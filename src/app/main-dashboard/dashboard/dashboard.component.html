@@ -37,10 +37,10 @@
           </div>
           <div class="app-header">
             <div class="page-title-heading">
-              Orange Voucher
+              <!-- Orange Voucher
               <button class="mt-2 mr-2 btn-icon btn-sm btn-pill btn btn-light">
                 <i class="pe-7s-upload btn-icon-wrapper"> </i>Client
-              </button>
+              </button> -->
               <div class="page-title-subheading">
                 Portail web pour accès & management client |
                 {{ companyName }} <span style="font-size: x-large;">&trade;</span>
@@ -52,7 +52,7 @@
                               <input type="text" placeholder="Recherche...">
                           </div> -->
               <button
-                class="btn-icon btn-sm btn-pill btn btn-light"
+                class="btn-icon btn-sm profile__toggle btn"
                 aria-haspopup="true"
                 aria-expanded="true"
                 data-toggle="dropdown"
@@ -66,11 +66,14 @@
                     data-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <i
+                    <!-- <i
                       class="dot-btn-icon typcn typcn-user-outline text-success"
-                    ></i>
+                    ></i> -->
                     <!-- <div class="badge badge-dot badge-abs badge-dot-sm badge-success">active</div> -->
-                    <h6 style="margin: auto 8px;">{{ currentAgentEmail }}</h6>
+                    <h6 style="margin: auto 8px;">
+                      <img src="../../../assets/images/user img.png" width="50px" alt="">
+                      <span class="lnr lnr-chevron-down ml-1 mt-2"></span>
+                    </h6>
                   </a>
                 </div>
               </button>
@@ -98,6 +101,7 @@
                   </div>
                 </div>
               </div>
+              
               <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                   <div class="widget-content-wrapper">
@@ -133,10 +137,8 @@
                         class="widget-content-right mr-2"
                         style="margin-bottom: -16px;"
                       >
-                        <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
-                                                  </button> -->
-  
-                        <div
+                        <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</button> -->
+                        <!-- <div
                           class="font-icon-wrapper"
                           style="font-size: 1.5rem; cursor: pointer;"
                           (click)="logout()"
@@ -149,7 +151,7 @@
                             ></i
                           >
                           <p>Déconnexion</p>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -258,6 +260,10 @@
           <div class="app-inner-layout__sidebar">
             <div class="app-layout__sidebar-inner dropdown-menu-rounded">
               <div class="nav flex-column">
+                <div class="mt-1 mb-5 logo__container">
+                  <img src="../../../assets/images/logo-sm.png" width="50px"/>
+                  <p class="sym__voucher ml-2 mt-5">Sym Voucher</p>
+                </div>
                 <div class="nav-item-header text-primary nav-item">
                   Liens Rapides
                 </div>
