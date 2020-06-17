@@ -211,6 +211,18 @@ export class ClientOrdersComponent implements OnInit {
                 _self.downloadCSV(table.row($(this).parent().parent()).data());
               }
             );
+
+            // handle button click -> download csv
+            $("#orderTables tbody").on(
+              "click",
+              "tr .btn-outline-success",
+              function () {
+                _self.downloadPrintablePDF(
+                  table.row($(this).parent().parent()).data()
+                );
+              }
+            );
+
             // handle button click -> view dialog
             $("#orderTables tbody").on(
               "click",
@@ -384,6 +396,32 @@ export class ClientOrdersComponent implements OnInit {
       var formatted = this.pipe.transform(d, "yyyyMMddHHmmss");
 
       saveAs(blob, formatted + "-" + order.orderAuto + ".csv");
+    });
+  }
+
+  /**
+   * Download PDF printable format
+   * @param order
+   */
+  downloadPrintablePDF(order: Order) {
+    this.orderService.getOrderTicketsPDF(order.idOrder).subscribe((data) => {
+      // create the blob object with content-type "application/pdf"
+      var blob = new Blob([data], { type: "application/pdf" });
+
+      var d = new Date(Date.parse(order.validationDate));
+      var formatted = this.pipe.transform(d, "yyyyMMddHHmmss");
+
+      // directly open in new window
+      var fileURL = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = fileURL;
+      a.target = "_blank";
+      a.title = "pdfFile.pdf";
+      document.body.appendChild(a);
+      a.click();
+
+      // download file instead
+      // saveAs(blob, formatted + "-" + order.orderAuto + ".pdf");
     });
   }
 

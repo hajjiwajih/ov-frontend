@@ -33,6 +33,14 @@ export function appendDtActions(aData, nRow, isClient, args) {
       >
       <i class="pe-7s-cloud-download btn-icon-wrapper"> </i
       >Télécharger
+      </button>
+      <button
+      class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-success collapsed"
+      aria-expanded="false"
+      (click)="downloadPrintablePDF(order)"
+      >
+      <i class="pe-7s-cloud-download btn-icon-wrapper"> </i
+      >Imprimer
       </button>`
       );
     else
