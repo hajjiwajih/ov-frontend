@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit {
 
           this.msgs.push({
             severity: "error",
-            summary: "Message",
+            summary: "",
             detail:
               "Utilisateur non reconnu, vous pouvez d'abord vérifier vos données ou contacter votre administrateur.",
           });
