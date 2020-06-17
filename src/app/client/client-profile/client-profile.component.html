@@ -123,15 +123,24 @@
                         </div>
 
                         <input
-                          
+                          disabled
                           style="width: 240px;"
                           name="email"
                           id="exampleEmail"
-                          value="janedoe@gmail.com"
+                          [value]="mClient.email"
                           type="email"
                           class="form-control"
                         />
                       </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                        (click)="editInfo('email')"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
                     </div>
                   </div>
 
@@ -151,14 +160,23 @@
                         </div>
 
                         <input
-                          
+                          disabled
                           style="width: 240px;"
                           name="phone"
-                          value="+218923528753"
+                          [value]="mClient.phone ? mClient.phone : ''"
                           type="text"
                           class="form-control"
                         />
                       </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                        (click)="editInfo('Téléphone')"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
                     </div>
                   </div>
 
@@ -175,7 +193,7 @@
                         </div>
 
                         <input
-                          
+                          disabled
                           style="width: 240px;"
                           name="password"
                           value="********"
@@ -184,16 +202,34 @@
                         />
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="row">
-                    <div class="col-md-5 ml-auto">
-                      <button class="account-settings-buttons mr-2 btn btn-outline-primary px-4">Change Password</button>
-                      <button class="account-settings-buttons mr-2 btn btn-primary" style="padding-right: 3.15rem; padding-left: 3.15rem;">Submit</button>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                        (click)="navigate('portal/change-password')"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
                     </div>
                   </div>
                 </div>
+                <!-- <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-5 ml-auto">
+                      <button
+                        class="account-settings-buttons mr-2 btn btn-outline-primary px-4"
+                      >
+                        Change Password
+                      </button>
+                      <button
+                        class="account-settings-buttons mr-2 btn btn-primary"
+                        style="padding-right: 3.15rem; padding-left: 3.15rem;"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div> -->
               </div>
             </div>
           </div>
