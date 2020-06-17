@@ -38562,8 +38562,9 @@ span.multiselect-native-select select {
 }
 
 
+
 @media (min-width: 1250px) {
-  .app-main .app-main__inner {
+  .app-header {
     width: 79.8%;
     margin-left: auto;
   }
