@@ -23,6 +23,7 @@ import { LoginComponent } from "./main-dashboard/login/login.component";
 import { LogoutGuard } from "./services/logout-guard";
 import { ResetPasswordComponent } from "./main-dashboard/reset-password/reset-password.component";
 import { ClientListingComponent } from "./admin-pages/client-listing/client-listing.component";
+import { ClientProfileComponent } from "./client/client-profile/client-profile.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -96,6 +97,10 @@ const routes: Routes = [
         path: "rejected-orders",
         component: ClientOrdersComponent,
         data: { valid: false, rejected: true },
+      },
+      {
+        path: "account-settings",
+        component: ClientProfileComponent,
       },
     ],
   },

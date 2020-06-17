@@ -1,0 +1,35 @@
+@media (max-width: 576px) {
+  .account-settings-buttons {
+    width: 100%;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .account-settings-inputs {
+    width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .account-settings-buttons {
+    width: 100%;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .account-settings-inputs {
+    width: 260px;
+  }
+}
+
+@media (max-width: 992px) {
+  .account-settings-buttons {
+    width: 100%;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .account-settings-inputs {
+    width: 300px;
+  }
+}
