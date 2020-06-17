@@ -38567,13 +38567,15 @@ span.multiselect-native-select select {
   .app-header {
     width: 79.8%;
     margin-left: auto;
+    padding-right: 12px;
+    padding-left: 28px;
   }
 
   .app-inner-layout.app-inner-layout-page
   .app-inner-layout__wrapper
   .app-inner-layout__sidebar {
     position: relative;
-    top: -100px;
+    top: -117px;
     background: #E9E9E9;
     margin-bottom: -162px;
   }

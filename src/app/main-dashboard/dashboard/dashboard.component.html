@@ -72,7 +72,12 @@
                   </div>
                 </div>
               </div>
-
+<!-- profile section -->
+<app-profile
+[user]="mClient"
+*ngIf="displayProfile"
+></app-profile>
+<!--  end profile section -->
               <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                   <div class="widget-content-wrapper">
@@ -84,7 +89,7 @@
                         <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
                                                   </button> -->
 
-                        <div
+                        <!-- <div
                           class="font-icon-wrapper"
                           style="font-size: 1.5rem; cursor: pointer;"
                           (click)="navigate('portal/change-password')"
@@ -96,9 +101,10 @@
                             title="Copy to use power-off"
                           ></i>
                           <p>Mot de passe</p>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
+                    
                     <button
                       class="btn-icon btn-sm profile__toggle btn pr-0"
                       aria-haspopup="true"
@@ -130,12 +136,7 @@
                       </div>
                     </button>
 
-                    <!-- profile section -->
-                    <app-profile
-                      [user]="mClient"
-                      *ngIf="displayProfile"
-                    ></app-profile>
-                    <!--  end profile section -->
+                    
                   </div>
                 </div>
                 <div class="widget-content p-0">
@@ -264,6 +265,7 @@
             </ul> -->
         <!-- </div>
         </div>  -->
+        <hr class="mt-0">
         <div class="app-inner-layout__wrapper">
           <div class="app-inner-layout__sidebar">
             <div class="app-layout__sidebar-inner dropdown-menu-rounded">
