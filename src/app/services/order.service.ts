@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { Ticket } from "./../models/ticket";
 import { Order } from "./../models/order";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "./../../environments/environment";
 import { Socket } from "ngx-socket-io";
@@ -98,6 +98,18 @@ export class OrderService {
     return this.client.get<Ticket[]>(this.ticketsUrl + "/orderTickets/" + id);
   }
 
+  /**
+   * Fetch all related order tickets in PDF format
+   * @param id
+   */
+  getOrderTicketsPDF(id) {
+    let headers = new HttpHeaders();
+    // headers = headers.set("Accept", "application/pdf");
+    return this.client.get<string>(this.ticketsUrl + "/orderTicketsPDF/" + id, {
+      headers: headers,
+      responseType: "blob" as "json",
+    });
+  }
   /**
    * Remove persisted order
    * @param idOrder
