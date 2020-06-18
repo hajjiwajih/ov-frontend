@@ -10,7 +10,7 @@ pipeline {
     
     stage('Build') {
       steps {
-        sh "ssh PRadmin@192.168.10.14 'cd  && ov-frontend npm install'"
+        sh "ssh PRadmin@192.168.10.14 'cd ov-frontend && npm install'"
       }
     }
     
