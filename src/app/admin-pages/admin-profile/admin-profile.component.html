@@ -20,8 +20,10 @@
             />
           </div>
           <div class="text-center mb-3">
-            <h3 class="my-2">{{mAdmin.fname + ' ' + mAdmin.lname}}</h3>
-            <h6 class="my-3" style="color: gray; letter-spacing: 2px;">{{mAdmin.email}}</h6>
+            <h3 class="my-2">{{ mAdmin.fname + " " + mAdmin.lname }}</h3>
+            <h6 class="my-3" style="color: gray; letter-spacing: 2px;">
+              {{ mAdmin.email }}
+            </h6>
             <div class="menu-header-btn-pane">
               <button class="btn btn-success btn-rounded py-1 mt-1 mb-2">
                 <img
@@ -52,7 +54,6 @@
             </div>
           </div> -->
 
-
           <div class="row my-3 mx-auto" style="width: 94%;">
             <div class="col-md-12 bg-light pt-4 pb-0 px-4">
               <h2>Account Info</h2>
@@ -60,20 +61,22 @@
                 <div class="col-md-3 mr-auto">
                   <div class="py-2">
                     <h5 style="color: #202020;">Username</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">{{mAdmin.fname + ' ' + mAdmin.lname}}</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mAdmin.fname + " " + mAdmin.lname }}
+                    </h6>
                   </div>
 
                   <div class="py-2">
                     <h5 style="color: #202020;">Email</h5>
                     <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{mAdmin.email}}
+                      {{ mAdmin.email }}
                     </h6>
                   </div>
 
                   <div class="py-2">
                     <h5 style="color: #202020;">Phone number</h5>
                     <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{mAdmin.phone ? mAdmin.phone : 'N/A'}}
+                      {{ mAdmin.phone ? mAdmin.phone : "N/A" }}
                     </h6>
                   </div>
                 </div>
@@ -85,20 +88,24 @@
 
                   <div class="py-2">
                     <h5 style="color: #202020;">Num CIN</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">{{mAdmin.cin}}</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mAdmin.cin }}
+                    </h6>
                   </div>
 
                   <div class="py-2">
                     <h5 style="color: #202020;">Registered On</h5>
                     <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{mAdmin.creationAt}}
+                      {{ mAdmin.creationAt }}
                     </h6>
                   </div>
                 </div>
                 <div class="col-md-3 ml-auto">
                   <div class="py-2">
                     <h5 style="color: #202020;">REF</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">{{mAdmin.autoID}}</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mAdmin.autoID }}
+                    </h6>
                   </div>
                 </div>
               </div>
@@ -139,7 +146,6 @@
                       <button
                         title="Edit"
                         class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
-                        (click)="editInfo('email')"
                       >
                         <i class="pe-7s-tools btn-icon-wrapper"> </i>
                       </button>
@@ -175,12 +181,13 @@
                       <button
                         title="Edit"
                         class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
-                        (click)="editInfo('Téléphone')"
                       >
                         <i class="pe-7s-tools btn-icon-wrapper"> </i>
                       </button>
                     </div>
                   </div>
+                  <!-- (click)="editInfo('Téléphone')"
+                  (click)="editInfo('email')" -->
 
                   <div class="py-2 row w-100 my-3">
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">

@@ -1,5 +1,147 @@
-<div class="app-container app-theme-gray">
+<div id="wrapper"  class="app-container app-theme-gray">
   <div class="app-main">
+    <div class="app-sidebar-wrapper">
+      <div id="wrapper2" class="app-sidebar sidebar-shadow">
+        <div class="app-header__logo py-2">
+          <img src="../../../assets/images/logo-sm.png" width="50px" />
+          <p class="sym__voucher ml-2 mt-3">Sym Voucher</p>
+        </div>
+        <div class="scrollbar-sidebar scrollbar-container ps ps--active-y">
+          <div class="app-sidebar__inner dropdown-menu-rounded">
+            <ul class="vertical-nav-menu metismenu" style="cursor: pointer;" (click)="collapseMenu()">
+              <li class="mb-2 app-sidebar__heading">
+                Liens Rapides
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'monitor/active'
+                }"
+                [routerLink]=""
+                (click)="navigate('monitor/active')"
+              >
+                Commandes Actives
+                <span
+                  *ngIf="newOrders"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'monitor/active'
+                  }"
+                  >{{ newOrders }}</span
+                >
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'monitor/validated'
+                }"
+                (click)="navigate('monitor/validated')"
+                [routerLink]=""
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Validées
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'monitor/rejected'
+                }"
+                (click)="navigate('monitor/rejected')"
+                [routerLink]=""
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+                title=""
+              >
+                Commandes Rejetées
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'monitor/clients'
+                }"
+                (click)="navigate('monitor/clients')"
+                [routerLink]=""
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+                title=""
+              >
+                Clients<span
+                  *ngIf="newClients"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'monitor/clients'
+                  }"
+                  >{{ newClients }}</span
+                >
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'monitor/stocks'
+                }"
+                (click)="navigate('monitor/stocks')"
+                [routerLink]=""
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+                title=""
+              >
+                Stock Reçu
+                <span
+                  *ngIf="newVouchers"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'monitor/stocks'
+                  }"
+                  >{{ newVouchers }}</span
+                >
+              </li>
+              <!-- <a
+                    class="dropdown-item"
+                    href="javascript:void(0)"
+                    data-title="Mise à Jour"
+                    data-placement="right"
+                    data-toggle="popover-custom-bg"
+                    data-bg-class="text-light bg-focus"
+                    data-content="Cette fonctionnalité sera ajoutée dans les prochaines versions"
+                    data-original-title=""
+                    title=""
+                    >Mise à Jour</a
+                  >
+                  <a
+                    class="dropdown-item"
+                    href="javascript:void(0)"
+                    data-title="Open Tickets"
+                    data-placement="right"
+                    data-toggle="popover-custom-bg"
+                    data-bg-class="text-light bg-focus"
+                    data-content="Cette fonctionnalité sera ajoutée dans les prochaines versions"
+                    data-original-title=""
+                    title=""
+                    >Problèmes</a
+                  > -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="app-sidebar-overlay d-none animated fadeIn"></div>
     <div class="app-main__outer">
       <div class="app-inner-layout app-inner-layout-page app-layout-menu-open">
