@@ -20,10 +20,13 @@
             />
           </div>
           <div class="text-center mb-3">
-            <h3>Jane Doe</h3>
-            <h6 style="color: gray; letter-spacing: 2px;">janedoe@gmail.com</h6>
+            <h3 class="my-2">{{mClient.fname + ' ' + mClient.lname}}</h3>
+            <h6 class="my-3" style="color: gray; letter-spacing: 2px;">{{mClient.email}}</h6>
             <div class="menu-header-btn-pane">
-              <button class="btn btn-success btn-rounded py-1 mt-1 mb-2">
+              <button
+                class="btn btn-success btn-rounded py-1 mt-1 mb-2"
+                *ngIf="mClient.emailVerified"
+              >
                 <img
                   src="../../../assets/images/tick.png"
                   width="12px"
@@ -31,23 +34,27 @@
                 />
                 Vérifié
               </button>
-              <!-- <button class="btn btn-warning" *ngIf="!mClient.emailVerified">
+              <button class="btn btn-warning" *ngIf="!mClient.emailVerified">
                 Non vérifié
-              </button> -->
+              </button>
             </div>
           </div>
           <div class="row w-50 m-auto text-center">
             <div class="col-md-3 mr-auto">
-              <h2 style="color: blue;">6</h2>
-              <h6>Total Orders</h6>
+              <h2 style="color: blue;"><b class="text-info">{{
+                validOrders.length +
+                  nonValidOrders.length +
+                  rejectedOrders.length
+              }}</b></h2>
+              <h6>Commandes Effectées,</h6>
             </div>
             <div class="col-md-3">
-              <h2 class="text-success">2</h2>
-              <h6>Validated</h6>
+              <h2 class="text-success">{{ validOrders.length }}</h2>
+              <h6>Validées</h6>
             </div>
             <div class="col-md-3 ml-auto">
-              <h2 class="text-danger">4</h2>
-              <h6>Rejected</h6>
+              <h2 class="text-danger">{{ rejectedOrders.length }}</h2>
+              <h6>Rejetées</h6>
             </div>
           </div>
           <div class="row my-3 mx-auto" style="width: 94%;">
@@ -57,46 +64,45 @@
                 <div class="col-md-3 mr-auto">
                   <div class="py-2">
                     <h5 style="color: #202020;">Username</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">John doe</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">{{mClient.fname + ' ' + mClient.lname}}</h6>
                   </div>
 
                   <div class="py-2">
                     <h5 style="color: #202020;">Email</h5>
                     <h6 style="color: #787c80;" class="pl-4 py-2">
-                      janedoe@gmail.com
+                      {{mClient.email}}
                     </h6>
                   </div>
 
                   <div class="py-2">
-                    <h5 style="color: #202020;">Phone number</h5>
+                    <h5 style="color: #202020;">Tél</h5>
                     <h6 style="color: #787c80;" class="pl-4 py-2">
-                      +218923528753
+                      {{mClient.phone ? mClient.phone : 'N/A'}}
                     </h6>
                   </div>
                 </div>
                 <div class="col-md-3 w-auto">
                   <div class="py-2">
                     <h5 style="color: #202020;">Num Patent</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">8516972Z</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">{{ mClient.username }}</h6>
                   </div>
 
                   <div class="py-2">
                     <h5 style="color: #202020;">Num CIN</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">08961453</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">{{mClient.cin}}</h6>
                   </div>
 
                   <div class="py-2">
-                    <h5 style="color: #202020;">Registered On</h5>
+                    <h5 style="color: #202020;">INSCRIT LE</h5>
                     <h6 style="color: #787c80;" class="pl-4 py-2">
-                      06/Jun/2020 <br />
-                      08:35 PM
+                      {{mClient.creationAt}}
                     </h6>
                   </div>
                 </div>
                 <div class="col-md-3 ml-auto">
                   <div class="py-2">
                     <h5 style="color: #202020;">REF</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">CL0048</h6>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">{{mClient.autoID}}</h6>
                   </div>
                 </div>
               </div>
@@ -146,7 +152,7 @@
 
                   <div class="py-2 row w-100 my-3">
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
-                      Phone number
+                      Tél
                     </h5>
                     <div class="col-md-5 col-12 ml-auto">
                       <div class="input-group mb-2 mr-sm-2">

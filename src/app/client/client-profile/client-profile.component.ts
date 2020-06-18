@@ -1,9 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { environment } from "./../../../environments/environment";
 import { User } from "./../../models/user";
+import { Order } from "./../../models/order";
 import { UserService } from "./../../services/user.service";
+import { OrderService } from "./../../services/order.service";
+import { Subscription } from "rxjs";
 import Swal from "sweetalert2";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "client-profile",
@@ -11,11 +14,20 @@ import { Router } from '@angular/router';
   styleUrls: ["./client-profile.component.css"],
 })
 export class ClientProfileComponent implements OnInit {
+  validOrders: Order[];
+  rejectedOrders: Order[];
+  nonValidOrders: Order[];
+  obs$: Subscription;
+
   mClient: User;
   clientId: string;
   currentAgentEmail: string;
   companyName: string;
-  constructor(private userService: UserService,  private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit() {
     this.clientId = localStorage.getItem("currentUserId");
@@ -24,6 +36,21 @@ export class ClientProfileComponent implements OnInit {
 
     // get client info
     this.getClientInfo();
+
+    // intialialize order history tables
+    this.initClientOrders(true, false); // validated
+    this.initClientOrders(false, false); // non validated
+    this.initClientOrders(false, true); // rejected
+  }
+
+  initClientOrders(valid, rejected) {
+    this.obs$ = this.orderService
+      .getClientOrders(this.clientId, valid, rejected)
+      .subscribe((orders) => {
+        if (valid) this.validOrders = orders;
+        if (rejected) this.rejectedOrders = orders;
+        if (!valid && !rejected) this.nonValidOrders = orders;
+      });
   }
 
   editInfo(attr) {
@@ -40,7 +67,7 @@ export class ClientProfileComponent implements OnInit {
   getClientInfo() {
     this.userService.getUserById(this.clientId).subscribe((clientInfo) => {
       this.mClient = clientInfo;
-      
+      console.log(this.mClient);
     });
   }
 
@@ -49,7 +76,7 @@ export class ClientProfileComponent implements OnInit {
   }
 
   editMail() {
-    console.log(this.mClient)
+    console.log(this.mClient);
     let status = false;
     Swal.queue([
       {
@@ -167,19 +194,21 @@ export class ClientProfileComponent implements OnInit {
           if (change)
             return new Promise<any>((resolve, reject) => {
               this.mClient.phone = change;
-              this.userService.updateUser(this.mClient, this.mClient.id).subscribe(
-                (updatedUser) => {
-                  console.log(updatedUser);
-                  resolve(updatedUser);
-                },
-                (err) => {
-                  reject(
-                    new Error(
-                      "Modification non enregistrée - Service non-disponible"
-                    )
-                  );
-                }
-              );
+              this.userService
+                .updateUser(this.mClient, this.mClient.id)
+                .subscribe(
+                  (updatedUser) => {
+                    console.log(updatedUser);
+                    resolve(updatedUser);
+                  },
+                  (err) => {
+                    reject(
+                      new Error(
+                        "Modification non enregistrée - Service non-disponible"
+                      )
+                    );
+                  }
+                );
             })
               .then(
                 (updated) => {
