@@ -4,28 +4,39 @@
 <div class="row">
   <div class="col-md-6 col-xl-6">
     <div
-      class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card"
+      class="widget-chart widget-chart2 text-left mb-3  card"
     >
-      <div class="widget-content-wrapper">
-        <div class="widget-content-left">
-          <div class="widget-heading">Stock Disponible</div>
-          <div class="widget-subheading">Nombre des codes disponibles</div>
-        </div>
-        <div class="widget-content-right">
-          <div class="widget-numbers">
-            <div
-              *ngIf="isStockLoading"
-              class="spinner-border spinner-border"
-              role="status"
-            >
-              <span class="sr-only">Loading...</span>
+      <div class="container">
+        <div class="row">
+          <div class="col-2 px-0 my-auto">
+            <img
+              src="../../assets/icons/available.svg"
+              width="88px"
+              alt="validated_orders"
+            />
+          </div>
+          <div class="widget-content-wrapper col-9 px-0 ml-auto">
+            <div class="widget-content-left">
+              <div class="widget-heading">Stock Disponible</div>
+              <div class="widget-subheading">Nombre des codes disponibles</div>
             </div>
-            <span *ngIf="!isStockLoading"
-              >{{ availableTickets }}
-              <span style="font-size: 1.5rem;"
-                >({{ amountStocks }} TND)</span
-              ></span
-            >
+            <div class="widget-content-right">
+              <div class="widget-numbers">
+                <div
+                  *ngIf="isStockLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <span *ngIf="!isStockLoading"
+                  >{{ availableTickets }}
+                  <span style="font-size: 1.1rem;"
+                    >({{ amountStocks }} TND)</span
+                  ></span
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -38,7 +49,7 @@
         text-decoration: underline;
         right: 5%;
       "
-      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger"
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success"
       (click)="openStockDetails('available')"
     >
       Détail
@@ -46,26 +57,37 @@
   </div>
   <div class="col-md-6 col-xl-6">
     <div
-      class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card"
+      class="widget-chart widget-chart2 text-left mb-3 card"
     >
-      <div class="widget-content-wrapper">
-        <div class="widget-content-left">
-          <div class="widget-heading">Stock Vendu</div>
-          <div class="widget-subheading">Montant des codes vendus</div>
-        </div>
-        <div class="widget-content-right">
-          <div class="widget-numbers">
-            <div
-              *ngIf="isSoldLoading"
-              class="spinner-border spinner-border"
-              role="status"
-            >
-              <span class="sr-only">Loading...</span>
+      <div class="container">
+        <div class="row">
+          <div class="col-2 px-0 my-auto">
+            <img
+              src="../../assets/icons/sold.svg"
+              width="88px"
+              alt="validated_orders"
+            />
+          </div>
+          <div class="widget-content-wrapper col-9 px-0 ml-auto">
+            <div class="widget-content-left">
+              <div class="widget-heading">Stock Vendu</div>
+              <div class="widget-subheading">Montant des codes vendus</div>
             </div>
-            <span *ngIf="!isSoldLoading"
-              >{{ amountSails }}
-              <span style="font-size: 1.5rem;"> TND</span></span
-            >
+            <div class="widget-content-right">
+              <div class="widget-numbers">
+                <div
+                  *ngIf="isSoldLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <span *ngIf="!isSoldLoading"
+                  >{{ amountSails }}
+                  <span style="font-size: 1.5rem;"> TND</span></span
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -133,7 +155,7 @@
 <div class="row animated fadeIn" *ngIf="displayDetails">
   <div class="col-md-6 col-lg-4">
     <div
-      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+      class="mb-3 widget-chart widget-chart2 text-left card"
     >
       <div class="widget-chat-wrapper-outer">
         <div class="widget-chart-content">
@@ -153,7 +175,7 @@
                 <div class="fsize-4" *ngIf="!loaders[0]">
                   <small class="opacity-5"></small>
                   {{ stocks[0] }}
-                  <span *ngIf="!orderHidden" style="font-size: 1.4rem;"
+                  <span *ngIf="!orderHidden" style="font-size: 1.1rem;"
                     >&nbsp;&nbsp; ( {{ totalPerType[0] }} TND)</span
                   >
                 </div>
@@ -173,7 +195,7 @@
   </div>
   <div class="col-md-6 col-lg-4">
     <div
-      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+      class="mb-3 widget-chart widget-chart2 text-left card"
     >
       <div class="widget-chat-wrapper-outer">
         <div class="widget-chart-content">
@@ -193,7 +215,7 @@
                 <div class="fsize-4 text-danger" *ngIf="!loaders[1]">
                   <small class="opacity-5 text-muted"></small>
                   {{ stocks[1] }}
-                  <span *ngIf="!orderHidden" style="font-size: 1.4rem;"
+                  <span *ngIf="!orderHidden" style="font-size: 1.1rem;"
                     >&nbsp;&nbsp; ({{ totalPerType[1] }} TND)</span
                   >
                 </div>
@@ -218,7 +240,7 @@
   </div>
   <div class="col-md-6 col-lg-4">
     <div
-      class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card"
+      class="mb-3 widget-chart widget-chart2 text-left card"
     >
       <div class="widget-chat-wrapper-outer">
         <div class="widget-chart-content">
@@ -239,7 +261,7 @@
                   </span>
                   <small class="opacity-5"></small>
                   {{ stocks[2] }}
-                  <span *ngIf="!orderHidden" style="font-size: 1.4rem;"
+                  <span *ngIf="!orderHidden" style="font-size: 1.1rem;"
                     >&nbsp;&nbsp; ({{ totalPerType[2] }} TND)</span
                   >
                 </div>
