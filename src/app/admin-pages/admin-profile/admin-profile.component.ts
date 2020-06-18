@@ -39,7 +39,6 @@ export class AdminProfileComponent implements OnInit {
       .getUserById(this.currentAdminId)
       .subscribe((clientInfo) => {
         this.mAdmin = clientInfo;
-        console.log(this.mAdmin)
       });
   }
 
