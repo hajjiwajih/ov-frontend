@@ -24,6 +24,7 @@ import { LogoutGuard } from "./services/logout-guard";
 import { ResetPasswordComponent } from "./main-dashboard/reset-password/reset-password.component";
 import { ClientListingComponent } from "./admin-pages/client-listing/client-listing.component";
 import { ClientProfileComponent } from "./client/client-profile/client-profile.component";
+import { AdminProfileComponent } from "./admin-pages/admin-profile/admin-profile.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -145,6 +146,10 @@ const routes: Routes = [
       {
         path: "stocks",
         component: StockComponent,
+      },
+      {
+        path: "account-settings",
+        component: AdminProfileComponent,
       },
     ],
   },
