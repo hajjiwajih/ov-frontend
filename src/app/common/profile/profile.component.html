@@ -227,10 +227,20 @@
             </div>
           </div>
           <div class="col-sm-6">
-            <div class="p-1">
+            <div class="p-1" *ngIf="user.role == 'client'">
               <button
                 class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-focus"
                 (click)="navigate('portal/account-settings')"
+              >
+                <i class="lnr-gift text-focus opacity-7 btn-icon-wrapper mb-2">
+                </i>
+                Settings
+              </button>
+            </div>
+            <div class="p-1" *ngIf="user.role == 'admin'">
+              <button
+                class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-focus"
+                (click)="navigate('monitor/account-settings')"
               >
                 <i class="lnr-gift text-focus opacity-7 btn-icon-wrapper mb-2">
                 </i>
