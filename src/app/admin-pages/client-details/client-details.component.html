@@ -1,83 +1,574 @@
 <!-- Notifications -->
-
 <div class="row">
-  <div>
-    <!-- <p-toast key="note"></p-toast> -->
-  </div>
+  <div class="col-md-12 bg-white p-0 m-0">
+    <div class="main-card">
+      <div class="card-body p-0 m-0">
+        <div class="profile-cover">
+          <img
+            src="../../../assets/images/profile_cover.png"
+            class="p-0 m-0"
+            width="100%"
+            height="140px"
+            alt="profile-cover"
+          />
+          <div class="user_img text-center" style="margin-top: -55px;">
+            <img
+              src="../../../assets/images/user img.png"
+              class="bg-white p-2"
+              style="border-radius: 50%; border-color: gray;"
+              alt="user_img"
+              width="120px"
+            />
+          </div>
+          <div class="text-center mb-3">
+            <h3 class="my-2">{{ mClient.fname + " " + mClient.lname }}</h3>
+            <h6 class="my-3" style="color: gray; letter-spacing: 2px;">
+              {{ mClient.email }}
+            </h6>
+            <div class="menu-header-btn-pane">
+              <button
+                class="btn btn-success btn-rounded py-1 mt-1 mb-2"
+                *ngIf="mClient.emailVerified"
+              >
+                <img
+                  src="../../../assets/images/tick.png"
+                  width="12px"
+                  alt="tick"
+                />
+                Vérifié
+              </button>
+              <button class="btn btn-warning" *ngIf="!mClient.emailVerified">
+                Non vérifié
+              </button>
+            </div>
+          </div>
+          <div class="row w-50 m-auto text-center">
+            <div class="col-md-3 mr-auto">
+              <h2 style="color: blue;">
+                <b class="text-info">{{
+                  validOrders.length +
+                    nonValidOrders.length +
+                    rejectedOrders.length
+                }}</b>
+              </h2>
+              <h6>Commandes Effectées,</h6>
+            </div>
+            <div class="col-md-3">
+              <h2 class="text-success">{{ validOrders.length }}</h2>
+              <h6>Validées</h6>
+            </div>
+            <div class="col-md-3 ml-auto">
+              <h2 class="text-danger">{{ rejectedOrders.length }}</h2>
+              <h6>Rejetées</h6>
+            </div>
+          </div>
+          <div class="row my-3 mx-auto" style="width: 94%;">
+            <div class="col-md-12 bg-light pt-4 pb-0 px-4">
+              <!-- loader screen -->
+              <div class="block-loader"></div>
+              <div class="sk-circle">
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+              </div>
+              <h2>Account Info</h2>
+              <div class="row mx-auto my-4" style="width: 94%;">
+                <div class="col-md-3 mr-auto">
+                  <div class="py-2">
+                    <h5 style="color: #202020;">Username</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mClient.fname + " " + mClient.lname }}
+                    </h6>
+                  </div>
 
-  <!-- modal view -->
+                  <div class="py-2">
+                    <h5 style="color: #202020;">Email</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mClient.email }}
+                    </h6>
+                  </div>
 
-  <p-dialog
-    header="Détail Commande"
-    [(visible)]="displayModal"
-    [style]="{ width: '50vw' }"
-    [baseZIndex]="10000"
-    [draggable]="false"
-    [resizable]="false"
-  >
-    <div class="order_details_table">
-      <h2>Détails de la commande</h2>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Client</th>
-              <th scope="col">Nombre Des Codes</th>
-              <th scope="col">Montant Code de recharge</th>
-              <th scope="col">Date Émission</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <p><b>REF </b> {{ selectedOrder.clientRef }}</p>
-              </td>
-              <td>
-                <h5>x {{ selectedOrder.nbCodes }}</h5>
-              </td>
-              <td>
-                <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
-              </td>
-              <td>
-                <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
-              </td>
-            </tr>
+                  <div class="py-2">
+                    <h5 style="color: #202020;">Tél</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      (+216) {{ mClient.phone ? mClient.phone : "N/A" }}
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-md-3 w-auto">
+                  <div class="py-2">
+                    <h5 style="color: #202020;">Num Patent</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mClient.username }}
+                    </h6>
+                  </div>
 
-            <tr>
-              <td>
-                <h4 class="text-secondary">
-                  Commentaire <span *ngIf="isRejected">[Refus]</span>
-                </h4>
-              </td>
-              <td>
-                <h5></h5>
-              </td>
-              <td>
-                <p [ngClass]="{ 'text-danger': isRejected }">
-                  <b>{{ selectedOrder.comment }}</b>
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  <div class="py-2">
+                    <h5 style="color: #202020;">Num CIN</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mClient.cin }}
+                    </h6>
+                  </div>
+
+                  <div class="py-2">
+                    <h5 style="color: #202020;">INSCRIT LE</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      <span class="text-secondary">{{
+                        mClient.creationAt | date: "short":"fr"
+                      }}</span>
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-md-3 ml-auto">
+                  <div class="py-2">
+                    <h5 style="color: #202020;">REF</h5>
+                    <h6 style="color: #787c80;" class="pl-4 py-2">
+                      {{ mClient.autoID }}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row mb-3 mt-4 mx-auto" style="width: 94%;">
+            <div class="col-md-12 bg-light pt-4 pb-0 px-4">
+              <h2>Edit Information</h2>
+              <div class="row mx-auto my-4" style="width: 94%;">
+                <div class="col-md-12 mr-auto">
+                  <div class="py-2 row w-100 my-3">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                      Email
+                    </h5>
+                    <div class="col-md-5 col-12 ml-auto">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i
+                              class="fa fa-user-circle"
+                              style="cursor: pointer;"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <input
+                          disabled
+                          style="width: 240px;"
+                          name="email"
+                          id="exampleEmail"
+                          [value]="mClient.email"
+                          type="email"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                        (click)="editInfo('email')"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="py-2 row w-100 my-3">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                      Phone number
+                    </h5>
+                    <div class="col-md-5 col-12 ml-auto">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i
+                              class="fas fa-phone"
+                              style="cursor: pointer;"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <input
+                          disabled
+                          style="width: 240px;"
+                          name="phone"
+                          [value]="mClient.phone ? mClient.phone : ''"
+                          type="text"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                        (click)="editInfo('Téléphone')"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="py-2 row w-100 my-3">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                      Password
+                    </h5>
+                    <div class="col-md-5 col-12 ml-auto">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-lock" style="cursor: pointer;"></i>
+                          </div>
+                        </div>
+
+                        <input
+                          disabled
+                          style="width: 240px;"
+                          name="password"
+                          value="********"
+                          type="password"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                        (click)="navigate('portal/change-password')"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <p-dialog
+            header="Détail Commande"
+            [(visible)]="displayModal"
+            [style]="{ width: '50vw' }"
+            [baseZIndex]="10000"
+            [draggable]="false"
+            [resizable]="false"
+          >
+            <div class="order_details_table">
+              <h2>Détails de la commande</h2>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Client</th>
+                      <th scope="col">Nombre Des Codes</th>
+                      <th scope="col">Montant Code de recharge</th>
+                      <th scope="col">Date Émission</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p><b>REF </b> {{ selectedOrder.clientRef }}</p>
+                      </td>
+                      <td>
+                        <h5>x {{ selectedOrder.nbCodes }}</h5>
+                      </td>
+                      <td>
+                        <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
+                      </td>
+                      <td>
+                        <p>
+                          {{ selectedOrder.issueDate | date: "short":"fr" }}
+                        </p>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <h4 class="text-secondary">
+                          Commentaire <span *ngIf="isRejected">[Refus]</span>
+                        </h4>
+                      </td>
+                      <td>
+                        <h5></h5>
+                      </td>
+                      <td>
+                        <p [ngClass]="{ 'text-danger': isRejected }">
+                          <b>{{ selectedOrder.comment }}</b>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p-footer>
+              <div role="group" class="btn-group-sm btn-group nav">
+                <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+          Annuler
+        </button> -->
+                <button
+                  class="mb-2 mr-2 btn btn-shadow btn-primary"
+                  (click)="displayModal = false"
+                >
+                  Annuler
+                </button>
+              </div>
+            </p-footer>
+          </p-dialog>
+          <div class="col-md-12 col-lg-12 col-xl-12 mx-auto my-2" style="width: 97%;">
+            <div class="main-card mb-3 card" style="min-height: 95%;">
+              <!-- loader screen -->
+              <div class="block-loader"></div>
+              <div class="sk-circle">
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="card-header-tab card-header-tab-animation card-header"
+                >
+                  <div class="card-header-title">
+                    <i
+                      class="header-icon lnr-apartment icon-gradient bg-love-kiss"
+                    >
+                    </i>
+                    Historiques Des Commandes
+                  </div>
+                  <ul class="nav">
+                    <li class="nav-item">
+                      <a
+                        data-toggle="tab"
+                        href="#validated-ord"
+                        class="nav-link active"
+                        >Validées</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        data-toggle="tab"
+                        href="#non-validated-ord"
+                        class="nav-link second-tab-toggle"
+                        >Non-validées</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        data-toggle="tab"
+                        href="#rejected-ord"
+                        class="nav-link second-tab-toggle"
+                        >Rejetées</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div class="tab-content">
+                  <div
+                    class="mr-4 mb-4 tab-pane fade show active"
+                    id="validated-ord"
+                  >
+                    <div class="card-body m-2">
+                      <table
+                        style="width: 100%;"
+                        id="validated-table"
+                        class="table table-hover table-striped table-bordered"
+                      >
+                        <thead>
+                          <tr>
+                            <th>REF COMMANDE</th>
+                            <th>NB CODES</th>
+                            <th>MONTANT CODE RECHARGE</th>
+                            <th>MONTANT COMMANDE</th>
+                            <th>DATE EMISSION</th>
+                            <th>DATE VALIDATION</th>
+
+                            <th>ACTIONS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let order of validOrders">
+                            <td>{{ order.orderAuto }}</td>
+                            <td>{{ order.nbCodes }}</td>
+                            <td>{{ order.ticketAmount / 1000 }} DT</td>
+                            <td>
+                              {{ (order.ticketAmount * order.nbCodes) / 1000 }}
+                              DT
+                            </td>
+                            <td>{{ order.issueDate | date: "short":"fr" }}</td>
+                            <td>
+                              {{ order.validationDate | date: "short":"fr" }}
+                            </td>
+                            <td>
+                              <button
+                                class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+                                aria-expanded="false"
+                                (click)="showDialog(order)"
+                              >
+                                <i class="pe-7s-upload btn-icon-wrapper"> </i
+                                >Aperçu
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>REF COMMANDE</th>
+                            <th>NB CODES</th>
+                            <th>MONTANT CODE RECHARGE</th>
+                            <th>MONTANT COMMANDE</th>
+                            <th>DATE EMISSION</th>
+                            <th>DATE VALIDATION</th>
+                            <th>ACTIONS</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="mr-4 mb-4 tab-pane fade" id="non-validated-ord">
+                    <div class="card-body m-2">
+                      <table
+                        style="width: 100%;"
+                        id="non-validated-table"
+                        class="table table-hover table-striped table-bordered"
+                      >
+                        <thead>
+                          <tr>
+                            <th>REF COMMANDE</th>
+                            <th>NB CODES</th>
+                            <th>MONTANT CODE RECHARGE</th>
+                            <th>MONTANT COMMANDE</th>
+                            <th>DATE EMISSION</th>
+
+                            <th>ACTIONS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let order of nonValidOrders">
+                            <td>{{ order.orderAuto }}</td>
+                            <td>{{ order.nbCodes }}</td>
+                            <td>{{ order.ticketAmount / 1000 }} DT</td>
+                            <td>
+                              {{ (order.ticketAmount * order.nbCodes) / 1000 }}
+                              DT
+                            </td>
+                            <td>{{ order.issueDate | date: "short":"fr" }}</td>
+                            <td>
+                              <button
+                                class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+                                aria-expanded="false"
+                                (click)="showDialog(order)"
+                              >
+                                <i class="pe-7s-upload btn-icon-wrapper"> </i
+                                >Aperçu
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>REF COMMANDE</th>
+                            <th>NB CODES</th>
+                            <th>MONTANT CODE RECHARGE</th>
+                            <th>MONTANT COMMANDE</th>
+                            <th>DATE EMISSION</th>
+                            <th>ACTIONS</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="mr-4 mb-4 tab-pane fade" id="rejected-ord">
+                    <div class="card-body m-2">
+                      <table
+                        style="width: 100%;"
+                        id="rejected-table"
+                        class="table table-hover table-striped table-bordered"
+                      >
+                        <thead>
+                          <tr>
+                            <th>REF COMMANDE</th>
+                            <th>NB CODES</th>
+                            <th>MONTANT CODE RECHARGE</th>
+                            <th>MONTANT COMMANDE</th>
+                            <th>DATE EMISSION</th>
+                            <th>DATE REFUS</th>
+
+                            <th>ACTIONS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let order of rejectedOrders">
+                            <td>{{ order.orderAuto }}</td>
+                            <td>{{ order.nbCodes }}</td>
+                            <td>{{ order.ticketAmount / 1000 }} DT</td>
+                            <td>
+                              {{ (order.ticketAmount * order.nbCodes) / 1000 }}
+                              DT
+                            </td>
+                            <td>{{ order.issueDate | date: "short":"fr" }}</td>
+                            <td>
+                              {{ order.validationDate | date: "short":"fr" }}
+                            </td>
+                            <td>
+                              <button
+                                class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
+                                aria-expanded="false"
+                                (click)="showDialog(order)"
+                              >
+                                <i class="pe-7s-upload btn-icon-wrapper"> </i
+                                >Aperçu
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>REF COMMANDE</th>
+                            <th>NB CODES</th>
+                            <th>MONTANT CODE RECHARGE</th>
+                            <th>MONTANT COMMANDE</th>
+                            <th>DATE EMISSION</th>
+                            <th>DATE REFUS</th>
+                            <th>ACTIONS</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <p-footer>
-      <div role="group" class="btn-group-sm btn-group nav">
-        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
-            Annuler
-          </button> -->
-        <button
-          class="mb-2 mr-2 btn btn-shadow btn-primary"
-          (click)="displayModal = false"
-        >
-          Annuler
-        </button>
-      </div>
-    </p-footer>
-  </p-dialog>
+  </div>
+</div>
 
-  <!-- client info section -->
+
+
+<!-- Old Profile -->
+
+<!-- <div class="row">
   <div class="col-sm-12 col-lg-12 col-xl-3">
     <div class="mb-3 profile-responsive card">
       <div class="dropdown-menu-header">
@@ -89,13 +580,13 @@
             "
           ></div>
           <div class="menu-header-content btn-pane-right">
-            <!-- <div
+            <div
               class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine"
             >
               <div class="avatar-icon rounded">
                 <img src="assets/images/avatars/1.jpg" alt="Avatar 5" />
               </div>
-            </div> -->
+            </div>
             <div>
               <h5 class="menu-header-title">
                 {{ mClient.fname + " " + mClient.lname }}
@@ -149,7 +640,7 @@
                   REF <span class="text-success">{{ mClient.autoID }}</span>
                 </div>
               </div>
-              <!-- <div class="widget-content-right widget-content-actions">
+              <div class="widget-content-right widget-content-actions">
                 <button
                   class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm"
                 >
@@ -158,7 +649,7 @@
                 <button class="btn-icon btn-icon-only btn btn-success btn-sm">
                   <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
                 </button>
-              </div> -->
+              </div>
             </div>
           </div>
         </li>
@@ -174,7 +665,7 @@
                   <span class="text-secondary">{{ mClient.username }}</span>
                 </div>
               </div>
-              <!-- <div class="widget-content-right widget-content-actions">
+              <div class="widget-content-right widget-content-actions">
                 <button
                   class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm"
                 >
@@ -183,7 +674,7 @@
                 <button class="btn-icon btn-icon-only btn btn-success btn-sm">
                   <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
                 </button>
-              </div> -->
+              </div>
             </div>
           </div>
         </li>
@@ -198,7 +689,7 @@
                   NUM CIN <span class="text-secondary">{{ mClient.cin }}</span>
                 </div>
               </div>
-              <!-- <div class="widget-content-right widget-content-actions">
+              <div class="widget-content-right widget-content-actions">
                 <button
                   class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm"
                 >
@@ -207,7 +698,7 @@
                 <button class="btn-icon btn-icon-only btn btn-success btn-sm">
                   <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
                 </button>
-              </div> -->
+              </div>
             </div>
           </div>
         </li>
@@ -225,7 +716,7 @@
                   >
                 </div>
               </div>
-              <!-- <div class="widget-content-right widget-content-actions">
+              <div class="widget-content-right widget-content-actions">
                 <button
                   class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm"
                 >
@@ -234,7 +725,7 @@
                 <button class="btn-icon btn-icon-only btn btn-success btn-sm">
                   <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
                 </button>
-              </div> -->
+              </div>
             </div>
           </div>
         </li>
@@ -253,7 +744,7 @@
                   }}</span>
                 </div>
               </div>
-              <!-- <div class="widget-content-right widget-content-actions">
+              <div class="widget-content-right widget-content-actions">
                 <button
                   class="mr-1 btn-icon btn-icon-only btn btn-primary btn-sm"
                 >
@@ -262,7 +753,7 @@
                 <button class="btn-icon btn-icon-only btn btn-success btn-sm">
                   <i class="pe-7s-umbrella btn-icon-wrapper"> </i>
                 </button>
-              </div> -->
+              </div>
             </div>
           </div>
         </li>
@@ -301,225 +792,6 @@
       </ul>
     </div>
   </div>
+</div> -->
 
-  <!-- client order history -->
-
-  <div class="col-md-12 col-lg-8 col-xl-9">
-    <div class="main-card mb-3 card" style="min-height: 95%;">
-      <!-- loader screen -->
-      <div class="block-loader"></div>
-      <div class="sk-circle">
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-        <div class="sk-circle-dot"></div>
-      </div>
-
-      <div class="card-body">
-        <div class="card-header-tab card-header-tab-animation card-header">
-          <div class="card-header-title">
-            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss">
-            </i>
-            Historiques Des Commandes
-          </div>
-          <ul class="nav">
-            <li class="nav-item">
-              <a data-toggle="tab" href="#validated-ord" class="nav-link active"
-                >Validées</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                data-toggle="tab"
-                href="#non-validated-ord"
-                class="nav-link second-tab-toggle"
-                >Non-validées</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                data-toggle="tab"
-                href="#rejected-ord"
-                class="nav-link second-tab-toggle"
-                >Rejetées</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="tab-content">
-          <div class="mr-4 mb-4 tab-pane fade show active" id="validated-ord">
-            <div class="card-body m-2">
-              <table
-                style="width: 100%;"
-                id="validated-table"
-                class="table table-hover table-striped table-bordered"
-              >
-                <thead>
-                  <tr>
-                    <th>REF COMMANDE</th>
-                    <th>NB CODES</th>
-                    <th>MONTANT CODE RECHARGE</th>
-                    <th>MONTANT COMMANDE</th>
-                    <th>DATE EMISSION</th>
-                    <th>DATE VALIDATION</th>
-
-                    <th>ACTIONS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let order of validOrders">
-                    <td>{{ order.orderAuto }}</td>
-                    <td>{{ order.nbCodes }}</td>
-                    <td>{{ order.ticketAmount / 1000 }} DT</td>
-                    <td>
-                      {{ (order.ticketAmount * order.nbCodes) / 1000 }} DT
-                    </td>
-                    <td>{{ order.issueDate | date: "short":"fr" }}</td>
-                    <td>
-                      {{ order.validationDate | date: "short":"fr" }}
-                    </td>
-                    <td>
-                      <button
-                        class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
-                        aria-expanded="false"
-                        (click)="showDialog(order)"
-                      >
-                        <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>REF COMMANDE</th>
-                    <th>NB CODES</th>
-                    <th>MONTANT CODE RECHARGE</th>
-                    <th>MONTANT COMMANDE</th>
-                    <th>DATE EMISSION</th>
-                    <th>DATE VALIDATION</th>
-                    <th>ACTIONS</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-          <div class="mr-4 mb-4 tab-pane fade" id="non-validated-ord">
-            <div class="card-body m-2">
-              <table
-                style="width: 100%;"
-                id="non-validated-table"
-                class="table table-hover table-striped table-bordered"
-              >
-                <thead>
-                  <tr>
-                    <th>REF COMMANDE</th>
-                    <th>NB CODES</th>
-                    <th>MONTANT CODE RECHARGE</th>
-                    <th>MONTANT COMMANDE</th>
-                    <th>DATE EMISSION</th>
-
-                    <th>ACTIONS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let order of nonValidOrders">
-                    <td>{{ order.orderAuto }}</td>
-                    <td>{{ order.nbCodes }}</td>
-                    <td>{{ order.ticketAmount / 1000 }} DT</td>
-                    <td>
-                      {{ (order.ticketAmount * order.nbCodes) / 1000 }} DT
-                    </td>
-                    <td>{{ order.issueDate | date: "short":"fr" }}</td>
-                    <td>
-                      <button
-                        class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
-                        aria-expanded="false"
-                        (click)="showDialog(order)"
-                      >
-                        <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>REF COMMANDE</th>
-                    <th>NB CODES</th>
-                    <th>MONTANT CODE RECHARGE</th>
-                    <th>MONTANT COMMANDE</th>
-                    <th>DATE EMISSION</th>
-                    <th>ACTIONS</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-          <div class="mr-4 mb-4 tab-pane fade" id="rejected-ord">
-            <div class="card-body m-2">
-              <table
-                style="width: 100%;"
-                id="rejected-table"
-                class="table table-hover table-striped table-bordered"
-              >
-                <thead>
-                  <tr>
-                    <th>REF COMMANDE</th>
-                    <th>NB CODES</th>
-                    <th>MONTANT CODE RECHARGE</th>
-                    <th>MONTANT COMMANDE</th>
-                    <th>DATE EMISSION</th>
-                    <th>DATE REFUS</th>
-
-                    <th>ACTIONS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let order of rejectedOrders">
-                    <td>{{ order.orderAuto }}</td>
-                    <td>{{ order.nbCodes }}</td>
-                    <td>{{ order.ticketAmount / 1000 }} DT</td>
-                    <td>
-                      {{ (order.ticketAmount * order.nbCodes) / 1000 }} DT
-                    </td>
-                    <td>{{ order.issueDate | date: "short":"fr" }}</td>
-                    <td>
-                      {{ order.validationDate | date: "short":"fr" }}
-                    </td>
-                    <td>
-                      <button
-                        class="ml-2 mr-2 btn-icon btn-transition btn btn-outline-primary collapsed"
-                        aria-expanded="false"
-                        (click)="showDialog(order)"
-                      >
-                        <i class="pe-7s-upload btn-icon-wrapper"> </i>Aperçu
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>REF COMMANDE</th>
-                    <th>NB CODES</th>
-                    <th>MONTANT CODE RECHARGE</th>
-                    <th>MONTANT COMMANDE</th>
-                    <th>DATE EMISSION</th>
-                    <th>DATE REFUS</th>
-                    <th>ACTIONS</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Old Profile -->
