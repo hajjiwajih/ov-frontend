@@ -82,7 +82,7 @@ $ git clone https://gitlab.com/ditriot-consulting/orange-voucher/ov-frontend.git
 ``` $ npm install ```
 
 - run the client server
-``` $ npm run dev ```
+``` $ ng serve ```
 
 You can now connect to `http://localhost:4200` to start navigating.
 
