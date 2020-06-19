@@ -43,14 +43,6 @@ export class ClientStatsComponent implements OnInit {
           item.validationDate = item.validationDate || "";
           return item;
         });
-
-        // hide block loader
-        setTimeout(() => {
-          $(".block-loader").fadeOut(500);
-          $(".sk-circle").fadeOut(500);
-        }, 700);
-
-        // intialize datatable
         
       });
 
