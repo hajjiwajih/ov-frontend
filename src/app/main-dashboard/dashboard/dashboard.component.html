@@ -1,5 +1,114 @@
 <div class="app-container app-theme-gray">
   <div class="app-main">
+    <div class="app-sidebar-wrapper">
+      <div id="wrapper2" class="app-sidebar sidebar-shadow">
+        <div class="app-header__logo py-2">
+          <img src="../../../assets/images/logo-sm.png" width="50px" />
+          <p class="sym__voucher ml-2 mt-3">Sym Voucher</p>
+        </div>
+        <div class="scrollbar-sidebar scrollbar-container ps ps--active-y">
+          <div class="app-sidebar__inner dropdown-menu-rounded">
+            <ul
+              class="vertical-nav-menu metismenu"
+              style="cursor: pointer;"
+            >
+              <li class="mb-2 app-sidebar__heading">
+                Liens Rapides
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active:
+                    activatedLink == 'portal/place-order' ||
+                    activatedLink == 'portal'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/place-order')"
+              >
+                Placer Commande
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/history'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/history')"
+              >
+                Historiques
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/validated-orders'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/validated-orders')"
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Validées
+                <span
+                  *ngIf="unreadValidations"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'portal/validated-orders'
+                  }"
+                  >{{ unreadValidations }}</span
+                >
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/non-validated-orders'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/non-validated-orders')"
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Non-Validées
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/rejected-orders'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/rejected-orders')"
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Rejetées
+                <span
+                  *ngIf="unreadRejections"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'portal/rejected-orders'
+                  }"
+                  >{{ unreadRejections }}</span
+                >
+              </li>
+              <!-- <a -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="app-sidebar-overlay d-none animated fadeIn"></div>
     <div class="app-main__outer">
       <div class="app-inner-layout app-inner-layout-page app-layout-menu-open">
@@ -72,12 +181,14 @@
                   </div>
                 </div>
               </div>
-              <!-- profile section -->
-              <app-profile
-                [user]="mClient"
-                *ngIf="displayProfile"
-              ></app-profile>
-              <!--  end profile section -->
+              <div>
+                <!-- profile section -->
+                <app-profile
+                  [user]="mClient"
+                  *ngIf="displayProfile"
+                ></app-profile>
+                <!--  end profile section -->
+              </div>
               <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                   <div class="widget-content-wrapper">
@@ -168,7 +279,10 @@
           </div>
           <div class="app-header-overlay d-none animated fadeIn"></div>
         </div>
-        <!-- <div class="app-inner-bar">
+        <div
+          class="app-inner-layout app-inner-layout-page app-layout-menu-open"
+        >
+          <!-- <div class="app-inner-bar">
           <div class="inner-bar-left">
             <ul class="nav">
               <li class="nav-item">
@@ -222,7 +336,7 @@
                   <span>Form</span>
                 </a>
               </li> -->
-        <!-- <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a
                   role="tab"
                   data-toggle="tab"
@@ -236,7 +350,7 @@
                   <span>Nouvelles</span>
                 </a>
               </li> -->
-        <!-- <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a
                   role="tab"
                   data-toggle="tab"
@@ -250,10 +364,10 @@
                   <span>Archivées</span>
                 </a>
               </li> -->
-        <!-- </ul>
+          <!-- </ul>
           </div>
           <div class="inner-bar-right"> -->
-        <!-- <ul class="nav">
+          <!-- <ul class="nav">
               <li class="nav-item">
                 <a href="javascript:void(0);" class="nav-link">
                   <span class="hide-text-md">Show right drawer</span>
@@ -261,100 +375,104 @@
                 </a>
               </li>
             </ul> -->
-        <!-- </div>
+          <!-- </div>
         </div>  -->
-        <hr class="mt-0" />
-        <div class="app-inner-layout__wrapper">
-          <div class="app-inner-layout__sidebar">
-            <div class="app-layout__sidebar-inner dropdown-menu-rounded">
-              <div class="nav flex-column">
-                <div class="mt-1 mb-5 logo__container">
-                  <img src="../../../assets/images/logo-sm.png" width="50px" />
-                  <p class="sym__voucher ml-2 mt-5">Sym Voucher</p>
-                </div>
-                <div class="nav-item-header text-primary nav-item">
-                  Liens Rapides
-                </div>
+          <hr class="mt-0" />
+          <div class="app-inner-layout__wrapper">
+            <div class="app-inner-layout__sidebar">
+              <div class="app-layout__sidebar-inner dropdown-menu-rounded">
+                <div class="nav flex-column">
+                  <div class="mt-1 mb-5 logo__container">
+                    <img
+                      src="../../../assets/images/logo-sm.png"
+                      width="50px"
+                    />
+                    <p class="sym__voucher ml-2 mt-5">Sym Voucher</p>
+                  </div>
+                  <div class="nav-item-header text-primary nav-item">
+                    Liens Rapides
+                  </div>
 
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active:
-                      activatedLink == 'portal/place-order' ||
-                      activatedLink == 'portal'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/place-order')"
-                  >Placer Commande
-                </a>
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/history'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/history')"
-                  >Historiques
-                </a>
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/validated-orders'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/validated-orders')"
-                  data-step="1"
-                  data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
-                  data-position="right"
-                  data-scrollto="tooltip"
-                  role="button"
-                  >Commandes Validées
-                  <span
-                    *ngIf="unreadValidations"
+                  <a
                     [ngClass]="{
-                      'badge badge-pill badge-danger': true,
-                      'badge-light': activatedLink == 'portal/validated-orders'
+                      'dropdown-item': true,
+                      active:
+                        activatedLink == 'portal/place-order' ||
+                        activatedLink == 'portal'
                     }"
-                    >{{ unreadValidations }}</span
-                  ></a
-                >
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/non-validated-orders'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/non-validated-orders')"
-                  data-step="1"
-                  data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
-                  data-position="right"
-                  data-scrollto="tooltip"
-                  role="button"
-                  >Commandes Non-Validées
-                </a>
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/rejected-orders'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/rejected-orders')"
-                  data-step="1"
-                  data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
-                  data-position="right"
-                  data-scrollto="tooltip"
-                  role="button"
-                  >Commandes Rejetées
-                  <span
-                    *ngIf="unreadRejections"
+                    [routerLink]=""
+                    (click)="navigate('portal/place-order')"
+                    >Placer Commande
+                  </a>
+                  <a
                     [ngClass]="{
-                      'badge badge-pill badge-danger': true,
-                      'badge-light': activatedLink == 'portal/rejected-orders'
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/history'
                     }"
-                    >{{ unreadRejections }}</span
-                  ></a
-                >
-                <!-- <a
+                    [routerLink]=""
+                    (click)="navigate('portal/history')"
+                    >Historiques
+                  </a>
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/validated-orders'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('portal/validated-orders')"
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Validées
+                    <span
+                      *ngIf="unreadValidations"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light':
+                          activatedLink == 'portal/validated-orders'
+                      }"
+                      >{{ unreadValidations }}</span
+                    ></a
+                  >
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/non-validated-orders'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('portal/non-validated-orders')"
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Non-Validées
+                  </a>
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/rejected-orders'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('portal/rejected-orders')"
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Rejetées
+                    <span
+                      *ngIf="unreadRejections"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light': activatedLink == 'portal/rejected-orders'
+                      }"
+                      >{{ unreadRejections }}</span
+                    ></a
+                  >
+                  <!-- <a
                   class="dropdown-item"
                   href="javascript:void(0)"
                   data-title="Statistiques"
@@ -390,14 +508,15 @@
                   title=""
                   >Problèmes</a
                 > -->
+                </div>
               </div>
             </div>
-          </div>
-          <div class="app-inner-layout__content">
-            <div class="tab-content">
-              <div class="container-fluid">
-                <!-- Router link -->
-                <router-outlet></router-outlet>
+            <div class="app-inner-layout__content">
+              <div class="tab-content">
+                <div class="container-fluid">
+                  <!-- Router link -->
+                  <router-outlet></router-outlet>
+                </div>
               </div>
             </div>
           </div>
