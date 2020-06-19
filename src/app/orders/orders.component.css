@@ -31,3 +31,7 @@
   background: #e5ecee;
   padding: 1.5rem;
 }
+
+@media (max-width: 576px) {
+  .d-s-none { display: none }
+}
