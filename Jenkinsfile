@@ -16,7 +16,7 @@ pipeline {
     
     stage('Run') {
       steps {
-        sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && npm run prod'"
+        sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && npm run prod; sleep 80; exit'"
       }
     }
 
