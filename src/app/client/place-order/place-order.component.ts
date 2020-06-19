@@ -7,6 +7,7 @@ import { FormGroup } from "@angular/forms";
 import { Order } from "./../../models/order";
 import { Component, OnInit } from "@angular/core";
 import { DatePipe } from "@angular/common";
+import Chart from "chart.js";
 declare var $: any;
 
 @Component({
@@ -15,6 +16,8 @@ declare var $: any;
   styleUrls: ["./place-order.component.css"],
 })
 export class PlaceOrderComponent implements OnInit {
+  orders: Order[];
+  obs$: Subscription;
   // order should be confirmed
   order: Order;
   pipe = new DatePipe("fr-FR"); // Use your own locale
@@ -27,6 +30,9 @@ export class PlaceOrderComponent implements OnInit {
     comment: new FormControl(""),
     amountCodes: new FormControl(""),
   });
+
+  labels: string[];
+  data: any;
 
   amountOptions = [1, 5, 10];
 
@@ -45,8 +51,57 @@ export class PlaceOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    let id = localStorage.getItem("currentUserId");
+    var data;
+    var labels;
+    // Our labels along the x-axis
+    var months = [];
+    // For drawing the lines
+    var africa = [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478];
+
+    this.obs$ = this.orderService
+      .getLatestClientOrders(id)
+      .subscribe((orders) => {
+        this.orders = orders;
+        this.labels = orders.map((item) => {
+          return item.issueDate.slice(0, 10);
+        });
+        this.labels = [...new Set(this.labels)]
+        this.data = orders.filter((item) => {
+          return item.validated === true;
+        });
+
+        console.log(this.orders.length)
+        this.createChart();
+      });
+
+
     this.order.clientId = localStorage.getItem("currentUserId");
     this.order.issueDate = new Date();
+  }
+
+  createChart() {
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: this.labels,
+        datasets: [
+          {
+            data: this.orders.length.toString(),
+            label: "All Orders",
+            borderColor: "#16AAFF",
+            fill: false,
+          },
+          {
+            data: this.data.length.toString(),
+            label: "Validated",
+            borderColor: "#3AC47D",
+            fill: false,
+          },
+        ],
+      },
+    });
   }
 
   /**
