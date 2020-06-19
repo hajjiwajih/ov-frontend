@@ -2,6 +2,7 @@ import { NotificationService } from "./../services/notification.service";
 import { DatePipe } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { OrderService } from "./../services/order.service";
+import { UserService } from "./../services/user.service";
 import { Message } from "primeng/api/message";
 import { MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
@@ -10,6 +11,7 @@ import { Component, OnInit } from "@angular/core";
 import Swal from "sweetalert2";
 import { appendDtActions } from "../helpers/datatable-fonctions";
 import { numberWithSpaces } from "../helpers/format-stocks";
+import { User } from "../models/user";
 
 declare var $: any;
 
@@ -21,6 +23,7 @@ declare var $: any;
 })
 export class OrdersComponent implements OnInit {
   orders: Order[];
+  user: User;
   selectedOrder: Order;
   selectedUserForUpdate: Order;
   obs$: Subscription;
@@ -67,6 +70,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private orderService: OrderService,
+    private userService: UserService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router
@@ -106,6 +110,8 @@ export class OrdersComponent implements OnInit {
             $(".block-loader").fadeOut(500);
             $(".sk-circle").fadeOut(500);
           }, 700);
+
+          const that = this
 
           $(document).ready(function () {
             $.fn.dataTable.moment("D/M/YYYY HH:mm");
@@ -157,7 +163,10 @@ export class OrdersComponent implements OnInit {
                 {
                   targets: 4,
                   render: function (data, type, row) {
-                    return `<a href="/monitor/clients/${row.clientId}">${data}</a>`;
+                    return `
+                    <div class='content text-center'>
+                      <a id="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..' id='user_3'><img src="../../assets/icons/info.png" width="26px" /></a>
+                    </div>`;
                   },
                 },
                 {
@@ -234,6 +243,8 @@ export class OrdersComponent implements OnInit {
               },
             });
 
+            
+
             // handle button click ->validate row
             $("#orderTables tbody").on(
               "click",
@@ -261,6 +272,34 @@ export class OrdersComponent implements OnInit {
                 _self.showDialog(table.row($(this).parent().parent()).data());
               }
             );
+            $(".content a").tooltip({
+              track: true,
+              open: function (event, ui) {
+                var id = this.id;
+                console.log("Suck it!", id);
+                that.userService.getUserById(id).subscribe((clientInfo) => {
+                  $("#" + id).tooltip(
+                    "option",
+                    "content",
+                    `<div>
+                      <span class="text-success my-1">${
+                        clientInfo.fname + " " + clientInfo.lname
+                      }</span><br>
+                      <span class="text-success my-1">${clientInfo.email}</span><br>
+                      <button class="bg-success btn-rounded border-0 px-2 py-1 my-2">${
+                        clientInfo.emailVerified ? "Verified" : "Not-Verified"
+                      }</button><br>
+                    </div>`
+                  );
+                });
+                $(".content a").mouseout(function () {
+                  // re-initializing tooltip
+                  $(this).attr("title", "Please wait...");
+                  $(this).tooltip();
+                  $(".ui-tooltip").hide();
+                });
+              },
+            });
           });
         });
       // subscribe to incoming events
