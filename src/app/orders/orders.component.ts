@@ -111,8 +111,6 @@ export class OrdersComponent implements OnInit {
             $(".sk-circle").fadeOut(500);
           }, 700);
 
-          const that = this
-
           $(document).ready(function () {
             $.fn.dataTable.moment("D/M/YYYY HH:mm");
             let table = $("#orderTables").DataTable({
@@ -165,7 +163,7 @@ export class OrdersComponent implements OnInit {
                   render: function (data, type, row) {
                     return `
                     <div class='content text-center'>
-                      <a id="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..' id='user_3'><img src="../../assets/icons/info.png" width="26px" /></a>
+                      <a class="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..'><img src="../../assets/icons/info.png" width="26px" /></a>
                     </div>`;
                   },
                 },
@@ -243,8 +241,6 @@ export class OrdersComponent implements OnInit {
               },
             });
 
-            
-
             // handle button click ->validate row
             $("#orderTables tbody").on(
               "click",
@@ -275,30 +271,31 @@ export class OrdersComponent implements OnInit {
             $(".content a").tooltip({
               track: true,
               open: function (event, ui) {
-                var id = this.id;
-                console.log("Suck it!", id);
-                that.userService.getUserById(id).subscribe((clientInfo) => {
-                  $("#" + id).tooltip(
-                    "option",
-                    "content",
-                    `<div>
-                      <span class="text-success my-1">${
-                        clientInfo.fname + " " + clientInfo.lname
-                      }</span><br>
-                      <span class="text-success my-1">${clientInfo.email}</span><br>
-                      <button class="bg-success btn-rounded border-0 px-2 py-1 my-2">${
-                        clientInfo.emailVerified ? "Verified" : "Not-Verified"
-                      }</button><br>
-                    </div>`
-                  );
-                });
-                $(".content a").mouseout(function () {
-                  // re-initializing tooltip
-                  $(this).attr("title", "Please wait...");
-                  $(this).tooltip();
-                  $(".ui-tooltip").hide();
-                });
+                _self.userService
+                  .getUserById(event.target.className)
+                  .subscribe((clientInfo) => {
+                    $("." + event.target.className).tooltip(
+                      "option",
+                      "content",
+                      `<div>
+                        <span class="text-success my-1">${
+                          clientInfo.fname + " " + clientInfo.lname
+                        }</span><br>
+                        <span class="text-success my-1">${
+                          clientInfo.email
+                        }</span><br>
+                        <button class="bg-success btn-rounded border-0 px-2 py-1 my-2">${
+                          clientInfo.emailVerified ? "Verified" : "Not-Verified"
+                        }</button>
+                      </div>`
+                    );
+                  });
               },
+            });
+            $(".content a").mouseout(function () {
+              $(this).attr("title", "Please wait...");
+              $(this).tooltip();
+              $(".ui-tooltip").hide();
             });
           });
         });
