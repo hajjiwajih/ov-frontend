@@ -184,6 +184,7 @@
               <div>
                 <!-- profile section -->
                 <app-profile
+                
                   [user]="mClient"
                   *ngIf="displayProfile"
                 ></app-profile>
@@ -222,6 +223,7 @@
                       aria-expanded="true"
                       data-toggle="dropdown"
                       (click)="toggleProfile()"
+                      (toggle)="toggleProfile()"
                     >
                       <div class="dropdown">
                         <a

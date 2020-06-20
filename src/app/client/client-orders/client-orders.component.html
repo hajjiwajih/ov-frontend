@@ -111,7 +111,7 @@
       </div>
 
       <div class="card-body">
-        <h2 class="card-title ml-4 mt-4">
+        <h2 class="card-title ml-4 mt-4 sizing-sm">
           Liste Des Commandes
           <div
             [ngClass]="{
@@ -177,7 +177,7 @@
                 </tr> -->
               </tbody>
               <tfoot>
-                <tr>
+                <tr class="d-s-none">
                   <th>REF COMMANDE</th>
                   <th>NB CODES</th>
                   <th>MONTANT CODE RECHARGE</th>
@@ -188,12 +188,12 @@
                   <th>ACTIONS</th>
                 </tr>
                 <tr>
-                  <th colspan="6" style="text-align: right;">Total:</th>
-                  <th colspan="2" id="sum"></th>
-                  <!-- <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th> -->
+                  <th class="d-s-none"></th>
+                  <th class="d-s-none"></th>
+                  <th class="d-s-none"></th>
+                  <th class="d-s-none"></th>
+                  <th style="text-align: right;">Total:</th>
+                  <th colspan="3" id="sum"></th>
                 </tr>
               </tfoot>
             </table>

@@ -34,3 +34,10 @@
   background: #e5ecee;
   padding: 1.5rem;
 }
+
+@media (max-width: 576px) {
+  .sizing-sm {
+    margin-left: 12px !important;
+  }
+  .d-s-none { display: none; }
+}

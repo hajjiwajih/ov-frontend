@@ -33,5 +33,17 @@
 }
 
 @media (max-width: 576px) {
-  .d-s-none { display: none }
+  .sizing-sm {
+    margin-left: 12px !important;
+  }
+  .d-s-none {
+    display: none;
+  }
+  .d-s-block {
+    display: block;
+    margin-top: 6px;
+  }
+  .sm-width {
+    width: 80%;
+  }
 }
