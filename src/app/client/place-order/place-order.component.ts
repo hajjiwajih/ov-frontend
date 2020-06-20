@@ -31,8 +31,27 @@ export class PlaceOrderComponent implements OnInit {
     amountCodes: new FormControl(""),
   });
 
-  labels: string[];
+  labels: any;
+  setLabels: any;
   data: any;
+
+  secondLabels: any
+  uniqueMonths: any
+
+  months: any = {
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sep",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Dec",
+  };
 
   amountOptions = [1, 5, 10];
 
@@ -50,31 +69,74 @@ export class PlaceOrderComponent implements OnInit {
     };
   }
 
+  converMonthToString(month) {
+    return this.months[month];
+  }
+
+  removeDuplicates(myArr) {
+    var props = Object.keys(myArr[0]);
+    return myArr.filter(
+      (item, index, self) =>
+        index ===
+        self.findIndex((t) =>
+          props.every((prop) => {
+            return t[prop] === item[prop];
+          })
+        )
+    );
+  }
+
   ngOnInit() {
     let id = localStorage.getItem("currentUserId");
-    var data;
-    var labels;
-    // Our labels along the x-axis
-    var months = [];
-    // For drawing the lines
-    var africa = [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478];
 
     this.obs$ = this.orderService
       .getLatestClientOrders(id)
       .subscribe((orders) => {
         this.orders = orders;
         this.labels = orders.map((item) => {
-          return item.issueDate.slice(0, 10);
-        });
-        this.labels = [...new Set(this.labels)]
-        this.data = orders.filter((item) => {
-          return item.validated === true;
+          let month = this.converMonthToString(item.issueDate.slice(5, 7));
+          let obj = {
+            [month]: [{allOrders: 0}, {validated: 0}, {rejected: 0}],
+          };
+          return obj;
         });
 
-        console.log(this.orders.length)
+        
+        this.uniqueMonths = Array.from(
+          new Set(this.labels.map((a) => a.id))
+        ).map((id) => {
+          return this.labels.find((a) => a.id === id);
+        });
+        
+
+        console.log(this.uniqueMonths);
+
+        this.orders.forEach((order) => {
+          let month = this.converMonthToString(order.issueDate.slice(5, 7));
+          for (let i = 0; i < this.uniqueMonths.length; i++) {
+            if ( order.validated === true ) {
+              this.uniqueMonths[i][month][1].validated++
+            } else if ( order.validated === false && order.isRejected === false ) {
+              this.uniqueMonths[i][month][0].allOrders++
+            } else {
+              this.uniqueMonths[i][month][2].rejected++
+            }
+          }
+        });
+        
+        this.secondLabels = Object.keys(this.uniqueMonths[0])
+        console.log(this.secondLabels)
+        // let nonValidatedOrders = this.orders.filter(
+        //   (order) => order.validated == false && order.isRejected == false
+        // );
+        // let rejectedOrders = this.orders.filter(
+        //   (order) => order.isRejected == true
+        // );
+
+        console.log(this.orders.length);
+
         this.createChart();
       });
-
 
     this.order.clientId = localStorage.getItem("currentUserId");
     this.order.issueDate = new Date();
@@ -85,21 +147,41 @@ export class PlaceOrderComponent implements OnInit {
     var myChart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: this.labels,
+        labels: this.secondLabels,
         datasets: [
           {
-            data: this.orders.length.toString(),
+            data: [this.uniqueMonths[0][this.secondLabels][0].allOrders],
             label: "All Orders",
             borderColor: "#16AAFF",
+            backgroundColor: "#16AAFF",
             fill: false,
           },
           {
-            data: this.data.length.toString(),
+            data: [this.uniqueMonths[0][this.secondLabels][1].validated],
             label: "Validated",
             borderColor: "#3AC47D",
+            backgroundColor: "#3AC47D",
+            fill: false,
+          },
+          {
+            data: [this.uniqueMonths[0][this.secondLabels][2].rejected],
+            label: "Rejected",
+            borderColor: "red",
+            backgroundColor: "red",
             fill: false,
           },
         ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
       },
     });
   }
