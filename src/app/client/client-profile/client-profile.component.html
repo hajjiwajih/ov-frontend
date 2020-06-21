@@ -2,7 +2,27 @@
   <div class="col-md-12 bg-white p-0 m-0">
     <div class="main-card">
       <div class="card-body p-0 m-0">
-        <div class="profile-cover">
+        <div *ngIf="!mClient">
+          <div class="m-auto text-center" style="width: 10%;">
+              <!-- loader screen -->
+              <div class="block-loader"></div>
+              <div class="sk-circle">
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+              </div>
+          </div>
+        </div>
+        <div *ngIf="mClient" class="profile-cover">
           <img
             src="../../../assets/images/profile_cover.png"
             class="p-0 m-0"
@@ -41,10 +61,10 @@
               </button>
             </div>
           </div>
-          <div class="row w-50 m-auto text-center">
+          <div class="row w-50 m-auto text-center" *ngIf="validOrders.length && nonValidOrders.length && rejectedOrders.length">
             <div class="col-md-3 mr-auto">
               <h2 style="color: blue;">
-                <b class="text-info">{{
+                <b  class="text-info">{{
                   validOrders.length +
                     nonValidOrders.length +
                     rejectedOrders.length
@@ -117,12 +137,12 @@
                         <i class="pe-7s-phone text-muted fsize-2"></i>
                       </div>
                       <span style="color: #202020; font-size: 18px;"
-                        >Phone number</span
+                        >Tél</span
                       >
                     </div>
                     <div class="col-md-6 ml-auto text-right mr-3">
                       <span style="color: #787c80; font-size: 16px;">
-                        {{ mClient.phone ? mClient.phone : "N/A" }}
+                         (+216) {{ mClient.phone || "---------" }} 
                       </span>
                     </div>
                   </div>
@@ -173,12 +193,14 @@
                         <i class="pe-7s-timer text-muted fsize-2"></i>
                       </div>
                       <span style="color: #202020; font-size: 18px;"
-                        >Registered On</span
+                        >INSCRIT LE</span
                       >
                     </div>
                     <div class="col-md-6 ml-auto text-right mr-3">
                       <span style="color: #787c80; font-size: 16px;">
-                        {{ mClient.creationAt }}
+                        {{
+                          mClient.creationAt | date: "short":"fr"
+                        }}
                       </span>
                     </div>
                   </div>

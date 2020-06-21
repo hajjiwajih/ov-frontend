@@ -5,9 +5,7 @@
     <p-toast key="note"></p-toast>
   </div> -->
   <div class="col-md-4 col-xl-4">
-    <div
-      class="widget-chart widget-chart2 text-left mb-3 card"
-    >
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
       <div class="container">
         <div class="row">
           <div class="col-3 px-0 ml-2 my-auto">
@@ -27,14 +25,19 @@
             </div>
             <div class="widget-content-right">
               <div class="widget-numbers mb-0">
-                <!-- <div
-                *ngIf="isStockLoading"
-                class="spinner-border spinner-border"
-                role="status"
-              >
-                <span class="sr-only">Loading...</span>
-              </div> -->
-                <span> 13 </span>
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="all_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
               </div>
             </div>
           </div>
@@ -56,16 +59,14 @@
   </div>
   <!-- (click)="openStockDetails('available')" -->
   <div class="col-md-4 col-xl-4">
-    <div
-      class="widget-chart widget-chart2 text-left mb-3 card"
-    >
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
       <div class="container">
         <div class="row">
           <div class="col-3 px-0 ml-2 my-auto">
             <img
               src="../../../assets/icons/verified.png"
               width="60px"
-              alt="validated_orders"
+              alt="validated_users"
             />
           </div>
           <div
@@ -78,14 +79,19 @@
             </div>
             <div class="widget-content-right">
               <div class="widget-numbers mb-0">
-                <!-- <div
-              *ngIf="isSoldLoading"
-              class="spinner-border spinner-border"
-              role="status"
-            >
-              <span class="sr-only">Loading...</span>
-            </div> -->
-                <span>9</span>
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="checked_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
               </div>
             </div>
           </div>
@@ -107,16 +113,14 @@
   </div>
   <!-- (click)="openStockDetails('sold')" -->
   <div class="col-md-4 col-xl-4">
-    <div
-      class="widget-chart widget-chart2 text-left mb-3 card"
-    >
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
       <div class="container">
         <div class="row">
           <div class="col-3 px-0 ml-2 my-auto">
             <img
               src="../../../assets/icons/not-verified.png"
               width="60px"
-              alt="validated_orders"
+              alt="rejected_users"
             />
           </div>
           <div
@@ -131,14 +135,19 @@
             </div>
             <div class="widget-content-right">
               <div class="widget-numbers mb-0">
-                <!-- <div
-              *ngIf="isSoldLoading"
-              class="spinner-border spinner-border"
-              role="status"
-            >
-              <span class="sr-only">Loading...</span>
-            </div> -->
-                <span>4</span>
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="rejected_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
               </div>
             </div>
           </div>
