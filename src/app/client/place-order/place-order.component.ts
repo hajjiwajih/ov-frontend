@@ -35,8 +35,24 @@ export class PlaceOrderComponent implements OnInit {
   setLabels: any;
   data: any;
 
-  secondLabels: any
-  uniqueMonths: any
+  secondLabels: any;
+  uniqueMonths: any;
+  myChart: any
+
+  allMonths: string[] = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   months: any = {
     "01": "Jan",
@@ -88,17 +104,26 @@ export class PlaceOrderComponent implements OnInit {
 
   ngOnInit() {
     let id = localStorage.getItem("currentUserId");
+    const that = this
+    var tempMonths = [];
+    let currentYear = new Date().getFullYear().toString()
 
     this.obs$ = this.orderService
       .getLatestClientOrders(id)
       .subscribe((orders) => {
         this.orders = orders;
         this.labels = orders.map((item) => {
+          /**
+           * Notice that my algorithm will take only the orders from the current year so it won't
+           * take the past years orders
+           */
           let month = this.converMonthToString(item.issueDate.slice(5, 7));
-          let obj = {
-            [month]: [{allOrders: 0}, {validated: 0}, {rejected: 0}],
-          };
-          return obj;
+          if (item.issueDate.slice(0, 4).toString() === currentYear) {
+            let obj = {
+              [month]: [{ allOrders: 0 }, { validated: 0 }, { rejected: 0 }]
+            };
+            return obj;
+          }
         });
 
         
@@ -107,72 +132,178 @@ export class PlaceOrderComponent implements OnInit {
         ).map((id) => {
           return this.labels.find((a) => a.id === id);
         });
-        
 
-        console.log(this.uniqueMonths);
+        console.log(this.uniqueMonths)
 
         this.orders.forEach((order) => {
           let month = this.converMonthToString(order.issueDate.slice(5, 7));
           for (let i = 0; i < this.uniqueMonths.length; i++) {
-            if ( order.validated === true ) {
-              this.uniqueMonths[i][month][1].validated++
-            } else if ( order.validated === false && order.isRejected === false ) {
-              this.uniqueMonths[i][month][0].allOrders++
-            } else {
-              this.uniqueMonths[i][month][2].rejected++
+            if (Object.keys(this.uniqueMonths[i])[0] === month) {
+              if (order.validated === true) {
+                this.uniqueMonths[i][month][1].validated++;
+              } else if (
+                order.validated === false &&
+                order.isRejected === false
+              ) {
+                this.uniqueMonths[i][month][0].allOrders++;
+              } else {
+                this.uniqueMonths[i][month][2].rejected++;
+              }
             }
           }
         });
+
+        this.uniqueMonths.push({
+          Aug: [{ allOrders: 4 }, { validated: 6 }, { rejected: 2 }],
+          year: '2021',
+        });
+
+
+        /**
+         * Data for testing the chart
+         */
+
+        this.uniqueMonths.push({
+          Jul: [{ allOrders: 2 }, { validated: 3 }, { rejected: 4 }],
+          year: '2021',
+        });
+
+        // this.uniqueMonths.push({
+        //   Jan: [{ allOrders: 2 }, { validated: 3 }, { rejected: 7 }],
+        // });
+
+        // this.uniqueMonths.push({
+        //   Feb: [{ allOrders: 2 }, { validated: 3 }, { rejected: 7 }],
+        // });
+
+        // this.uniqueMonths.push({
+        //   Sep: [{ allOrders: 0 }, { validated: 9 }, { rejected: 12 }],
+        // });
         
-        this.secondLabels = Object.keys(this.uniqueMonths[0])
-        console.log(this.secondLabels)
-        // let nonValidatedOrders = this.orders.filter(
-        //   (order) => order.validated == false && order.isRejected == false
-        // );
-        // let rejectedOrders = this.orders.filter(
-        //   (order) => order.isRejected == true
-        // );
+        /**
+         * Function to sort the months in the uniqnessMonths array
+         * @param a 
+         * @param b 
+         */
+        function compare( a, b ) {
+          return that.allMonths.indexOf(Object.keys(a)[0]) - that.allMonths.indexOf(Object.keys(b)[0])
+        }
+        this.uniqueMonths.sort( compare );
+        
+        /**
+         *  Somehow i couldn't reach the variable this.secondLabels inside for loop
+         * so i had to find a way arround using another variable 'tempMonths'
+         */ 
 
-        console.log(this.orders.length);
+        for (let i = 0; i < this.uniqueMonths.length; i++) {
+          tempMonths.push(Object.keys(this.uniqueMonths[i])[0])
+        }
 
+        /**
+         * Since we are only taking the last 3 months and i couldn't use for loop because i don't have access
+         * to some variables i had to do it this way
+         */
+        if (tempMonths.length >= 3) {
+          this.secondLabels = tempMonths.slice(tempMonths.length - 3, tempMonths.length)
+        } else if (tempMonths.length >= 2) {
+          this.secondLabels = tempMonths.slice(tempMonths.length - 2, tempMonths.length)
+        } else if (tempMonths.length === 1) {
+          this.secondLabels = tempMonths.slice(0, tempMonths.length)
+          console.log(this.secondLabels)
+        }
+
+        // Creating the Chart        
         this.createChart();
+
+        /**
+         * Here we are adding the data to the chart based on our data the retrieved from database
+         */
+        if (this.secondLabels.length >= 3) {
+          
+          this.myChart.data.datasets[0].data.push(this.uniqueMonths[this.uniqueMonths.length - 3][this.secondLabels[0]][0].allOrders)
+          this.myChart.data.datasets[0].data.push(this.uniqueMonths[this.uniqueMonths.length - 2][this.secondLabels[1]][0].allOrders)
+          this.myChart.data.datasets[0].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[2]][0].allOrders)
+          
+          this.myChart.data.datasets[1].data.push(this.uniqueMonths[this.uniqueMonths.length - 3][this.secondLabels[0]][1].validated)
+          this.myChart.data.datasets[1].data.push(this.uniqueMonths[this.uniqueMonths.length - 2][this.secondLabels[1]][1].validated)
+          this.myChart.data.datasets[1].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[2]][1].validated)
+          
+          this.myChart.data.datasets[2].data.push(this.uniqueMonths[this.uniqueMonths.length - 3][this.secondLabels[0]][2].rejected)
+          this.myChart.data.datasets[2].data.push(this.uniqueMonths[this.uniqueMonths.length - 2][this.secondLabels[1]][2].rejected)
+          this.myChart.data.datasets[2].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[2]][2].rejected)
+        
+          this.myChart.update()
+        } else if (this.secondLabels.length >= 2) {
+
+          console.log(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[1]][1])
+          this.myChart.data.datasets[0].data.push(this.uniqueMonths[this.uniqueMonths.length - 2][this.secondLabels[0]][0].allOrders)
+          this.myChart.data.datasets[0].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[1]][0].allOrders)
+          
+          this.myChart.data.datasets[1].data.push(this.uniqueMonths[this.uniqueMonths.length - 2][this.secondLabels[0]][1].validated)
+          this.myChart.data.datasets[1].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[1]][1].validated)
+          
+          this.myChart.data.datasets[2].data.push(this.uniqueMonths[this.uniqueMonths.length - 2][this.secondLabels[0]][2].rejected)
+          this.myChart.data.datasets[2].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[1]][2].rejected)
+          
+          this.myChart.update()
+        
+        } else if (this.secondLabels.length === 1) {
+          console.log(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[1]])
+
+          this.myChart.data.datasets[0].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[0]][0].allOrders)
+          
+          this.myChart.data.datasets[1].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[0]][1].validated)
+          
+          this.myChart.data.datasets[2].data.push(this.uniqueMonths[this.uniqueMonths.length - 1][this.secondLabels[0]][2].rejected)
+          
+          this.myChart.update()
+        }
       });
 
+      /** IMPORTANT
+       * A lot of my code is hardcoded here i could find another way to do it but since i don't have
+       * time and there's a lot of bugs to be fixed i had to do it this way
+       */
+      
     this.order.clientId = localStorage.getItem("currentUserId");
     this.order.issueDate = new Date();
   }
 
   createChart() {
     var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    this.myChart = new Chart(ctx, {
       type: "line",
       data: {
         labels: this.secondLabels,
         datasets: [
           {
-            data: [this.uniqueMonths[0][this.secondLabels][0].allOrders],
+            data: [],
             label: "All Orders",
             borderColor: "#16AAFF",
             backgroundColor: "#16AAFF",
+            color: "#16AAFF",
             fill: false,
           },
           {
-            data: [this.uniqueMonths[0][this.secondLabels][1].validated],
+            data: [],
             label: "Validated",
             borderColor: "#3AC47D",
             backgroundColor: "#3AC47D",
             fill: false,
           },
           {
-            data: [this.uniqueMonths[0][this.secondLabels][2].rejected],
+            data: [],
             label: "Rejected",
-            borderColor: "red",
-            backgroundColor: "red",
+            borderColor: "#E43333",
+            backgroundColor: "#E34F4F",
             fill: false,
           },
         ],
       },
       options: {
+        chartArea: {
+          backgroundColor: "rgba(251, 85, 85, 0.4)",
+        },
         scales: {
           yAxes: [
             {
