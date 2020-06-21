@@ -3,7 +3,27 @@
   <div class="col-md-12 bg-white p-0 m-0">
     <div class="main-card">
       <div class="card-body p-0 m-0">
-        <div class="profile-cover">
+        <div *ngIf="!mClient">
+          <div class="m-auto text-center" style="width: 10%;">
+              <!-- loader screen -->
+              <div class="block-loader"></div>
+              <div class="sk-circle">
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+              </div>
+          </div>
+        </div>
+        <div *ngIf="mClient" class="profile-cover">
           <img
             src="../../../assets/images/profile_cover.png"
             class="p-0 m-0"
@@ -42,10 +62,10 @@
               </button>
             </div>
           </div>
-          <div class="row w-50 m-auto text-center">
-            <div class="col-md-3 mr-auto">
+          <div *ngIf="validOrders.length && nonValidOrders.length && rejectedOrders.length" class="row w-50 m-auto text-center">
+            <div  class="col-md-3 mr-auto">
               <h2 style="color: blue;">
-                <b class="text-info">{{
+                <b  class="text-info">{{
                   validOrders.length +
                     nonValidOrders.length +
                     rejectedOrders.length
@@ -81,61 +101,147 @@
                 <div class="sk-circle-dot"></div>
               </div>
               <h2>Account Info</h2>
-              <div class="row mx-auto my-4" style="width: 94%;">
-                <div class="col-md-3 mr-auto">
-                  <div class="py-2">
-                    <h5 style="color: #202020;">Username</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{ mClient.fname + " " + mClient.lname }}
-                    </h6>
-                  </div>
+              <div class="row mx-auto my-4">
+                <div class="col-md-6 mr-auto pl-0">
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i
+                          class="pe-7s-user text-muted fsize-2"
+                          style="cursor: pointer;"
+                        ></i>
+                      </div>
 
-                  <div class="py-2">
-                    <h5 style="color: #202020;">Email</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{ mClient.email }}
-                    </h6>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Username</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mClient.fname + " " + mClient.lname }}
+                      </span>
+                    </div>
                   </div>
-
-                  <div class="py-2">
-                    <h5 style="color: #202020;">Tél</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      (+216) {{ mClient.phone ? mClient.phone : "N/A" }}
-                    </h6>
+                  <hr />
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i
+                          class="pe-7s-mail text-muted fsize-2"
+                          style="cursor: pointer;"
+                        ></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Email</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mClient.email }}
+                      </span>
+                    </div>
                   </div>
+                  <hr />
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i class="pe-7s-phone text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Tél</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        (+216) {{ mClient.phone || "---------" }} 
+                      </span>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i class="pe-7s-news-paper text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Num Patent</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        8516972Z
+                      </span>
+                    </div>
+                  </div>
+                  <hr />
                 </div>
-                <div class="col-md-3 w-auto">
-                  <div class="py-2">
-                    <h5 style="color: #202020;">Num Patent</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{ mClient.username }}
-                    </h6>
+                <div class="col-md-6 w-auto">
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i class="pe-7s-id text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Num CIN</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mClient.cin }}
+                      </span>
+                    </div>
                   </div>
-
-                  <div class="py-2">
-                    <h5 style="color: #202020;">Num CIN</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{ mClient.cin }}
-                    </h6>
+                  <hr />
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i class="pe-7s-timer text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >INSCRIT LE</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{
+                          mClient.creationAt | date: "short":"fr"
+                        }}
+                      </span>
+                    </div>
                   </div>
-
-                  <div class="py-2">
-                    <h5 style="color: #202020;">INSCRIT LE</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      <span class="text-secondary">{{
-                        mClient.creationAt | date: "short":"fr"
-                      }}</span>
-                    </h6>
+                  <hr />
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 mt-4 d-inline"
+                      >
+                        <i class="pe-7s-info text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;">REF</span>
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mClient.autoID }}
+                      </span>
+                    </div>
                   </div>
+                  <hr />
                 </div>
-                <div class="col-md-3 ml-auto">
-                  <div class="py-2">
-                    <h5 style="color: #202020;">REF</h5>
-                    <h6 style="color: #787c80;" class="pl-4 py-2">
-                      {{ mClient.autoID }}
-                    </h6>
-                  </div>
-                </div>
+                <!-- <div class="col-md-5 ml-auto">
+                  
+                </div> -->
               </div>
             </div>
           </div>
@@ -324,7 +430,10 @@
               </div>
             </p-footer>
           </p-dialog>
-          <div class="col-md-12 col-lg-12 col-xl-12 mx-auto my-2" style="width: 97%;">
+          <div
+            class="col-md-12 col-lg-12 col-xl-12 mx-auto my-2"
+            style="width: 97%;"
+          >
             <div class="main-card mb-3 card" style="min-height: 95%;">
               <!-- loader screen -->
               <div class="block-loader"></div>
@@ -563,8 +672,6 @@
     </div>
   </div>
 </div>
-
-
 
 <!-- Old Profile -->
 

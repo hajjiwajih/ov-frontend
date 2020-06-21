@@ -21,6 +21,8 @@ export class StockComponent implements OnInit {
 
   pipe = new DatePipe("fr-FR");
 
+  isVoucherLoading = true
+
   displayModal: boolean = false;
 
   addedSub$: Subscription;
@@ -164,7 +166,18 @@ export class StockComponent implements OnInit {
                 " TND ( " +
                 numberWithSpaces(total / 1000) +
                 " TND total)"
+            );              
+
+            _self.isVoucherLoading = false;
+            $("#total_amount").html(
+                numberWithSpaces(total / 1000) +
+                "<span style='font-size: 65%;'> TND</span>"
             );
+
+            $("#total_count").html(
+              _self.vouchers.length
+            );
+
           },
         });
       });
