@@ -78,6 +78,12 @@ export class DashboardComponent implements OnInit {
     this.subscribeToRejectedOrders();
   }
 
+  closeSidebar() {
+    document.getElementById('close__bar').classList.remove('sidebar-mobile-open')
+    document.getElementById('close__bar2').classList.add('d-none')
+    document.getElementById('close__bar3').classList.remove('is-active')
+  }
+
   getClientInfo() {
     this.userService.getUserById(this.clientId).subscribe((clientInfo) => {
       this.mClient = clientInfo;

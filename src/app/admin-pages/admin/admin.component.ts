@@ -74,8 +74,10 @@ export class AdminComponent implements OnInit {
     this.subscribeToNewClients();
   }
 
-  collapseMenu () {
-    // document.getElementById('wrapper').classList.remove('sidebar-mobile-open')
+  closeSidebar() {
+    document.getElementById('close__bar').classList.remove('sidebar-mobile-open')
+    document.getElementById('close__bar2').classList.add('d-none')
+    document.getElementById('close__bar3').classList.remove('is-active')
   }
 
   /**
