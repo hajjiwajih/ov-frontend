@@ -38539,18 +38539,29 @@ span.multiselect-native-select select {
   height: 235px;
 }
 
-/* .order-slider
-.slick-prev,
-.slick-next {
-  top: 98%;
+/* Override */
+.ui-dialog {
+    position: relative !important;
+    top: 0;
+    left: 0;
+    padding: .2em;
+    outline: 0;
 }
 
-.order-slider
-.slick-dots {
-  margin-top: 20%;
-} */
-
-/* PLace order */
+@media (max-width: 576px) {
+  .ng-trigger
+  .ng-trigger-animation
+  .ng-tns-c58-0
+  .ui-dialog
+  .ui-widget
+  .ui-widget-content
+  .ui-corner-all
+  .ui-shadow
+  .ng-star-inserted {
+    width: 100% !important;
+  }
+}
+/* Override */
 
 .sym__voucher {
   display: inline;
@@ -38597,3 +38608,4 @@ span.multiselect-native-select select {
     display: none;
   }
 }
+
