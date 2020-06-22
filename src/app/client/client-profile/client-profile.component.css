@@ -10,26 +10,19 @@
   }
 }
 
-@media (max-width: 768px) {
-  .account-settings-buttons {
-    width: 100%;
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .account-settings-inputs {
-    width: 260px;
+@media (max-width: 576px) {
+  .responsive-edit-widget {
+    align-self: center;
+    margin-top: 20px;
+    margin-right: -20px;
   }
 }
 
-@media (max-width: 992px) {
-  .account-settings-buttons {
-    width: 100%;
-    display: block;
-    margin-bottom: 6px;
-  }
 
-  .account-settings-inputs {
-    width: 300px;
+@media (max-width: 1020px) {
+  .responsive-edit-widget {
+    align-self: center;
+    margin-top: 20px;
+    margin-right: -20px;
   }
 }

@@ -5,14 +5,14 @@
     >
       <div class="container">
         <div class="row">
-          <div class="col-4 px-0 my-auto">
+          <div class="col-md-4 col-3 px-0 my-auto">
             <img
               src="../../../assets/icons/validated.png"
               width="56px"
               alt="validated_orders"
             />
           </div>
-          <div class="widget-chart-content col-8 px-0 mx-auto">
+          <div class="widget-chart-content col-md-8 col-9 px-0 mx-auto">
             <h6 class="widget-subheading">
               Validées
             </h6>
@@ -54,14 +54,14 @@
     >
       <div class="container">
         <div class="row">
-          <div class="col-4 px-0 my-auto">
+          <div class="col-md-4 col-3 px-0 my-auto">
             <img
               src="../../../assets/icons/rejected.png"
               width="56px"
               alt="rejected_orders"
             />
           </div>
-          <div class="widget-chart-content col-8 px-0 mx-auto">
+          <div class="widget-chart-content col-md-8 col-9 px-0 mx-auto">
             <h6 class="widget-subheading">
               Rejetées
             </h6>
@@ -87,9 +87,6 @@
                       class="widget-title ml-auto font-size-lg font-weight-normal text-muted"
                     >
                       <span class="text-danger pl-2">
-                        <span class="pr-1">
-                          <!-- <i class="fa fa-angle-up"></i> -->
-                        </span>
                         {{ percents[1] }}%
                       </span>
                     </div>
@@ -108,14 +105,14 @@
     >
       <div class="container">
         <div class="row">
-          <div class="col-4 px-0 my-auto">
+          <div class="col-md-4 col-3 px-0 my-auto">
             <img
               src="../../../assets/icons/non validated.png"
               width="56px"
               alt="non_validated_orders"
             />
           </div>
-          <div class="widget-chart-content col-8 px-0 mx-auto">
+          <div class="widget-chart-content col-md-8 col-9 px-0 mx-auto">
             <h6 class="widget-subheading">Non Validées</h6>
             <div class="widget-chart-flex">
               <div class="widget-numbers mb-0 w-100">
@@ -128,9 +125,6 @@
                     <span class="sr-only">Loading...</span>
                   </div>
                   <div class="fsize-4" *ngIf="!loaders[2]">
-                    <span class="text-success pr-2">
-                      <!-- <i class="fa fa-angle-down"></i> -->
-                    </span>
                     <small class="opacity-5"></small>
                     {{ countings[2] }}
                     <span style="font-size: 1.1rem;"

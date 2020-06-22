@@ -278,13 +278,16 @@ export class OrdersComponent implements OnInit {
                       "option",
                       "content",
                       `<div>
-                        <span class="text-success my-1">${
+                      <span>Username: </span>
+                        <span class="text-right text-success my-1"> ${
                           clientInfo.fname + " " + clientInfo.lname
                         }</span><br>
-                        <span class="text-success my-1">${
+                        <span>Email: </span>
+                        <span class="text-right text-success my-1">${
                           clientInfo.email
                         }</span><br>
-                        <button class="bg-success btn-rounded border-0 px-2 py-1 my-2">${
+                        <span>User status: </span>
+                        <button class="text-right bg-success btn-rounded text-white border-0 px-2 py-1 my-2">${
                           clientInfo.emailVerified ? "Verified" : "Not-Verified"
                         }</button>
                       </div>`

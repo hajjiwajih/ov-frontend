@@ -1,0 +1,15 @@
+@media (max-width: 576px) {
+  .responsive-edit-widget {
+    align-self: center;
+    margin-top: 20px;
+    margin-right: -20px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .responsive-edit-widget {
+    align-self: center;
+    margin-top: 20px;
+    margin-right: -20px;
+  }
+}

@@ -38548,16 +38548,9 @@ span.multiselect-native-select select {
     outline: 0;
 }
 
-@media (max-width: 576px) {
-  .ng-trigger
-  .ng-trigger-animation
-  .ng-tns-c58-0
+@media (max-width: 772px) {
   .ui-dialog
-  .ui-widget
-  .ui-widget-content
-  .ui-corner-all
-  .ui-shadow
-  .ng-star-inserted {
+   {
     width: 100% !important;
   }
 }
