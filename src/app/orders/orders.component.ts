@@ -314,13 +314,31 @@ export class OrdersComponent implements OnInit {
   }
 
   /**
+   * Since when we recieve the number of tickets it comes without spaces
+   * something like this -> 23859
+   * so i had to make an alogrithm that will add spaces to the number based on specific conditions
+   */
+
+  beautifyNumber(string) {
+    string = string.toString().split('')
+    if (string.length - 3 !== undefined) {
+      for (var i = string.length - 3; i >= 0; i-=3) {
+        if(!string[i]) break;
+        string.splice(i, 0, ' ')
+        if(!string[i - 4]) break;
+      }
+    }
+    return string.join('')
+  }
+
+  /**
    * Highlight and calculate overall stats
    *
    */
   getStats() {
     // available stocks
     this.orderService.countTickets().subscribe((available) => {
-      this.availableTickets = available.count;
+      this.availableTickets = this.beautifyNumber(available.count);
       setTimeout(() => {
         this.isStockLoading = false;
       }, 700);
