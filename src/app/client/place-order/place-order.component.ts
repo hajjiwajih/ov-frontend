@@ -153,20 +153,21 @@ export class PlaceOrderComponent implements OnInit {
           }
         });
 
-        this.uniqueMonths.push({
-          Aug: [{ allOrders: 4 }, { validated: 6 }, { rejected: 2 }],
-          year: '2021',
-        });
-
-
+        
+        
         /**
-         * Data for testing the chart
+         * Dummy Data for testing the chart
          */
 
-        this.uniqueMonths.push({
-          Jul: [{ allOrders: 2 }, { validated: 3 }, { rejected: 4 }],
-          year: '2021',
-        });
+        // this.uniqueMonths.push({
+        //   Aug: [{ allOrders: 4 }, { validated: 6 }, { rejected: 2 }],
+        //   year: '2021',
+        // });
+
+        // this.uniqueMonths.push({
+        //   Jul: [{ allOrders: 2 }, { validated: 3 }, { rejected: 4 }],
+        //   year: '2021',
+        // });
 
         // this.uniqueMonths.push({
         //   Jan: [{ allOrders: 2 }, { validated: 3 }, { rejected: 7 }],
