@@ -28,7 +28,8 @@ export class OrdersComponent implements OnInit {
   selectedUserForUpdate: Order;
   obs$: Subscription;
 
-  availableTickets = 0;
+  availableTickets: any;
+  proccesAvailableTickets: any;
   soldTickets = 0;
   totalOrders = 0;
 
@@ -320,15 +321,15 @@ export class OrdersComponent implements OnInit {
    */
 
   beautifyNumber(string) {
-    string = string.toString().split('')
+    string = string.toString().split("");
     if (string.length - 3 !== undefined) {
-      for (var i = string.length - 3; i >= 0; i-=3) {
-        if(!string[i]) break;
-        string.splice(i, 0, ' ')
-        if(!string[i - 4]) break;
+      for (var i = string.length - 3; i >= 0; i -= 3) {
+        if (!string[i]) break;
+        string.splice(i, 0, " ");
+        if (!string[i - 4]) break;
       }
     }
-    return string.join('')
+    return string.join("");
   }
 
   /**
@@ -677,9 +678,12 @@ export class OrdersComponent implements OnInit {
         let totalPerType = 0;
         totalPerType = (available.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        if (this.availableTickets)
+
+        this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
+        this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
+        if (this.proccesAvailableTickets)
           this.percents[index] = Math.round(
-            (available.count / this.availableTickets) * 100
+            (available.count / this.proccesAvailableTickets) * 100
           );
         else this.percents[index] = 0;
         this.loaders[index] = false;
