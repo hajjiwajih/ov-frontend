@@ -2,6 +2,7 @@ import { NotificationService } from "./../services/notification.service";
 import { DatePipe } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { OrderService } from "./../services/order.service";
+import { UserService } from "./../services/user.service";
 import { Message } from "primeng/api/message";
 import { MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
@@ -10,6 +11,7 @@ import { Component, OnInit } from "@angular/core";
 import Swal from "sweetalert2";
 import { appendDtActions } from "../helpers/datatable-fonctions";
 import { numberWithSpaces } from "../helpers/format-stocks";
+import { User } from "../models/user";
 
 declare var $: any;
 
@@ -21,11 +23,13 @@ declare var $: any;
 })
 export class OrdersComponent implements OnInit {
   orders: Order[];
+  user: User;
   selectedOrder: Order;
   selectedUserForUpdate: Order;
   obs$: Subscription;
 
-  availableTickets = 0;
+  availableTickets: any;
+  proccesAvailableTickets: any;
   soldTickets = 0;
   totalOrders = 0;
 
@@ -67,6 +71,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private orderService: OrderService,
+    private userService: UserService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router
@@ -157,7 +162,10 @@ export class OrdersComponent implements OnInit {
                 {
                   targets: 4,
                   render: function (data, type, row) {
-                    return `<a href="/monitor/clients/${row.clientId}">${data}</a>`;
+                    return `
+                    <div class='content text-center'>
+                      <a class="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..'><img src="../../assets/icons/info.png" width="26px" /></a>
+                    </div>`;
                   },
                 },
                 {
@@ -261,6 +269,38 @@ export class OrdersComponent implements OnInit {
                 _self.showDialog(table.row($(this).parent().parent()).data());
               }
             );
+            $(".content a").tooltip({
+              track: true,
+              open: function (event, ui) {
+                _self.userService
+                  .getUserById(event.target.className)
+                  .subscribe((clientInfo) => {
+                    $("." + event.target.className).tooltip(
+                      "option",
+                      "content",
+                      `<div>
+                      <span>Username: </span>
+                        <span class="text-right text-success my-1"> ${
+                          clientInfo.fname + " " + clientInfo.lname
+                        }</span><br>
+                        <span>Email: </span>
+                        <span class="text-right text-success my-1">${
+                          clientInfo.email
+                        }</span><br>
+                        <span>User status: </span>
+                        <button class="text-right bg-success btn-rounded text-white border-0 px-2 py-1 my-2">${
+                          clientInfo.emailVerified ? "Verified" : "Not-Verified"
+                        }</button>
+                      </div>`
+                    );
+                  });
+              },
+            });
+            $(".content a").mouseout(function () {
+              $(this).attr("title", "Please wait...");
+              $(this).tooltip();
+              $(".ui-tooltip").hide();
+            });
           });
         });
       // subscribe to incoming events
@@ -275,13 +315,31 @@ export class OrdersComponent implements OnInit {
   }
 
   /**
+   * Since when we recieve the number of tickets it comes without spaces
+   * something like this -> 23859
+   * so i had to make an alogrithm that will add spaces to the number based on specific conditions
+   */
+
+  beautifyNumber(string) {
+    string = string.toString().split("");
+    if (string.length - 3 !== undefined) {
+      for (var i = string.length - 3; i >= 0; i -= 3) {
+        if (!string[i]) break;
+        string.splice(i, 0, " ");
+        if (!string[i - 4]) break;
+      }
+    }
+    return string.join("");
+  }
+
+  /**
    * Highlight and calculate overall stats
    *
    */
   getStats() {
     // available stocks
     this.orderService.countTickets().subscribe((available) => {
-      this.availableTickets = available.count;
+      this.availableTickets = this.beautifyNumber(available.count);
       setTimeout(() => {
         this.isStockLoading = false;
       }, 700);
@@ -620,9 +678,12 @@ export class OrdersComponent implements OnInit {
         let totalPerType = 0;
         totalPerType = (available.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        if (this.availableTickets)
+
+        this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
+        this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
+        if (this.proccesAvailableTickets)
           this.percents[index] = Math.round(
-            (available.count / this.availableTickets) * 100
+            (available.count / this.proccesAvailableTickets) * 100
           );
         else this.percents[index] = 0;
         this.loaders[index] = false;

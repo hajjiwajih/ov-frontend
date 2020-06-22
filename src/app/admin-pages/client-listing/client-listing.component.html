@@ -1,9 +1,173 @@
 <!-- Notifications -->
 
 <div class="row">
-  <div class="p-2">
-    <!-- <p-toast key="note"></p-toast> -->
+  <!-- <div class="p-2">
+    <p-toast key="note"></p-toast>
+  </div> -->
+  <div class="col-md-4 col-xl-4">
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 px-0 ml-2 my-auto">
+            <img
+              src="../../../assets/icons/Group 157.png"
+              width="43px"
+              alt="validated_orders"
+            />
+          </div>
+          <div
+            class="widget-content-wrapper col-8 px-0 mx-auto"
+            style="margin-top: 8px; margin-bottom: 8px;"
+          >
+            <div class="widget-content-left">
+              <div class="widget-heading">Clients Registered</div>
+              <div class="widget-subheading">Number of clients registered</div>
+            </div>
+            <div class="widget-content-right">
+              <div class="widget-numbers mb-0">
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="all_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger"
+    >
+      Détail
+    </button> -->
   </div>
+  <!-- (click)="openStockDetails('available')" -->
+  <div class="col-md-4 col-xl-4">
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 px-0 ml-2 my-auto">
+            <img
+              src="../../../assets/icons/verified.png"
+              width="60px"
+              alt="validated_users"
+            />
+          </div>
+          <div
+            class="widget-content-wrapper col-8 px-0 mx-auto"
+            style="margin-top: 8px; margin-bottom: 8px;"
+          >
+            <div class="widget-content-left">
+              <div class="widget-heading">Checked Clients</div>
+              <div class="widget-subheading">Number of checked clients</div>
+            </div>
+            <div class="widget-content-right">
+              <div class="widget-numbers mb-0">
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="checked_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
+    >
+      Détail
+    </button> -->
+  </div>
+  <!-- (click)="openStockDetails('sold')" -->
+  <div class="col-md-4 col-xl-4">
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 px-0 ml-2 my-auto">
+            <img
+              src="../../../assets/icons/not-verified.png"
+              width="60px"
+              alt="rejected_users"
+            />
+          </div>
+          <div
+            class="widget-content-wrapper col-8 px-0 mx-auto"
+            style="margin-top: 8px; margin-bottom: 8px;"
+          >
+            <div class="widget-content-left">
+              <div class="widget-heading">Not verified</div>
+              <div class="widget-subheading">
+                Number of not verified clients
+              </div>
+            </div>
+            <div class="widget-content-right">
+              <div class="widget-numbers mb-0">
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="rejected_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
+    >
+      Détail
+    </button> -->
+  </div>
+  <!-- (click)="openStockDetails('sold')" -->
 
   <div class="col-md-12">
     <div class="main-card mb-3 card">

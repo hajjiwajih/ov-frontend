@@ -1,0 +1,14 @@
+@media (min-width: 1250px) {
+  .app-sidebar-wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 1250px) {
+  .app-inner-layout.app-inner-layout-page.app-layout-menu-open
+    .app-inner-layout__wrapper
+    .app-inner-layout__sidebar
+    .app-layout__sidebar-inner {
+    display: none;
+  }
+}

@@ -34,3 +34,23 @@
   z-index: 99999 !important;
   background: rgba(0, 0, 0, 0.9) !important;
 }
+
+@media (min-width: 1250px) {
+  .app-sidebar-wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 1250px) {
+  .app-inner-layout.app-inner-layout-page.app-layout-menu-open
+    .app-inner-layout__wrapper
+    .app-inner-layout__sidebar
+    .app-layout__sidebar-inner {
+    display: none;
+  }
+  .app-header-overlay,
+  .app-sidebar-overlay,
+  .app-drawer-overlay {
+    z-index: 1;
+  }
+}

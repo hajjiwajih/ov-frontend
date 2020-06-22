@@ -30,6 +30,9 @@
                       >
                     </h4>
                   </div>
+                  <div class="my-2">
+                    <p-messages [(value)]="msgs"></p-messages>
+                  </div>
                   <div class="form-row">
                     <div class="col-md-12">
                       <div class="position-relative form-group">
@@ -114,24 +117,23 @@
                   </h6>
                 </div>
                 <div class="modal-footer clearfix">
-                  <div class="float-left">
+                  <!-- <div class="float-left"> -->
                     <!-- <a [routerLink]="['/forgot-password']" class="btn-lg btn btn-link">Reset Password</a> -->
-                  </div>
-                  <div class="float-right">
+                  <!-- </div> -->
+                  <!-- <div class="float-right"> -->
                     <button
                       type="submit"
                       (click)="onSubmit()"
-                      class="btn btn-primary btn-lg"
+                      class="btn btn-primary btn-block w-100 btn-lg"
                     >
-                      Se Connecter
+                      <!-- Se  -->
+                      Connecter
                     </button>
-                  </div>
+                  <!-- </div> -->
 
                   <!-- Notifications -->
                 </div>
-                <div class="p-2">
-                  <p-messages [(value)]="msgs"></p-messages>
-                </div>
+                
               </div>
             </div>
             <div class="text-center text-white opacity-8 mt-3">
