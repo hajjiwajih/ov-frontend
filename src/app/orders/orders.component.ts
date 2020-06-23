@@ -139,11 +139,11 @@ export class OrdersComponent implements OnInit {
                 { data: "nbCodes" },
                 { data: "ticketAmount" },
                 { data: "ticketAmount" },
-                { data: "clientRef" },
                 { data: "issueDate" },
                 { data: "validationDate" },
                 { data: "validationDate" },
                 { defaultContent: "" },
+                { data: "clientRef" },
               ],
               order: [[0, "desc"]],
               columnDefs: [
@@ -160,7 +160,7 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 4,
+                  targets: 8,
                   render: function (data, type, row) {
                     return `
                     <div class='content text-center'>
@@ -169,21 +169,21 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 5,
+                  targets: 4,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
                 },
                 {
                   visible: _self.isValidated && !_self.isRejected,
-                  targets: 6,
+                  targets: 5,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
                 },
                 {
                   visible: !_self.isValidated && _self.isRejected,
-                  targets: 7,
+                  targets: 6,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
@@ -193,7 +193,7 @@ export class OrdersComponent implements OnInit {
                 appendDtActions(aData, nRow, false, {
                   valid: _self.isValidated,
                   reject: _self.isRejected,
-                  column: _self.isValidated || _self.isRejected ? 7 : 6,
+                  column: _self.isValidated || _self.isRejected ? 6 : 5,
                 });
               },
               footerCallback: function (row, data, start, end, display) {
