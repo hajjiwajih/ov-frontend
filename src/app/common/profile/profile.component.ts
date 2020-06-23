@@ -22,7 +22,8 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.userService.logout().subscribe((res) => {
-      this.router.navigateByUrl("login");
+      if (this.user.role === 'admin') this.router.navigateByUrl("login-admin");
+      else this.router.navigateByUrl('login')
     });
   }
 
