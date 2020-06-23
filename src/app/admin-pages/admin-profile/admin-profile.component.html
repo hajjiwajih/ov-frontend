@@ -1,0 +1,331 @@
+<div class="row">
+  <div class="col-md-12 bg-white p-0 m-0">
+    <div class="main-card">
+      <div class="card-body p-0 m-0">
+        <div *ngIf="!mAdmin">
+          <div class="m-auto text-center bg-transparent" style="width: 10%;">
+              <!-- loader screen -->
+              <div class="block-loader"></div>
+              <div class="sk-circle">
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+                <div class="sk-circle-dot"></div>
+              </div>
+          </div>
+        </div>
+        <div *ngIf="mAdmin" class="profile-cover">
+          <img
+            src="../../../assets/images/profile_cover.png"
+            class="p-0 m-0"
+            width="100%"
+            height="140px"
+            alt="profile-cover"
+          />
+          <div class="user_img text-center" style="margin-top: -55px;">
+            <img
+              src="../../../assets/images/user img.png"
+              class="bg-white p-2"
+              style="border-radius: 50%; border-color: gray;"
+              alt="user_img"
+              width="120px"
+            />
+          </div>
+          <div class="text-center mb-3">
+            <h3 class="my-2">Admin admin</h3>
+            <h6 class="my-3" style="color: gray; letter-spacing: 2px;">
+              {{ mAdmin.email }}
+            </h6>
+            <div class="menu-header-btn-pane">
+              <button class="btn btn-success btn-rounded py-1 mt-1 mb-2">
+                <img
+                  src="../../../assets/images/tick.png"
+                  width="12px"
+                  alt="tick"
+                />
+                Vérifié
+              </button>
+              <!-- <button class="btn btn-warning" *ngIf="!mAdmin.emailVerified">
+                Non vérifié
+              </button> -->
+            </div>
+          </div>
+
+          <!-- <div class="row w-50 m-auto text-center">
+            <div class="col-md-3 mr-auto">
+              <h2 style="color: blue;">6</h2>
+              <h6>Total Orders</h6>
+            </div>
+            <div class="col-md-3">
+              <h2 class="text-success">2</h2>
+              <h6>Validated</h6>
+            </div>
+            <div class="col-md-3 ml-auto">
+              <h2 class="text-danger">4</h2>
+              <h6>Rejected</h6>
+            </div>
+          </div> -->
+
+          <div class="row my-3 mx-auto" style="width: 94%;">
+            <div class="col-md-12 bg-light pt-4 pb-0 px-4">
+              <h2>Account Info</h2>
+              <div class="row mx-auto my-4" >
+                <div class="col-md-6 mr-auto pl-0">
+                  <!-- <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i
+                          class="pe-7s-user text-muted fsize-2"
+                          style="cursor: pointer;"
+                        ></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Username</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mAdmin.fname + " " + mAdmin.lname }}
+                      </span>
+                    </div>
+                  </div>
+                  <hr /> -->
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
+                        <i
+                          class="pe-7s-mail text-muted fsize-2"
+                          style="cursor: pointer;"
+                        ></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Email</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mAdmin.email }}
+                      </span>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div class="widget-content-left center-elem mr-2 d-inline">
+                        <i class="pe-7s-phone text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Tél </span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        (+216) {{ mAdmin.phone || "---------" }} 
+                      </span>
+                    </div>
+                  </div>
+                  <hr />
+                  <!-- <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div class="widget-content-left center-elem mr-2 d-inline">
+                        <i class="pe-7s-news-paper text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Num Patent</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        8516972Z
+                      </span>
+                    </div>
+                  </div>
+                  <hr /> -->
+                </div>
+                <div class="col-md-6 mr-auto pl-0 pl-md-3 ">
+                  <!-- <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div class="widget-content-left center-elem mr-2 d-inline">
+                        <i class="pe-7s-id text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >Num CIN</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mAdmin.cin }}
+                      </span>
+                    </div>
+                  </div>
+                  <hr /> -->
+                  <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div class="widget-content-left center-elem mr-2 d-inline">
+                        <i class="pe-7s-timer text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;"
+                        >INSCRIT LE</span
+                      >
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{
+                          mAdmin.creationAt | date: "short":"fr"
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                  <hr />
+                  <!-- <div class="my-4 row">
+                    <div class="col-md-5">
+                      <div class="widget-content-left center-elem mr-2 mt-4 d-inline">
+                        <i class="pe-7s-info text-muted fsize-2"></i>
+                      </div>
+                      <span style="color: #202020; font-size: 18px;">REF</span>
+                    </div>
+                    <div class="col-md-6 ml-auto text-right mr-3">
+                      <span style="color: #787c80; font-size: 16px;">
+                        {{ mAdmin.autoID }}
+                      </span>
+                    </div>
+                  </div>
+                  <hr /> -->
+                </div>
+                <!-- <div class="col-md-5 ml-auto">
+                  
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3 mt-4 mx-auto" style="width: 94%;">
+            <div class="col-md-12 bg-light pt-4 pb-0 px-4">
+              <h2>Edit Information</h2>
+              <div class="row mx-auto my-4" style="width: 94%;">
+                <div class="col-md-12 mr-auto">
+                  <!-- <div class="py-2 row w-100 my-3">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                      Email
+                    </h5>
+                    <div class="col-md-5 col-12 ml-auto">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i
+                              class="fa fa-user-circle"
+                              style="cursor: pointer;"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <input
+                          disabled
+                          style="width: 240px;"
+                          name="email"
+                          id="exampleEmail"
+                          [value]="mAdmin.email"
+                          type="email"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="py-2 row w-100 my-3">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                      Phone number
+                    </h5>
+                    <div class="col-md-5 col-12 ml-auto">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i
+                              class="fas fa-phone"
+                              style="cursor: pointer;"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <input
+                          disabled
+                          style="width: 240px;"
+                          name="phone"
+                          [value]="mAdmin.phone ? mAdmin.phone : ''"
+                          type="text"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="widget-content-right widget-content-actions">
+                      <button
+                        title="Edit"
+                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                      >
+                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                      </button>
+                    </div>
+                  </div> -->
+                  <!-- (click)="editInfo('Téléphone')"
+                  (click)="editInfo('email')" -->
+
+                  <div class="py-2 row w-100 my-3">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                      Password
+                    </h5>
+                    <div class="col-md-5 col-12 ml-auto d-flex">
+                      <div class="input-group mb-2 mr-sm-2 d-l-content">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-lock" style="cursor: pointer;"></i>
+                          </div>
+                        </div>
+
+                        <input
+                          disabled
+                          style="width: 240px;"
+                          name="password"
+                          value="********"
+                          type="password"
+                          class="form-control w-m-100"
+                        />
+                      </div>
+                      <div class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2">
+                        <button
+                          title="Edit"
+                          class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                          (click)="navigate('monitor/change-password')"
+                        >
+                          <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
