@@ -104,10 +104,8 @@ export class PlaceOrderComponent implements OnInit {
 
   removeDuplicateObjects(array: any[]) {
     return [
-      ...new Map(
-        this.labels.map((obj) => [JSON.stringify(obj), obj])
-      ).values(),
-    ]
+      ...new Map(this.labels.map((obj) => [JSON.stringify(obj), obj])).values(),
+    ];
   }
 
   ngOnInit() {
@@ -125,11 +123,10 @@ export class PlaceOrderComponent implements OnInit {
            * Notice that my algorithm will take only the orders from the current year so it won't
            * take the past years orders
            */
-          console.log(item);
           let month = this.converMonthToString(item.issueDate.slice(5, 7));
           if (item.issueDate.slice(0, 4).toString() === currentYear) {
             let obj = {
-              [month]: [{ allOrders: 0 }, { validated: 0 }, { rejected: 0 }]
+              [month]: [{ allOrders: 0 }, { validated: 0 }, { rejected: 0 }],
             };
             return obj;
           }
@@ -227,8 +224,6 @@ export class PlaceOrderComponent implements OnInit {
           this.secondLabels = tempMonths.slice(0, tempMonths.length);
           console.log(this.secondLabels);
         }
-        console.log(this.secondLabels);
-        console.log(this.uniqueMonths);
 
         // Creating the Chart
         this.createChart();
@@ -367,47 +362,62 @@ export class PlaceOrderComponent implements OnInit {
   createChart() {
     var ctx = document.getElementById("myChart");
     this.myChart = new Chart(ctx, {
-      type: "line",
+      type: "bar",
       data: {
         labels: this.secondLabels,
         datasets: [
           {
             data: [],
-            label: "All Orders",
-            borderColor: "#16AAFF",
-            backgroundColor: "#16AAFF",
-            color: "#16AAFF",
+            label: "Non Validées",
+            borderColor: "#22AEFF",
+            backgroundColor: "#22AEFF",
             fill: false,
           },
           {
             data: [],
-            label: "Validated",
-            borderColor: "#3AC47D",
-            backgroundColor: "#3AC47D",
+            label: "Validées",
+            borderColor: "#49C887",
+            backgroundColor: "#49C887",
             fill: false,
           },
           {
             data: [],
-            label: "Rejected",
-            borderColor: "#E43333",
-            backgroundColor: "#E34F4F",
+            label: "Rejetées",
+            borderColor: "#DB325A",
+            backgroundColor: "#DB325A",
             fill: false,
           },
         ],
       },
       options: {
-        chartArea: {
-          backgroundColor: "rgba(251, 85, 85, 0.4)",
+        tooltips: {
+          displayColors: true,
+          callbacks: {
+            mode: "x",
+          },
         },
         scales: {
-          yAxes: [
+          xAxes: [
             {
-              ticks: {
-                beginAtZero: true,
+              stacked: true,
+              gridLines: {
+                display: false,
               },
             },
           ],
+          yAxes: [
+            {
+              stacked: true,
+              ticks: {
+                beginAtZero: true,
+              },
+              type: "linear",
+            },
+          ],
         },
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: { position: "bottom" },
       },
     });
   }
