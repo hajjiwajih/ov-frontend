@@ -34,3 +34,31 @@
   background: #e5ecee;
   padding: 1.5rem;
 }
+
+@media (max-width: 576px) {
+  .sizing-sm {
+    margin-left: 12px !important;
+  }
+  .d-s-none {
+    display: none;
+  }
+  .d-s-block {
+    display: block;
+    margin-top: 6px;
+  }
+  .sm-width {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .d-m-none {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .d-l-none {
+    display: none;
+  }
+}
