@@ -53,46 +53,51 @@ export class SignupComponent implements OnInit {
 
     // form validation
     $(document).ready(function () {
-      var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
-      var cinPattern = /^([0-9]{8})$/; // 8 digits
+      /**
+       * When document is ready we are showing the user immediatly the X red icon
+       * which is not good for user so i had to move it to onSubmit() function 
+       * so once he submit then he can see if he has error
+       */
+      // var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
+      // var cinPattern = /^([0-9]{8})$/; // 8 digits
 
-      $("#cin")[0].setCustomValidity("cin empty");
-      $("#patente")[0].setCustomValidity("login empty");
-      $("#signupForm").addClass("was-validated");
+      // $("#cin")[0].setCustomValidity("cin empty");
+      // $("#patente")[0].setCustomValidity("login empty");
+      // $("#signupForm").addClass("was-validated");
 
-      // input validation
-      $("#patente").keyup(function () {
-        if ($(this).val().match(loginPattern)) {
-          this.setCustomValidity("");
-        } else {
-          this.setCustomValidity("Login field pattern didn't match");
-        }
-      });
+      // // input validation
+      // $("#patente").keyup(function () {
+      //   if ($(this).val().match(loginPattern)) {
+      //     this.setCustomValidity("");
+      //   } else {
+      //     this.setCustomValidity("Login field pattern didn't match");
+      //   }
+      // });
 
-      // input validation
-      $("#cin").keyup(function () {
-        if ($(this).val().match(cinPattern)) {
-          this.setCustomValidity("");
-        } else {
-          this.setCustomValidity("CIN field pattern didn't match");
-        }
-      });
+      // // input validation
+      // $("#cin").keyup(function () {
+      //   if ($(this).val().match(cinPattern)) {
+      //     this.setCustomValidity("");
+      //   } else {
+      //     this.setCustomValidity("CIN field pattern didn't match");
+      //   }
+      // });
 
-      // input validation
-      $("#password").keyup(function () {
-        _self.checkPasswordStrength();
-      });
+      // // input validation
+      // $("#password").keyup(function () {
+      //   _self.checkPasswordStrength();
+      // });
 
-      // input validation
-      $("#confirm_password").keyup(function () {
-        if ($(this).val() == $("#password").val()) {
-          this.setCustomValidity("");
-        } else {
-          this.setCustomValidity("Passwords must match");
-        }
-      });
+      // // input validation
+      // $("#confirm_password").keyup(function () {
+      //   if ($(this).val() == $("#password").val()) {
+      //     this.setCustomValidity("");
+      //   } else {
+      //     this.setCustomValidity("Passwords must match");
+      //   }
+      // });
 
-      _self.togglePassword();
+      // _self.togglePassword();
     });
   }
 
@@ -109,6 +114,46 @@ export class SignupComponent implements OnInit {
     });
     // decorate form
     console.log(this.user);
+    var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
+    var cinPattern = /^([0-9]{8})$/; // 8 digits
+
+    $("#cin")[0].setCustomValidity("cin empty");
+    $("#patente")[0].setCustomValidity("login empty");
+    $("#signupForm").addClass("was-validated");
+
+    // input validation
+    $("#patente").keyup(function () {
+      if ($(this).val().match(loginPattern)) {
+        this.setCustomValidity("");
+      } else {
+        this.setCustomValidity("Login field pattern didn't match");
+      }
+    });
+
+    // input validation
+    $("#cin").keyup(function () {
+      if ($(this).val().match(cinPattern)) {
+        this.setCustomValidity("");
+      } else {
+        this.setCustomValidity("CIN field pattern didn't match");
+      }
+    });
+
+    // input validation
+    $("#password").keyup(function () {
+      this.checkPasswordStrength();
+    });
+
+    // input validation
+    $("#confirm_password").keyup(function () {
+      if ($(this).val() == $("#password").val()) {
+        this.setCustomValidity("");
+      } else {
+        this.setCustomValidity("Passwords must match");
+      }
+    });
+
+    this.togglePassword();
     // add user
     if (this.validateForm() && this.checkPasswordStrength()) {
       $(".progress-line").addClass("flex-display");
@@ -134,7 +179,8 @@ export class SignupComponent implements OnInit {
             }, 1000);
             this.msgs.push({
               severity: "error",
-              summary: "Message",
+              summary: "",
+              // summary: "Message",
               detail:
                 "Le courrier électronique / patente / CIN existe déjà. Veuillez le changer",
             });
@@ -146,7 +192,8 @@ export class SignupComponent implements OnInit {
             }, 1000);
             this.msgs.push({
               severity: "info",
-              summary: "Error Message",
+              summary: "",
+              // summary: "Error Message",
               detail: "Aucune réponse de serveur, Probléme survenu!",
             });
           }

@@ -76,6 +76,9 @@
                       <span>Veuillez créer votre compte ci-dessous.</span>
                     </h4>
                   </div>
+                  <div class="py-2">
+                    <p-messages [(value)]="msgs"></p-messages>
+                  </div>
                   <div class="form-row">
                     <div class="col-md-6">
                       <div class="position-relative form-group">
@@ -263,15 +266,15 @@
                     >
                   </h6>
                 </div>
-                <div class="modal-footer clearfix">
-                  <div class="float-left">
-                    <!-- <a [routerLink]="['/forgot-password']" class="btn-lg btn btn-link">Reset Password</a> -->
-                  </div>
-                  <div class="float-right">
+                <div class="modal-footer clearfix w-100">
+                  <!-- <div class="float-left">
+                    <a [routerLink]="['/forgot-password']" class="btn-lg btn btn-link">Reset Password</a>
+                  </div> -->
+                  <div class="float-right w-100">
                     <button
                       type="submit"
                       (click)="onSubmit()"
-                      class="btn btn-primary btn-lg"
+                      class="btn btn-block btn-primary btn-lg"
                     >
                       &nbsp;Procéder&nbsp;
                     </button>
@@ -279,9 +282,7 @@
 
                   <!-- Notifications -->
                 </div>
-                <div class="p-2">
-                  <p-messages [(value)]="msgs"></p-messages>
-                </div>
+                
               </div>
               <div
                 id="password-strength-container"
