@@ -399,7 +399,7 @@ export class PlaceOrderComponent implements OnInit {
         scales: {
           xAxes: [
             {
-              stacked: true,
+              // stacked: true,
               gridLines: {
                 display: false,
               },
@@ -407,7 +407,7 @@ export class PlaceOrderComponent implements OnInit {
           ],
           yAxes: [
             {
-              stacked: true,
+              // stacked: true,
               ticks: {
                 beginAtZero: true,
               },

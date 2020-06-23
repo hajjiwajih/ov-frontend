@@ -14,6 +14,11 @@
   }
 }
 
+@media (max-width: 768px) {
+  .w-m-100 { width: 100% !important}
+}
+
 @media (min-width: 772px) {
   .d-l-content { display: contents !important}
 }
+
