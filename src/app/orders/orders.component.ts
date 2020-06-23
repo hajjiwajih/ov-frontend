@@ -139,11 +139,11 @@ export class OrdersComponent implements OnInit {
                 { data: "nbCodes" },
                 { data: "ticketAmount" },
                 { data: "ticketAmount" },
-                { data: "clientRef" },
                 { data: "issueDate" },
                 { data: "validationDate" },
                 { data: "validationDate" },
                 { defaultContent: "" },
+                { data: "clientRef" },
               ],
               order: [[0, "desc"]],
               columnDefs: [
@@ -160,7 +160,7 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 4,
+                  targets: 8,
                   render: function (data, type, row) {
                     return `
                     <div class='content text-center'>
@@ -169,21 +169,21 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 5,
+                  targets: 4,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
                 },
                 {
                   visible: _self.isValidated && !_self.isRejected,
-                  targets: 6,
+                  targets: 5,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
                 },
                 {
                   visible: !_self.isValidated && _self.isRejected,
-                  targets: 7,
+                  targets: 6,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
@@ -193,7 +193,7 @@ export class OrdersComponent implements OnInit {
                 appendDtActions(aData, nRow, false, {
                   valid: _self.isValidated,
                   reject: _self.isRejected,
-                  column: _self.isValidated || _self.isRejected ? 7 : 6,
+                  column: _self.isValidated || _self.isRejected ? 6 : 5,
                 });
               },
               footerCallback: function (row, data, start, end, display) {
@@ -280,17 +280,22 @@ export class OrdersComponent implements OnInit {
                       "content",
                       `<div>
                       <span>Username: </span>
-                        <span class="text-right text-success my-1"> ${
+                        <span class="text-right text-success mt-2"> ${
                           clientInfo.fname + " " + clientInfo.lname
                         }</span><br>
                         <span>Email: </span>
-                        <span class="text-right text-success my-1">${
+                        <span class="text-right text-success my-2">${
                           clientInfo.email
                         }</span><br>
                         <span>User status: </span>
-                        <button class="text-right bg-success btn-rounded text-white border-0 px-2 py-1 my-2">${
-                          clientInfo.emailVerified ? "Verified" : "Not-Verified"
-                        }</button>
+                        ${
+                          clientInfo.emailVerified
+                          ? 
+                          '<button style="border-radius: .3rem" class="text-right bg-success btn-rounded text-white border-0 px-2 py-0 my-2"> Vérifié </button>'
+                          :
+                          '<button style="border-radius: .3rem" class="text-right bg-warning btn-rounded text-white border-0 px-2 py-0 my-2"> Non vérifié </button>'
+                        }
+                        
                       </div>`
                     );
                   });
@@ -315,31 +320,13 @@ export class OrdersComponent implements OnInit {
   }
 
   /**
-   * Since when we recieve the number of tickets it comes without spaces
-   * something like this -> 23859
-   * so i had to make an alogrithm that will add spaces to the number based on specific conditions
-   */
-
-  beautifyNumber(string) {
-    string = string.toString().split("");
-    if (string.length - 3 !== undefined) {
-      for (var i = string.length - 3; i >= 0; i -= 3) {
-        if (!string[i]) break;
-        string.splice(i, 0, " ");
-        if (!string[i - 4]) break;
-      }
-    }
-    return string.join("");
-  }
-
-  /**
    * Highlight and calculate overall stats
    *
    */
   getStats() {
     // available stocks
     this.orderService.countTickets().subscribe((available) => {
-      this.availableTickets = this.beautifyNumber(available.count);
+      this.availableTickets = numberWithSpaces(available.count);
       setTimeout(() => {
         this.isStockLoading = false;
       }, 700);
@@ -358,7 +345,7 @@ export class OrdersComponent implements OnInit {
         if (index + 1 == this.amounts.length)
           this.amounts.forEach((amount, index) => {
             this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
-              this.stocks[index] = sold.count;
+              this.stocks[index] = numberWithSpaces(sold.count);
               amountSails += (sold.count * amount) / 1000;
               console.log(sold.count, amount, amountSails);
               this.amountSails = numberWithSpaces(amountSails);
@@ -674,13 +661,18 @@ export class OrdersComponent implements OnInit {
     this.loaders = [true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.countTicketsByAmount(amount).subscribe((available) => {
-        this.stocks[index] = available.count;
+        this.stocks[index] = numberWithSpaces(available.count);
         let totalPerType = 0;
         totalPerType = (available.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
 
+        /**
+         * Since we are doing some calculation on this.availableTickets variable
+         * and i change it to string before to add suitable spaces i can't do operation since it's string and has spaces
+         * so i had to remove spaces using .replace() method and then convert it to number
+         */
         this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
-        this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
+        this.proccesAvailableTickets = Number(this.availableTickets);
         if (this.proccesAvailableTickets)
           this.percents[index] = Math.round(
             (available.count / this.proccesAvailableTickets) * 100
@@ -700,7 +692,7 @@ export class OrdersComponent implements OnInit {
     this.loaders = [true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
-        this.stocks[index] = sold.count;
+        this.stocks[index] = numberWithSpaces(sold.count);
         let totalPerType = 0;
         console.log(this.percents[index], sold.count, amount, this.soldTickets);
         totalPerType = (sold.count * amount) / 1000;
