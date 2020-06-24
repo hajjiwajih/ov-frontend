@@ -104,7 +104,7 @@ export class PlaceOrderComponent implements OnInit {
 
   removeDuplicateObjects(array: any[]) {
     return [
-      ...new Map(this.labels.map((obj) => [JSON.stringify(obj), obj])).values(),
+      ...new Map(array.map((obj) => [JSON.stringify(obj), obj])).values(),
     ];
   }
 
