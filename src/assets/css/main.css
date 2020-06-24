@@ -19981,6 +19981,7 @@ legend {
   margin: -0.3rem 0 0;
   display: block;
   opacity: 0.6;
+  width: max-content;
 }
 .widget-chart .widget-subheading:first-child {
   margin-top: 0;
@@ -38551,6 +38552,11 @@ span.multiselect-native-select select {
 @media (max-width: 768px) {
   .ui-dialog {
     width: 75% !important;
+  }
+  .actions-button {
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
   }
 }
 
