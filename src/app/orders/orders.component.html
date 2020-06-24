@@ -3,10 +3,7 @@
 
 <div class="row">
   <div class="col-lg-6 col-sm-12 col-12 col-12">
-    <div
-      class="widget-chart widget-chart2 text-left mb-3  card"
-    >
-    
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
       <div class="container">
         <div class="row">
           <div class="col-md-2 col-4 px-0 my-auto">
@@ -31,9 +28,12 @@
                 >
                   <span class="sr-only">Loading...</span>
                 </div>
-                <span class="d-s-block" style="font-size: 80%" *ngIf="!isStockLoading"
+                <span
+                  class="d-s-block"
+                  style="font-size: 80%;"
+                  *ngIf="!isStockLoading"
                   >{{ availableTickets }}
-                  <span class="d-s-block" style="font-size: 50%"
+                  <span class="d-s-block" style="font-size: 50%;"
                     >({{ amountStocks }} TND)</span
                   ></span
                 >
@@ -58,9 +58,7 @@
     </button>
   </div>
   <div class="col-lg-6 col-sm-12 col-12 col-12">
-    <div
-      class="widget-chart widget-chart2 text-left mb-3 card"
-    >
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
       <div class="container">
         <div class="row">
           <div class="col-md-2 col-4 px-0 my-auto">
@@ -85,9 +83,14 @@
                 >
                   <span class="sr-only">Loading...</span>
                 </div>
-                <span class="d-s-block" style="font-size: 80%" *ngIf="!isSoldLoading"
+                <span
+                  class="d-s-block"
+                  style="font-size: 80%;"
+                  *ngIf="!isSoldLoading"
                   >{{ amountSails }}
-                  <span class="d-s-block" style="font-size: 50%"> TND</span></span
+                  <span class="d-s-block" style="font-size: 50%;">
+                    TND</span
+                  ></span
                 >
               </div>
             </div>
@@ -157,9 +160,7 @@
 </div>
 <div class="row animated fadeIn" *ngIf="displayDetails">
   <div class="col-md-6 col-lg-4">
-    <div
-      class="mb-3 widget-chart widget-chart2 text-left card"
-    >
+    <div class="mb-3 widget-chart widget-chart2 text-left card">
       <div class="widget-chat-wrapper-outer">
         <div class="widget-chart-content">
           <h6 class="widget-subheading">
@@ -197,9 +198,7 @@
     </div>
   </div>
   <div class="col-md-6 col-lg-4">
-    <div
-      class="mb-3 widget-chart widget-chart2 text-left card"
-    >
+    <div class="mb-3 widget-chart widget-chart2 text-left card">
       <div class="widget-chat-wrapper-outer">
         <div class="widget-chart-content">
           <h6 class="widget-subheading">
@@ -242,9 +241,7 @@
     </div>
   </div>
   <div class="col-md-6 col-lg-4">
-    <div
-      class="mb-3 widget-chart widget-chart2 text-left card"
-    >
+    <div class="mb-3 widget-chart widget-chart2 text-left card">
       <div class="widget-chat-wrapper-outer">
         <div class="widget-chart-content">
           <h6 class="widget-subheading">10 DT</h6>
@@ -303,50 +300,76 @@
     [resizable]="false"
   >
     <div class="order_details_table">
-      <h2>Détails de la commande</h2>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Client</th>
-              <th scope="col">Nombre Des Codes</th>
-              <th scope="col">Montant Code de recharge</th>
-              <th scope="col">Date Émission</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <p><b>REF </b> {{ selectedOrder.clientRef }}</p>
-              </td>
-              <td>
-                <h5>x {{ selectedOrder.nbCodes }}</h5>
-              </td>
-              <td>
-                <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
-              </td>
-              <td>
-                <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
-              </td>
-            </tr>
+      <!-- <h2>Détails de la commande</h2> -->
+      <div class="container px-0">
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-user"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">Client</p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              REF {{ selectedOrder.clientRef }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">
+              Nombre Des Codes
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              x {{ selectedOrder.nbCodes }}
+            </h6>
+          </div>
+        </div>
+        <hr />
 
-            <tr>
-              <td>
-                <h4 class="text-secondary">
-                  Commentaire <span *ngIf="isRejected">[Refus]</span>
-                </h4>
-              </td>
-              <td>
-                <h5></h5>
-              </td>
-              <td>
-                <p [ngClass]="{ 'text-danger': isRejected }">
-                  <b>{{ selectedOrder.comment }}</b>
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">
+              Montant Code de recharge
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              {{ selectedOrder.ticketAmount / 1000 }} DT
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-calendar"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">Date Émission</p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              {{ selectedOrder.issueDate | date: "short":"fr" }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row">
+          <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
+            <i style="font-size: 14pt;" class="fas fa-comment"></i>
+            <p style="font-size: 18pt;" class="text-secondary ml-3">
+              Commentaire <span *ngIf="isRejected">[Refus]</span>
+            </p>
+          </div>
+          <div class="col-md-4 d-flex align-items-center">
+            <p [ngClass]="{ 'text-danger': isRejected }">
+              <b>{{ selectedOrder.comment }}</b>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     <p-footer>
@@ -364,6 +387,50 @@
     </p-footer>
   </p-dialog>
 
+  <!-- <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Client</th>
+          <th scope="col">Nombre Des Codes</th>
+          <th scope="col">Montant Code de recharge</th>
+          <th scope="col">Date Émission</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <p><b>REF </b> {{ selectedOrder.clientRef }}</p>
+          </td>
+          <td>
+            <h5>x {{ selectedOrder.nbCodes }}</h5>
+          </td>
+          <td>
+            <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
+          </td>
+          <td>
+            <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <h4 class="text-secondary">
+              Commentaire <span *ngIf="isRejected">[Refus]</span>
+            </h4>
+          </td>
+          <td>
+            <h5></h5>
+          </td>
+          <td>
+            <p [ngClass]="{ 'text-danger': isRejected }">
+              <b>{{ selectedOrder.comment }}</b>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
   <div class="col-md-12">
     <div class="main-card mb-3 card">
       <!-- loader screen -->
@@ -424,7 +491,7 @@
                   <th>NB CODES</th>
                   <th>MONTANT CODE RECHARGE</th>
                   <th>MONTANT COMMANDE</th>
-                  
+
                   <th>DATE EMISSION</th>
                   <th>DATE VALIDATION</th>
                   <th>DATE REFUS</th>
@@ -439,9 +506,9 @@
                   <th class="d-s-none d-m-none"></th>
                   <th class="d-s-none d-m-none"></th>
                   <th class="d-s-none d-m-none"></th>
-                  
+
                   <th style="text-align: right;">Total:</th>
-                  <th colspan="3"  id="sum"></th>
+                  <th colspan="3" id="sum"></th>
                 </tr>
               </tfoot>
             </table>

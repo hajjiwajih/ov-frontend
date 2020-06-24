@@ -147,6 +147,11 @@ export class OrdersComponent implements OnInit {
               ],
               order: [[0, "desc"]],
               columnDefs: [
+                /**
+                 * Here i am giving priority to the actions buttons so it will apear in small screens
+                 * P.s i don't know if it's good or not but i think it's the only solution there
+                 */
+                { responsivePriority: 2, targets: -2 },
                 {
                   targets: 2,
                   render: function (data, type, row) {
@@ -290,10 +295,8 @@ export class OrdersComponent implements OnInit {
                         <span>User status: </span>
                         ${
                           clientInfo.emailVerified
-                          ? 
-                          '<button style="border-radius: .3rem" class="text-right bg-success btn-rounded text-white border-0 px-2 py-0 my-2"> Vérifié </button>'
-                          :
-                          '<button style="border-radius: .3rem" class="text-right bg-warning btn-rounded text-white border-0 px-2 py-0 my-2"> Non vérifié </button>'
+                            ? '<button style="border-radius: .3rem" class="text-right bg-success btn-rounded text-white border-0 px-2 py-0 my-2"> Vérifié </button>'
+                            : '<button style="border-radius: .3rem" class="text-right bg-warning btn-rounded text-white border-0 px-2 py-0 my-2"> Non vérifié </button>'
                         }
                         
                       </div>`
