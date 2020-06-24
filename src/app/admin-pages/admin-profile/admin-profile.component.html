@@ -80,7 +80,7 @@
               <div class="row mx-auto my-4" >
                 <div class="col-md-6 mr-auto pl-0">
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div
                         class="widget-content-left center-elem mr-2 d-inline"
                       >
@@ -93,7 +93,7 @@
                         >Username</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.fname + " " + mAdmin.lname }}
                       </span>
@@ -101,7 +101,7 @@
                   </div>
                   <hr /> -->
                   <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div
                         class="widget-content-left center-elem mr-2 d-inline"
                       >
@@ -114,7 +114,7 @@
                         >Email</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.email }}
                       </span>
@@ -122,7 +122,7 @@
                   </div>
                   <hr />
                   <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 d-inline">
                         <i class="pe-7s-phone text-muted fsize-2"></i>
                       </div>
@@ -130,7 +130,7 @@
                         >Tél </span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         (+216) {{ mAdmin.phone || "---------" }} 
                       </span>
@@ -138,7 +138,7 @@
                   </div>
                   <hr />
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 d-inline">
                         <i class="pe-7s-news-paper text-muted fsize-2"></i>
                       </div>
@@ -146,7 +146,7 @@
                         >Num Patent</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         8516972Z
                       </span>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="col-md-6 mr-auto pl-0 pl-md-3 ">
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 d-inline">
                         <i class="pe-7s-id text-muted fsize-2"></i>
                       </div>
@@ -164,7 +164,7 @@
                         >Num CIN</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.cin }}
                       </span>
@@ -172,7 +172,7 @@
                   </div>
                   <hr /> -->
                   <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 d-inline">
                         <i class="pe-7s-timer text-muted fsize-2"></i>
                       </div>
@@ -180,7 +180,7 @@
                         >INSCRIT LE</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{
                           mAdmin.creationAt | date: "short":"fr"
@@ -190,13 +190,13 @@
                   </div>
                   <hr />
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 mt-4 d-inline">
                         <i class="pe-7s-info text-muted fsize-2"></i>
                       </div>
                       <span style="color: #202020; font-size: 18px;">REF</span>
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.autoID }}
                       </span>
@@ -204,7 +204,7 @@
                   </div>
                   <hr /> -->
                 </div>
-                <!-- <div class="col-md-5 ml-auto">
+                <!-- <div class="col-md-5 d-flex align-items-end ml-auto">
                   
                 </div> -->
               </div>
@@ -219,7 +219,7 @@
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
                       Email
                     </h5>
-                    <div class="col-md-5 col-12 ml-auto">
+                    <div class="col-md-5 d-flex align-items-end col-12 ml-auto">
                       <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
@@ -255,7 +255,7 @@
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
                       Phone number
                     </h5>
-                    <div class="col-md-5 col-12 ml-auto">
+                    <div class="col-md-5 d-flex align-items-end col-12 ml-auto">
                       <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
