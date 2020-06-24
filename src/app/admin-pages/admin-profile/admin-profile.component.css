@@ -17,3 +17,7 @@
 @media (max-width: 768px) {
   .w-m-100 { width: 100% !important}
 }
+
+@media (min-width: 768px) {
+  .d-l-content { display: contents !important;}
+}
