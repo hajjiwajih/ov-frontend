@@ -38548,9 +38548,14 @@ span.multiselect-native-select select {
     outline: 0;
 }
 
-@media (max-width: 772px) {
-  .ui-dialog
-   {
+@media (max-width: 768px) {
+  .ui-dialog {
+    width: 75% !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .ui-dialog {
     width: 100% !important;
   }
 }
