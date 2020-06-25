@@ -19981,7 +19981,7 @@ legend {
   margin: -0.3rem 0 0;
   display: block;
   opacity: 0.6;
-  width: max-content;
+  /* width: max-content; */
 }
 .widget-chart .widget-subheading:first-child {
   margin-top: 0;
