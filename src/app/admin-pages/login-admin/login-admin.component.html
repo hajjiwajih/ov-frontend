@@ -10,66 +10,23 @@
             <div class="slick-slider">
               <div>
                 <div
-                  class="h-100 d-flex justify-content-center align-items-center bg-plum-plate"
+                  class="h-100 d-flex justify-content-center align-items-center bg-white"
                   tabindex="-1"
                 >
                   <div
                     class="slide-img-bg"
                     style="
-                      background-image: url('assets/images/originals/city.jpg');
+                      background-image: url('assets/images/admin-login.png');
+                      background-size: auto !important;
                     "
                   ></div>
                   <div class="slider-content">
-                    <h3>Orange Voucher</h3>
+                    <h3>Must Voucher</h3>
                     <p>
                       Vous pouvez utiliser le portail d'administration pour
                       gérer d'autres utilisateurs, groupes et rôles afin de
                       contrôler l'accès aux applications et aux ressources
                       disponibles sur un serveur portail.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div
-                  class="h-100 d-flex justify-content-center align-items-center bg-premium-dark"
-                  tabindex="-1"
-                >
-                  <div
-                    class="slide-img-bg"
-                    style="
-                      background-image: url('assets/images/originals/citynights.jpg');
-                    "
-                  ></div>
-                  <div class="slider-content">
-                    <h3>Orange Voucher</h3>
-                    <p>
-                      Vous pouvez utiliser le portail d'administration pour
-                      gérer d'autres utilisateurs, groupes et rôles afin de
-                      contrôler l'accès aux applications et aux ressources
-                      disponibles sur un serveur portail.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div
-                  class="h-100 d-flex justify-content-center align-items-center bg-sunny-morning"
-                  tabindex="-1"
-                >
-                  <div
-                    class="slide-img-bg"
-                    style="
-                      background-image: url('assets/images/originals/citydark.jpg');
-                    "
-                  ></div>
-                  <div class="slider-content">
-                    <h3>Orange Voucher</h3>
-                    <p>
-                      Vous pouvez utiliser le portail d'administration pour
-                      gérer d'autres utilisateurs, groupes et rôles afin de
-                      contrôler l'accès aux applications et aux ressources
-                      disponibles sur le serveur portail.
                     </p>
                   </div>
                 </div>
@@ -83,9 +40,9 @@
           <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
             <div class="app-logo" style="width: auto;">
               <h3 style="font-weight: 500;">
-                <img src="../../../assets/images/orange.png" width="15%" />
-                <span style="color: #f1745e;">Orange</span>
-                <span style="color: #f7c193;">Voucher</span>
+                <img src="../../../assets/images/full_logo_transparent.png" width="45%" />
+                <!-- <span style="color: #f1745e;">Orange</span> -->
+                <!-- <span style="color: #f7c193;">Voucher</span> -->
                 <!-- <span style="font-size: 1rem; color: #f7c193;">oucher</span> -->
               </h3>
             </div>
@@ -95,14 +52,16 @@
                 >Veuillez vous connecter à votre compte administrateur.</span
               >
             </h4>
-
+            <div class="py-2">
+              <p-messages [(value)]="msgs"></p-messages>
+            </div>
             <div class="divider row"></div>
             <div>
               <form [formGroup]="loginForm" (submit)="onSubmit()">
                 <div class="form-row">
                   <div class="col-md-6">
                     <div class="position-relative form-group">
-                      <label for="exampleEmail" class="">Login</label>
+                      <label for="exampleEmail" class="">Email</label>
                       <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
@@ -183,19 +142,30 @@
                       (click)="onSubmit()"
                       class="btn btn-primary btn-lg"
                     >
-                      Se Connecter
+                      Connecter
                     </button>
                   </div>
                   <!-- Notifications -->
                 </div>
               </form>
             </div>
-            <div class="p-2">
-              <p-messages [(value)]="msgs"></p-messages>
-            </div>
+            
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- 
+.slick-slider .slide-img-bg {
+  position: absolute;
+  /* left: 0; */
+  /* top: 0; */
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  /* opacity: 0.4; */
+  background-repeat: no-repeat;
+  z-index: 10;
+} -->

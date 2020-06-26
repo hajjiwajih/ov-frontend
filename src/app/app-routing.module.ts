@@ -3,6 +3,7 @@ import { LatestOrdersComponent } from "./client/latest-orders/latest-orders.comp
 import { ChangePasswordComponent } from "./main-dashboard/change-password/change-password.component";
 import { StockComponent } from "./admin-pages/stock/stock.component";
 import { ClientDetailsComponent } from "./admin-pages/client-details/client-details.component";
+// import { AddAdminComponent } from "./admin-pages/add-admin/add-admin.component";
 import { VerifyComponent } from "./main-dashboard/verify/verify.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { ClientOrdersComponent } from "./client/client-orders/client-orders.component";
@@ -22,6 +23,8 @@ import { LoginComponent } from "./main-dashboard/login/login.component";
 import { LogoutGuard } from "./services/logout-guard";
 import { ResetPasswordComponent } from "./main-dashboard/reset-password/reset-password.component";
 import { ClientListingComponent } from "./admin-pages/client-listing/client-listing.component";
+import { ClientProfileComponent } from "./client/client-profile/client-profile.component";
+import { AdminProfileComponent } from "./admin-pages/admin-profile/admin-profile.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -92,6 +95,10 @@ const routes: Routes = [
         component: ClientOrdersComponent,
         data: { valid: false, rejected: true },
       },
+      {
+        path: "account-settings",
+        component: ClientProfileComponent,
+      },
     ],
   },
   {
@@ -135,6 +142,10 @@ const routes: Routes = [
       {
         path: "stocks",
         component: StockComponent,
+      },
+      {
+        path: "account-settings",
+        component: AdminProfileComponent,
       },
     ],
   },

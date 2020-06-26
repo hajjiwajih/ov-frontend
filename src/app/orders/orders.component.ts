@@ -2,6 +2,7 @@ import { NotificationService } from "./../services/notification.service";
 import { DatePipe } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { OrderService } from "./../services/order.service";
+import { UserService } from "./../services/user.service";
 import { Message } from "primeng/api/message";
 import { MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
@@ -10,6 +11,7 @@ import { Component, OnInit } from "@angular/core";
 import Swal from "sweetalert2";
 import { appendDtActions } from "../helpers/datatable-fonctions";
 import { numberWithSpaces } from "../helpers/format-stocks";
+import { User } from "../models/user";
 
 declare var $: any;
 
@@ -21,11 +23,13 @@ declare var $: any;
 })
 export class OrdersComponent implements OnInit {
   orders: Order[];
+  user: User;
   selectedOrder: Order;
   selectedUserForUpdate: Order;
   obs$: Subscription;
 
-  availableTickets = 0;
+  availableTickets: any;
+  proccesAvailableTickets: any;
   soldTickets = 0;
   totalOrders = 0;
 
@@ -60,13 +64,17 @@ export class OrdersComponent implements OnInit {
   loaders = [false, false, false];
 
   amountStocks: string;
-  amountSails: string;
+  amountSails: any;
+
+  processAmountSails: any;
+  processTotalSails: any;
 
   orderHidden = false;
 
   constructor(
     private messageService: MessageService,
     private orderService: OrderService,
+    private userService: UserService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router
@@ -134,14 +142,19 @@ export class OrdersComponent implements OnInit {
                 { data: "nbCodes" },
                 { data: "ticketAmount" },
                 { data: "ticketAmount" },
-                { data: "clientRef" },
                 { data: "issueDate" },
                 { data: "validationDate" },
                 { data: "validationDate" },
                 { defaultContent: "" },
+                { data: "clientRef" },
               ],
               order: [[0, "desc"]],
               columnDefs: [
+                /**
+                 * Here i am giving priority to the actions buttons so it will apear in small screens
+                 * P.s i don't know if it's good or not but i think it's the only solution there
+                 */
+                { responsivePriority: 2, targets: -2 },
                 {
                   targets: 2,
                   render: function (data, type, row) {
@@ -155,27 +168,30 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 4,
+                  targets: 8,
                   render: function (data, type, row) {
-                    return `<a href="/monitor/clients/${row.clientId}">${data}</a>`;
+                    return `
+                    <div class='content text-center'>
+                      <a class="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..'><img src="../../assets/icons/info.png" width="26px" /></a>
+                    </div>`;
                   },
                 },
                 {
-                  targets: 5,
+                  targets: 4,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
                 },
                 {
                   visible: _self.isValidated && !_self.isRejected,
-                  targets: 6,
+                  targets: 5,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
                 },
                 {
                   visible: !_self.isValidated && _self.isRejected,
-                  targets: 7,
+                  targets: 6,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
                   },
@@ -185,7 +201,7 @@ export class OrdersComponent implements OnInit {
                 appendDtActions(aData, nRow, false, {
                   valid: _self.isValidated,
                   reject: _self.isRejected,
-                  column: _self.isValidated || _self.isRejected ? 7 : 6,
+                  column: _self.isValidated || _self.isRejected ? 6 : 5,
                 });
               },
               footerCallback: function (row, data, start, end, display) {
@@ -261,6 +277,45 @@ export class OrdersComponent implements OnInit {
                 _self.showDialog(table.row($(this).parent().parent()).data());
               }
             );
+            $(".content a").tooltip({
+              track: true,
+              // position: {
+              //   my: "left+15 bottom+100",
+              //   at: "center left-25"
+              // },
+              open: function (event, ui) {
+                _self.userService
+                  .getUserById(event.target.className)
+                  .subscribe((clientInfo) => {
+                    $("." + event.target.className).tooltip(
+                      "option",
+                      "content",
+                      `<div>
+                      <span>Username: </span>
+                        <span class="text-right text-success mt-2"> ${
+                          clientInfo.fname + " " + clientInfo.lname
+                        }</span><br>
+                        <span>Email: </span>
+                        <span class="text-right text-success my-2">${
+                          clientInfo.email
+                        }</span><br>
+                        <span>User status: </span>
+                        ${
+                          clientInfo.emailVerified
+                            ? '<button style="border-radius: .3rem" class="text-right bg-success btn-rounded text-white border-0 px-2 py-0 my-2"> Vérifié </button>'
+                            : '<button style="border-radius: .3rem" class="text-right bg-warning btn-rounded text-white border-0 px-2 py-0 my-2"> Non vérifié </button>'
+                        }
+                        
+                      </div>`
+                    );
+                  });
+              },
+            });
+            $(".content a").mouseout(function () {
+              $(this).attr("title", "Please wait...");
+              $(this).tooltip();
+              $(".ui-tooltip").hide();
+            });
           });
         });
       // subscribe to incoming events
@@ -281,7 +336,7 @@ export class OrdersComponent implements OnInit {
   getStats() {
     // available stocks
     this.orderService.countTickets().subscribe((available) => {
-      this.availableTickets = available.count;
+      this.availableTickets = numberWithSpaces(available.count);
       setTimeout(() => {
         this.isStockLoading = false;
       }, 700);
@@ -300,7 +355,7 @@ export class OrdersComponent implements OnInit {
         if (index + 1 == this.amounts.length)
           this.amounts.forEach((amount, index) => {
             this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
-              this.stocks[index] = sold.count;
+              this.stocks[index] = numberWithSpaces(sold.count);
               amountSails += (sold.count * amount) / 1000;
               console.log(sold.count, amount, amountSails);
               this.amountSails = numberWithSpaces(amountSails);
@@ -616,14 +671,24 @@ export class OrdersComponent implements OnInit {
     this.loaders = [true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.countTicketsByAmount(amount).subscribe((available) => {
-        this.stocks[index] = available.count;
+        this.stocks[index] = numberWithSpaces(available.count);
         let totalPerType = 0;
         totalPerType = (available.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        if (this.availableTickets)
+
+        /**
+         * Since we are doing some calculation on this.availableTickets variable
+         * and i change it to string before to add suitable spaces i can't do operation since it's string and has spaces
+         * so i had to remove spaces using .replace() method and then convert it to number
+         */
+        this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
+        this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
+        console.log(this.proccesAvailableTickets)
+        if (this.proccesAvailableTickets) {      
           this.percents[index] = Math.round(
-            (available.count / this.availableTickets) * 100
+            (available.count / this.proccesAvailableTickets) * 100
           );
+        }
         else this.percents[index] = 0;
         this.loaders[index] = false;
       });
@@ -639,17 +704,38 @@ export class OrdersComponent implements OnInit {
     this.loaders = [true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
-        this.stocks[index] = sold.count;
+        this.stocks[index] = numberWithSpaces(sold.count);
         let totalPerType = 0;
         console.log(this.percents[index], sold.count, amount, this.soldTickets);
         totalPerType = (sold.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        if (parseInt(this.amountSails))
+        
+        this.processAmountSails = this.amountSails.replace(/ /g, "");
+        this.processAmountSails = Number(this.processAmountSails);
+      
+        if (this.processAmountSails) {
+          /**
+           * I think the problem here is you dividing sold.cost 'which is the number os sold items' on amountSails
+           * which is the total price so you divide number of items on price which will result to the huge number we saw
+           * i change it here so u will divide each sold item price on amountSails and multiply it by 100
+           * you can contact me for furhter explaination
+           */
+
+          // Old Code 
+          // this.percents[index] = Math.round(
+          //   (sold.count / this.processAmountSails) * 100
+          // );
+
+          // New Code
           this.percents[index] = Math.round(
-            (sold.count / parseInt(this.amountSails)) * 100
+            (totalPerType / this.processAmountSails) * 100
           );
+
+        }
         else this.percents[index] = 0;
+
         this.loaders[index] = false;
+        console.log(this.percents[index]);
       });
     });
   }

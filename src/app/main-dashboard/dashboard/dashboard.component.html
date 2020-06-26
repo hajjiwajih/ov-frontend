@@ -1,153 +1,280 @@
-<div class="app-container app-theme-gray">
+<div id="close__bar" class="app-container app-theme-gray">
   <div class="app-main">
-    <div class="app-sidebar-overlay d-none animated fadeIn"></div>
-    <div class="app-main__outer">
-      <div class="app-main__inner">
-        <div class="header-mobile-wrapper">
-          <div class="app-header__logo">
-            <!-- <a href="#" data-toggle="tooltip" data-placement="bottom" title="Orange Voucher Admin Template" class="logo-src"></a> -->
-            <img
-              src="../../../assets/images/logo-sm.png"
-              alt="logo"
-              data-placement="bottom"
-              title="Orange Voucher Admin Template"
-            />
-            <button
-              type="button"
-              class="hamburger hamburger--elastic mobile-toggle-sidebar-nav"
+    <div class="app-sidebar-wrapper">
+      <div  class="app-sidebar sidebar-shadow">
+        <div class="app-header__logo py-3 my-2">
+          <img src="../../../assets/images/full_logo_transparent.png" width="180px" class="mx-auto"/>
+          <!-- <p class="sym__voucher ml-2 mt-3">Sym Voucher</p> -->
+        </div>
+        <div class="scrollbar-sidebar scrollbar-container ps ps--active-y">
+          <div class="app-sidebar__inner dropdown-menu-rounded">
+            <ul
+              class="vertical-nav-menu metismenu"
+              style="cursor: pointer;"
+              (click)="closeSidebar()"
             >
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-            </button>
-            <div class="app-header__menu">
-              <span>
-                <button
-                  type="button"
-                  class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav"
+              <li class="mb-2 app-sidebar__heading">
+                Liens Rapides
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active:
+                    activatedLink == 'portal/place-order' ||
+                    activatedLink == 'portal'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/place-order')"
+              >
+                Placer Commande
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/history'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/history')"
+              >
+                Historiques
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/validated-orders'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/validated-orders')"
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Validées
+                <span
+                  *ngIf="unreadValidations"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'portal/validated-orders'
+                  }"
+                  >{{ unreadValidations }}</span
                 >
-                  <span class="btn-icon-wrapper">
-                    <i class="fa fa-ellipsis-v fa-w-6"></i>
-                  </span>
-                </button>
-              </span>
-            </div>
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/non-validated-orders'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/non-validated-orders')"
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Non-Validées
+              </li>
+              <li
+                class="mb-2"
+                [ngClass]="{
+                  'dropdown-item': true,
+                  active: activatedLink == 'portal/rejected-orders'
+                }"
+                [routerLink]=""
+                (click)="navigate('portal/rejected-orders')"
+                data-step="1"
+                data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                data-position="right"
+                data-scrollto="tooltip"
+                role="button"
+              >
+                Commandes Rejetées
+                <span
+                  *ngIf="unreadRejections"
+                  [ngClass]="{
+                    'badge badge-pill badge-danger': true,
+                    'badge-light': activatedLink == 'portal/rejected-orders'
+                  }"
+                  >{{ unreadRejections }}</span
+                >
+              </li>
+              <!-- <a -->
+            </ul>
           </div>
         </div>
-        <div class="app-header">
-          <div class="page-title-heading">
-            Orange Voucher
-            <button class="mt-2 mr-2 btn-icon btn-sm btn-pill btn btn-light">
-              <i class="pe-7s-upload btn-icon-wrapper"> </i>Client
-            </button>
-            <div class="page-title-subheading">
-              Portail web pour accès & management client |
-              {{ companyName }} <span style="font-size: x-large;">&trade;</span>
-            </div>
-          </div>
-          <div class="app-header-right">
-            <!-- <div class="search-wrapper">
-                            <i class="search-icon-wrapper typcn typcn-zoom-outline"></i>
-                            <input type="text" placeholder="Recherche...">
-                        </div> -->
-            <button
-              class="btn-icon btn-sm btn-pill btn btn-light"
-              aria-haspopup="true"
-              aria-expanded="true"
-              data-toggle="dropdown"
-              (click)="toggleProfile()"
-            >
-              <div class="dropdown">
-                <a
-                  class="dot-btn-wrapper dd-chart-btn-2"
-                  style="padding: 0;"
-                  aria-haspopup="true"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i
-                    class="dot-btn-icon typcn typcn-user-outline text-success"
-                  ></i>
-                  <!-- <div class="badge badge-dot badge-abs badge-dot-sm badge-success">active</div> -->
-                  <h6 style="margin: auto 8px;">{{ currentAgentEmail }}</h6>
-                </a>
-              </div>
-            </button>
-
-            <!-- profile section -->
-            <app-profile [user]="mClient" *ngIf="displayProfile"></app-profile>
-            <!--  end profile section -->
-
-            <div class="header-btn-lg pr-0">
-              <div class="header-dots">
-                <div class="dropdown">
+      </div>
+    </div>
+    <div id="close__bar2" class="app-sidebar-overlay d-none animated fadeIn"></div>
+    <div class="app-main__outer">
+      <div class="app-inner-layout app-inner-layout-page app-layout-menu-open">
+        <div class="app-main__inner">
+          <div class="header-mobile-wrapper">
+            <div class="app-header__logo">
+              <!-- <a href="#" data-toggle="tooltip" data-placement="bottom" title="Orange Voucher Admin Template" class="logo-src"></a> -->
+              <img
+                src="../../../assets/images/logo_icon_transparent.png"
+                width="80px"
+                alt="logo"
+                data-placement="bottom"
+                title="Orange Voucher Admin Template"
+              />
+              <button
+                id="close__bar3"
+                type="button"
+                class="hamburger hamburger--elastic mobile-toggle-sidebar-nav"
+              >
+                <span class="hamburger-box">
+                  <span class="hamburger-inner"></span>
+                </span>
+              </button>
+              <div class="app-header__menu">
+                <span>
                   <button
                     type="button"
-                    data-title="Notifications"
-                    data-toggle="popover-custom-bg"
-                    data-bg-class="text-dark bg-warm-flame"
-                    data-content="Aucune notification non lue"
-                    class="p-0 btn btn-link"
-                    data-original-title=""
-                    title=""
+                    class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav"
                   >
-                    <i class="typcn typcn-bell"></i>
-                    <!-- <span class="badge badge-dot badge-dot-sm badge-danger">Notifications</span> -->
+                    <span class="btn-icon-wrapper">
+                      <i class="fa fa-ellipsis-v fa-w-6"></i>
+                    </span>
                   </button>
-                </div>
+                </span>
               </div>
             </div>
-            <div class="header-btn-lg pr-0">
-              <div class="widget-content p-0">
-                <div class="widget-content-wrapper">
-                  <div class="widget-content-left">
-                    <div
-                      class="widget-content-right mr-2"
-                      style="margin-bottom: -16px;"
-                    >
-                      <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
-                                                </button> -->
+          </div>
+          <div class="app-header">
+            <div class="page-title-heading">
+              <!-- Orange Voucher
+              <button class="mt-2 mr-2 btn-icon btn-sm btn-pill btn btn-light">
+                <i class="pe-7s-upload btn-icon-wrapper"> </i>Client
+              </button> -->
+              <div class="page-title-subheading">
+                Portail web pour accès & management client |
+                {{ companyName }}
+                <span style="font-size: x-large;">&trade;</span>
+              </div>
+            </div>
+            <div class="app-header-right">
+              <!-- <div class="search-wrapper">
+                              <i class="search-icon-wrapper typcn typcn-zoom-outline"></i>
+                              <input type="text" placeholder="Recherche...">
+                          </div> -->
 
-                      <div
-                        class="font-icon-wrapper"
-                        style="font-size: 1.5rem; cursor: pointer;"
-                        (click)="navigate('portal/change-password')"
-                      >
-                        <i
-                          class="typcn typcn-key-outline"
-                          aria-hidden="true"
-                          style="font-size: 1.5rem; cursor: pointer;"
-                          title="Copy to use power-off"
-                        ></i>
-                        <p>Mot de passe</p>
-                      </div>
-                    </div>
+              <div class="header-btn-lg pr-0">
+                <div class="header-dots">
+                  <div class="dropdown">
+                    <button
+                      type="button"
+                      data-title="Notifications"
+                      data-toggle="popover-custom-bg"
+                      data-bg-class="text-dark bg-warm-flame"
+                      data-content="Aucune notification non lue"
+                      class="p-0 btn btn-link"
+                      data-original-title=""
+                      title=""
+                    >
+                      <i class="typcn typcn-bell"></i>
+                      <!-- <span class="badge badge-dot badge-dot-sm badge-danger">Notifications</span> -->
+                    </button>
                   </div>
                 </div>
               </div>
-              <div class="widget-content p-0">
-                <div class="widget-content-wrapper">
-                  <div class="widget-content-left">
-                    <div
-                      class="widget-content-right mr-2"
-                      style="margin-bottom: -16px;"
-                    >
-                      <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
-                                                </button> -->
-
+              <div>
+                <!-- profile section -->
+                <app-profile
+                
+                  [user]="mClient"
+                  *ngIf="displayProfile"
+                ></app-profile>
+                <!--  end profile section -->
+              </div>
+              <div class="header-btn-lg pr-0">
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left">
                       <div
-                        class="font-icon-wrapper"
-                        style="font-size: 1.5rem; cursor: pointer;"
-                        (click)="logout()"
+                        class="widget-content-right mr-2"
+                        style="margin-bottom: -16px;"
                       >
-                        <i
-                          class="fa fa-fw"
-                          aria-hidden="true"
+                        <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
+                                                  </button> -->
+
+                        <!-- <div
+                          class="font-icon-wrapper"
                           style="font-size: 1.5rem; cursor: pointer;"
-                          title="Copy to use power-off"
-                          ></i
+                          (click)="navigate('portal/change-password')"
                         >
-                        <p>Déconnexion</p>
+                          <i
+                            class="typcn typcn-key-outline"
+                            aria-hidden="true"
+                            style="font-size: 1.5rem; cursor: pointer;"
+                            title="Copy to use power-off"
+                          ></i>
+                          <p>Mot de passe</p>
+                        </div> -->
+                      </div>
+                    </div>
+
+                    <button
+                    id="showClientProfile"
+                      class="btn-icon btn-sm profile__toggle btn pr-0"
+                      aria-haspopup="true"
+                      aria-expanded="true"
+                      data-toggle="dropdown"
+                      (click)="toggleProfile()"
+                    >
+                      <div class="dropdown">
+                        <a
+                          class="dot-btn-wrapper dd-chart-btn-2"
+                          style="padding: 0;"
+                          aria-haspopup="true"
+                          data-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          <!-- <i
+                      class="dot-btn-icon typcn typcn-user-outline text-success"
+                    ></i> -->
+                          <!-- <div class="badge badge-dot badge-abs badge-dot-sm badge-success">active</div> -->
+                          <h6 style="margin: auto 8px;">
+                            <img
+                              src="../../../assets/images/user img.png"
+                              width="50px"
+                              alt=""
+                            />
+                            <span class="lnr lnr-chevron-down ml-1 mt-2"></span>
+                          </h6>
+                        </a>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left">
+                      <div
+                        class="widget-content-right mr-2"
+                        style="margin-bottom: -16px;"
+                      >
+                        <!-- <button (click)="logout()" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</button> -->
+                        <!-- <div
+                          class="font-icon-wrapper"
+                          style="font-size: 1.5rem; cursor: pointer;"
+                          (click)="logout()"
+                        >
+                          <i
+                            class="fa fa-fw"
+                            aria-hidden="true"
+                            style="font-size: 1.5rem; cursor: pointer;"
+                            title="Copy to use power-off"
+                            ></i
+                          >
+                          <p>Déconnexion</p>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -155,11 +282,12 @@
               </div>
             </div>
           </div>
+          <div class="app-header-overlay d-none animated fadeIn"></div>
         </div>
-        <div class="app-header-overlay d-none animated fadeIn"></div>
-      </div>
-      <div class="app-inner-layout app-inner-layout-page app-layout-menu-open">
-        <div class="app-inner-bar">
+        <div
+          class="app-inner-layout app-inner-layout-page app-layout-menu-open"
+        >
+          <!-- <div class="app-inner-bar">
           <div class="inner-bar-left">
             <ul class="nav">
               <li class="nav-item">
@@ -213,7 +341,7 @@
                   <span>Form</span>
                 </a>
               </li> -->
-              <!-- <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a
                   role="tab"
                   data-toggle="tab"
@@ -227,7 +355,7 @@
                   <span>Nouvelles</span>
                 </a>
               </li> -->
-              <!-- <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a
                   role="tab"
                   data-toggle="tab"
@@ -241,10 +369,10 @@
                   <span>Archivées</span>
                 </a>
               </li> -->
-            </ul>
+          <!-- </ul>
           </div>
-          <div class="inner-bar-right">
-            <!-- <ul class="nav">
+          <div class="inner-bar-right"> -->
+          <!-- <ul class="nav">
               <li class="nav-item">
                 <a href="javascript:void(0);" class="nav-link">
                   <span class="hide-text-md">Show right drawer</span>
@@ -252,95 +380,104 @@
                 </a>
               </li>
             </ul> -->
-          </div>
-        </div>
-        <div class="app-inner-layout__wrapper">
-          <div class="app-inner-layout__sidebar">
-            <div class="app-layout__sidebar-inner dropdown-menu-rounded">
-              <div class="nav flex-column">
-                <div class="nav-item-header text-primary nav-item">
-                  Liens Rapides
-                </div>
+          <!-- </div>
+        </div>  -->
+          <hr class="mt-0" />
+          <div class="app-inner-layout__wrapper">
+            <div class="app-inner-layout__sidebar">
+              <div class="app-layout__sidebar-inner dropdown-menu-rounded">
+                <div class="nav flex-column">
+                  <div class="mt-2 mb-5 mx-auto logo__container">
+                    <img
+                      src="../../../assets/images/full_logo_transparent.png"
+                      width="200px"
+                    />
+                    <!-- <p class="sym__voucher ml-2 mt-5">Sym Voucher</p> -->
+                  </div>
+                  <div class="nav-item-header text-primary nav-item">
+                    Liens Rapides
+                  </div>
 
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active:
-                      activatedLink == 'portal/place-order' ||
-                      activatedLink == 'portal'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/place-order')"
-                  >Placer Commande
-                </a>
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/history'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/history')"
-                  >Historiques
-                </a>
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/validated-orders'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/validated-orders')"
-                  data-step="1"
-                  data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
-                  data-position="right"
-                  data-scrollto="tooltip"
-                  role="button"
-                  >Commandes Validées
-                  <span
-                    *ngIf="unreadValidations"
+                  <a
                     [ngClass]="{
-                      'badge badge-pill badge-danger': true,
-                      'badge-light': activatedLink == 'portal/validated-orders'
+                      'dropdown-item': true,
+                      active:
+                        activatedLink == 'portal/place-order' ||
+                        activatedLink == 'portal'
                     }"
-                    >{{ unreadValidations }}</span
-                  ></a
-                >
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/non-validated-orders'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/non-validated-orders')"
-                  data-step="1"
-                  data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
-                  data-position="right"
-                  data-scrollto="tooltip"
-                  role="button"
-                  >Commandes Non-Validées
-                </a>
-                <a
-                  [ngClass]="{
-                    'dropdown-item': true,
-                    active: activatedLink == 'portal/rejected-orders'
-                  }"
-                  [routerLink]=""
-                  (click)="navigate('portal/rejected-orders')"
-                  data-step="1"
-                  data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
-                  data-position="right"
-                  data-scrollto="tooltip"
-                  role="button"
-                  >Commandes Rejetées
-                  <span
-                    *ngIf="unreadRejections"
+                    [routerLink]=""
+                    (click)="navigate('portal/place-order')"
+                    >Placer Commande
+                  </a>
+                  <a
                     [ngClass]="{
-                      'badge badge-pill badge-danger': true,
-                      'badge-light': activatedLink == 'portal/rejected-orders'
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/history'
                     }"
-                    >{{ unreadRejections }}</span
-                  ></a
-                >
-                <!-- <a
+                    [routerLink]=""
+                    (click)="navigate('portal/history')"
+                    >Historiques
+                  </a>
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/validated-orders'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('portal/validated-orders')"
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Validées
+                    <span
+                      *ngIf="unreadValidations"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light':
+                          activatedLink == 'portal/validated-orders'
+                      }"
+                      >{{ unreadValidations }}</span
+                    ></a
+                  >
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/non-validated-orders'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('portal/non-validated-orders')"
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Non-Validées
+                  </a>
+                  <a
+                    [ngClass]="{
+                      'dropdown-item': true,
+                      active: activatedLink == 'portal/rejected-orders'
+                    }"
+                    [routerLink]=""
+                    (click)="navigate('portal/rejected-orders')"
+                    data-step="1"
+                    data-intro="<b>Salut!</b> <br> Désormais, vous pouvez supprimer les contrats à tout moment."
+                    data-position="right"
+                    data-scrollto="tooltip"
+                    role="button"
+                    >Commandes Rejetées
+                    <span
+                      *ngIf="unreadRejections"
+                      [ngClass]="{
+                        'badge badge-pill badge-danger': true,
+                        'badge-light': activatedLink == 'portal/rejected-orders'
+                      }"
+                      >{{ unreadRejections }}</span
+                    ></a
+                  >
+                  <!-- <a
                   class="dropdown-item"
                   href="javascript:void(0)"
                   data-title="Statistiques"
@@ -376,14 +513,15 @@
                   title=""
                   >Problèmes</a
                 > -->
+                </div>
               </div>
             </div>
-          </div>
-          <div class="app-inner-layout__content">
-            <div class="tab-content">
-              <div class="container-fluid">
-                <!-- Router link -->
-                <router-outlet></router-outlet>
+            <div class="app-inner-layout__content">
+              <div class="tab-content">
+                <div class="container-fluid">
+                  <!-- Router link -->
+                  <router-outlet></router-outlet>
+                </div>
               </div>
             </div>
           </div>

@@ -26,6 +26,8 @@ export class ClientListingComponent implements OnInit {
   selectedUser: User;
   selectedUserForUpdate: User;
 
+  isUsersLoading = true;
+
   obs$: Subscription;
   mappingObs$: Subscription;
   addedSub$: Subscription;
@@ -60,7 +62,7 @@ export class ClientListingComponent implements OnInit {
     //   this.activatedLink = params.category;
     this.obs$ = this.userService.getClients().subscribe((list) => {
       this.clients = list;
-      console.log(this.clients);
+      console.log('dasdasdasd', this.clients);
 
       // map customer ids to fetch their last orders
       let ids = this.clients.map((user) => user.id);
@@ -122,6 +124,7 @@ export class ClientListingComponent implements OnInit {
               ],
               order: [[0, "desc"]],
               columnDefs: [
+                { responsivePriority: 2, targets: -1 },
                 {
                   targets: 3,
                   render: function (data, type, row) {
@@ -181,6 +184,19 @@ export class ClientListingComponent implements OnInit {
                 );
               }
             );
+            let validatedUser = _self.clients.filter(client => client.emailVerified === true)
+            let notValidatedUsers = _self.clients.filter(client => client.emailVerified === false)
+            _self.isUsersLoading = false
+
+            $('#all_clients').html(
+              _self.clients.length
+            )
+            $('#checked_clients').html(
+              validatedUser.length
+            )
+            $('#rejected_clients').html(
+              notValidatedUsers.length
+            )
           });
         });
     });

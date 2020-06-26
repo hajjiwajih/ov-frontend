@@ -1,8 +1,48 @@
-# Orange Voucher Web App
+# Must Voucher Web App
 
 ## About
 
-- A web application developed for ticket sales management within SIM reseller companies using **Angular 9, Loopback 3, MongoDB**.
+- A web application developed for phone reload tickets from Orange Tunisie to SymteleCOM entreprise and from SymteleCOM to their customers using **Angular 9, Loopback 3, MongoDB**.
+
+- The Orange voucher web application allows SymteleCOM customers to place an order on phone reload tickets and view the progress and history of the request. The application also allows SymteleCOM's administrator to check, validate, refuse and consult customer requests. Orange Voucher simply makes it easy for the customer request transaction and Administrator Verification.
+
+- The Orange Voucher web application allows Orange Tunisia to sell ther vouchers more easier than before and allows Symtelecom to resell the tickets to ther customers as well as to create appropriate profiles using our Api.
+
+## Flow
+When observing Orange Voucher capabilities, our elegant application will provide the following set of features.
+User Roles :
+•	Administrator
+•	Customer
+
+
+User Stories :
+
+	**Customer :**
+Every Customer will be able to do :
+1.	Login with his login & password.
+2.	Ordering
+3.	Consult validated orders
+4.	Consult refused orders
+5.	Consult non-validated orders
+6.	Change email address
+7.	Change the phone number
+8.	Change the password / Reset password
+ 
+
+	**Administrator :**
+Every Administrator will be able to do :
+1.	Login with his login & password
+2.	View active orders
+3.	View refused orders
+4.	View non-validated orders
+5.	View customers list
+6.	Consult the stock received (Stock available, Stock sold, orders)
+7.	Accept / refuse an order from the customer
+8.	Change email address
+9.	Change the phone number
+10.	Change the password / Reset password
+11.	Accept/Refuse customers requests
+
 
 ## Architecture
 
@@ -18,6 +58,8 @@
 - [Primeng](https://www.primefaces.org/): PrimeNG is a collection of rich UI components for Angular.
 - [Primeicons](https://www.primefaces.org/showcase/ui/misc/primeicons.xhtml): PrimeIcons is a font icon library for PrimeTek UI libraries such as PrimeFaces.
 - [SweetAlert 2](https://sweetalert.js.org/guides/): A beautiful, responsive, customizable and accessible (WAI-ARIA) replacement for JavaScript's popup boxes.
+- [jquery-ui-dist](https://www.npmjs.com/package/jquery-ui-dist): jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library.
+- [Chart.js](https://www.chartjs.org/): Simple, clean and engaging HTML5 based JavaScript charts. Chart.js is an easy way to include animated, interactive graphs on your website for free.
 
 
 ## Setup (#run-locally)
@@ -42,7 +84,7 @@ $ git clone https://gitlab.com/ditriot-consulting/orange-voucher/ov-frontend.git
 ``` $ npm install ```
 
 - run the client server
-``` $ npm run dev ```
+``` $ ng serve ```
 
 You can now connect to `http://localhost:4200` to start navigating.
 
