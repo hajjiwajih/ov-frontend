@@ -67,6 +67,7 @@ export class OrdersComponent implements OnInit {
   amountSails: any;
 
   processAmountSails: any;
+  processTotalSails: any;
 
   orderHidden = false;
 
@@ -683,10 +684,11 @@ export class OrdersComponent implements OnInit {
         this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
         this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
         console.log(this.proccesAvailableTickets)
-        if (this.proccesAvailableTickets)
+        if (this.proccesAvailableTickets) {      
           this.percents[index] = Math.round(
             (available.count / this.proccesAvailableTickets) * 100
           );
+        }
         else this.percents[index] = 0;
         this.loaders[index] = false;
       });
@@ -707,16 +709,29 @@ export class OrdersComponent implements OnInit {
         console.log(this.percents[index], sold.count, amount, this.soldTickets);
         totalPerType = (sold.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-
-        console.log(parseInt(this.amountSails));
-        console.log(this.amountSails);
+        
         this.processAmountSails = this.amountSails.replace(/ /g, "");
         this.processAmountSails = Number(this.processAmountSails);
-        console.log(this.processAmountSails);
-        if (this.processAmountSails)
+      
+        if (this.processAmountSails) {
+          /**
+           * I think the problem here is you dividing sold.cost 'which is the number os sold items' on amountSails
+           * which is the total price so you divide number of items on price which will result to the huge number we saw
+           * i change it here so u will divide each sold item price on amountSails and multiply it by 100
+           * you can contact me for furhter explaination
+           */
+
+          // Old Code 
+          // this.percents[index] = Math.round(
+          //   (sold.count / this.processAmountSails) * 100
+          // );
+
+          // New Code
           this.percents[index] = Math.round(
-            (sold.count / this.processAmountSails) * 100
+            (totalPerType / this.processAmountSails) * 100
           );
+
+        }
         else this.percents[index] = 0;
 
         this.loaders[index] = false;
