@@ -62,6 +62,14 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(document).on("click", () => {
+      this.displayProfile = false;
+    });
+
+    $('#showProfile').on("click", () => {
+      event.stopPropagation()
+    });
+
     this.currentAdminEmail = localStorage.getItem("email");
     this.currentAdminId = localStorage.getItem("currentUserId");
     this.companyName = environment.companyName;
@@ -97,6 +105,10 @@ export class AdminComponent implements OnInit {
   navigate(route) {
     this.activatedLink = route;
     this.router.navigateByUrl(route);
+  }
+
+  closeDropdown() {
+    this.displayProfile = !this.displayProfile;
   }
 
   /**
