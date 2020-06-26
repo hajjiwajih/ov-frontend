@@ -145,8 +145,8 @@ export class OrdersComponent implements OnInit {
                 { data: "issueDate" },
                 { data: "validationDate" },
                 { data: "validationDate" },
-                { defaultContent: "" },
                 { data: "clientRef" },
+                { defaultContent: "" },
               ],
               order: [[0, "desc"]],
               columnDefs: [
@@ -168,7 +168,7 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 8,
+                  targets: 7,
                   render: function (data, type, row) {
                     return `
                     <div class='content text-center'>
@@ -201,7 +201,7 @@ export class OrdersComponent implements OnInit {
                 appendDtActions(aData, nRow, false, {
                   valid: _self.isValidated,
                   reject: _self.isRejected,
-                  column: _self.isValidated || _self.isRejected ? 6 : 5,
+                  column: _self.isValidated || _self.isRejected ? 7 : 6,
                 });
               },
               footerCallback: function (row, data, start, end, display) {
