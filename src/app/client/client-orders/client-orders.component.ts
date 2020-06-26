@@ -118,6 +118,7 @@ export class ClientOrdersComponent implements OnInit {
               ],
               order: [[0, "desc"]],
               columnDefs: [
+                { responsivePriority: 2, targets: -1 },
                 {
                   targets: 2,
                   render: function (data, type, row) {
