@@ -215,13 +215,13 @@
               <h2>Modifier les informations</h2>
               <div class="row mx-auto my-4" style="width: 94%;">
                 <div class="col-md-12 mr-auto">
-                  <!-- <div class="py-2 row w-100 my-3">
+                  <div class="py-2 row w-100 my-3">
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
                       Email
                     </h5>
-                    <div class="col-md-5 d-flex align-items-end col-12 ml-auto">
-                      <div class="input-group mb-2 mr-sm-2">
-                        <div class="input-group-prepend">
+                    <div class="col-md-5 col-12 ml-auto d-flex">
+                      <div class="input-group mb-2 mr-sm-2 d-l-content">
+                        <div class="input-group-prepend ">
                           <div class="input-group-text">
                             <i
                               class="fa fa-user-circle"
@@ -234,29 +234,29 @@
                           disabled
                           style="width: 240px;"
                           name="email"
-                          id="exampleEmail"
                           [value]="mAdmin.email"
                           type="email"
                           class="form-control"
                         />
                       </div>
+                      <div class="widget-content-right widget-content-actions responsive-edit-widget ml-md-2">
+                        <button
+                          title="Edit"
+                          class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                          (click)="editInfo('email')"
+                        >
+                          <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                        </button>
+                      </div>
                     </div>
-                    <div class="widget-content-right widget-content-actions">
-                      <button
-                        title="Edit"
-                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
-                      >
-                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
-                      </button>
-                    </div>
-                  </div> -->
+                  </div>
 
-                  <!-- <div class="py-2 row w-100 my-3">
+                  <div class="py-2 row w-100 my-3">
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
-                      Phone number
+                      Tél
                     </h5>
-                    <div class="col-md-5 d-flex align-items-end col-12 ml-auto">
-                      <div class="input-group mb-2 mr-sm-2">
+                    <div class="col-md-5 col-12 ml-auto d-flex">
+                      <div class="input-group mb-2 mr-sm-2 d-l-content">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
                             <i
@@ -275,19 +275,17 @@
                           class="form-control"
                         />
                       </div>
+                      <div class="widget-content-right widget-content-actions responsive-edit-widget ml-md-2">
+                        <button
+                          title="Edit"
+                          class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
+                          (click)="editInfo('Téléphone')"
+                        >
+                          <i class="pe-7s-tools btn-icon-wrapper"> </i>
+                        </button>
+                      </div>
                     </div>
-                    <div class="widget-content-right widget-content-actions">
-                      <button
-                        title="Edit"
-                        class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
-                      >
-                        <i class="pe-7s-tools btn-icon-wrapper"> </i>
-                      </button>
-                    </div>
-                  </div> -->
-                  <!-- (click)="editInfo('Téléphone')"
-                  (click)="editInfo('email')" -->
-
+                  </div>
                   <div class="py-2 row w-100 my-3">
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
                       Password

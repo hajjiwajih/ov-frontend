@@ -81,7 +81,7 @@
           class="mb-2 mr-2 btn btn-shadow btn-primary"
           (click)="displayModal = false"
         >
-          Annuler
+          OK
         </button>
       </div>
     </p-footer>
@@ -102,7 +102,7 @@
       <div class="container px-0">
         <div class="row">
           <div class="col-md-8 col-8 d-flex align-items-center">
-            <i style="font-size: 14pt;" class="fas fa-user"></i>
+            <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
             <p class="ml-3 d-inline" style="font-size: 18px;">Nombre Des Codes</p>
           </div>
           <div class="col-md-4 col-4 d-flex align-items-center">
@@ -114,7 +114,7 @@
         <hr />
         <div class="row">
           <div class="col-md-8 col-8 d-flex align-items-center">
-            <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
+            <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i> 
             <p class="ml-3 d-inline" style="font-size: 18px;">
               Montant Code de recharge
             </p>
@@ -129,7 +129,7 @@
 
         <div class="row" *ngIf="!isValidated && !isRejected">
           <div class="col-md-8 col-8 d-flex align-items-center">
-            <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i>
+            <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
             <p class="ml-3 d-inline" style="font-size: 18px;">
               Totale Commande
             </p>
@@ -159,7 +159,7 @@
         </div>
         <hr />
         
-        <div class="row">
+        <div class="row" *ngIf="isValidated || isRejected">
           <div class="col-md-8 col-8 d-flex align-items-center">
             <i style="font-size: 14pt;" class="fas fa-calendar"></i>
             <p *ngIf="isValidated" class="ml-3 d-inline" style="font-size: 18px;">Date Validation</p>
@@ -171,7 +171,7 @@
             </h6>
           </div>
         </div>
-        <hr />
+        <hr *ngIf="isValidated || isRejected"/>
 
         <div class="row">
           <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
@@ -191,13 +191,13 @@
     <p-footer>
       <div role="group" class="btn-group-sm btn-group nav">
         <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
-          Annuler
+          OK
         </button> -->
         <button
           class="mb-2 mr-2 btn btn-shadow btn-primary"
           (click)="displayModal = false"
         >
-          Annuler
+          OK
         </button>
       </div>
     </p-footer>
