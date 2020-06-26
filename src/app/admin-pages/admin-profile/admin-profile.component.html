@@ -4,22 +4,22 @@
       <div class="card-body p-0 m-0">
         <div *ngIf="!mAdmin">
           <div class="m-auto text-center bg-transparent" style="width: 10%;">
-              <!-- loader screen -->
-              <div class="block-loader"></div>
-              <div class="sk-circle">
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-                <div class="sk-circle-dot"></div>
-              </div>
+            <!-- loader screen -->
+            <div class="block-loader"></div>
+            <div class="sk-circle">
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+              <div class="sk-circle-dot"></div>
+            </div>
           </div>
         </div>
         <div *ngIf="mAdmin" class="profile-cover">
@@ -76,11 +76,11 @@
 
           <div class="row my-3 mx-auto" style="width: 94%;">
             <div class="col-md-12 bg-light pt-4 pb-0 px-4">
-              <h2>Account Info</h2>
-              <div class="row mx-auto my-4" >
+              <h2>Informations sur les comptes</h2>
+              <div class="row mx-auto my-4">
                 <div class="col-md-6 mr-auto pl-0">
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div
                         class="widget-content-left center-elem mr-2 d-inline"
                       >
@@ -93,7 +93,7 @@
                         >Username</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.fname + " " + mAdmin.lname }}
                       </span>
@@ -101,7 +101,7 @@
                   </div>
                   <hr /> -->
                   <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div
                         class="widget-content-left center-elem mr-2 d-inline"
                       >
@@ -114,7 +114,9 @@
                         >Email</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div
+                      class="col-md-6 ml-auto text-right mr-3 align-items-center"
+                    >
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.email }}
                       </span>
@@ -122,23 +124,25 @@
                   </div>
                   <hr />
                   <div class="my-4 row">
-                    <div class="col-md-5">
-                      <div class="widget-content-left center-elem mr-2 d-inline">
+                    <div class="col-md-5 d-flex align-items-end">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
                         <i class="pe-7s-phone text-muted fsize-2"></i>
                       </div>
-                      <span style="color: #202020; font-size: 18px;"
-                        >Tél </span
-                      >
+                      <span style="color: #202020; font-size: 18px;">Tél </span>
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div
+                      class="col-md-6 ml-auto text-right mr-3 align-items-center"
+                    >
                       <span style="color: #787c80; font-size: 16px;">
-                        (+216) {{ mAdmin.phone || "---------" }} 
+                        (+216) {{ mAdmin.phone || "---------" }}
                       </span>
                     </div>
                   </div>
                   <hr />
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 d-inline">
                         <i class="pe-7s-news-paper text-muted fsize-2"></i>
                       </div>
@@ -146,7 +150,7 @@
                         >Num Patent</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         8516972Z
                       </span>
@@ -154,9 +158,9 @@
                   </div>
                   <hr /> -->
                 </div>
-                <div class="col-md-6 mr-auto pl-0 pl-md-3 ">
+                <div class="col-md-6 mr-auto pl-0 pl-md-3">
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 d-inline">
                         <i class="pe-7s-id text-muted fsize-2"></i>
                       </div>
@@ -164,7 +168,7 @@
                         >Num CIN</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.cin }}
                       </span>
@@ -172,31 +176,33 @@
                   </div>
                   <hr /> -->
                   <div class="my-4 row">
-                    <div class="col-md-5">
-                      <div class="widget-content-left center-elem mr-2 d-inline">
+                    <div class="col-md-5 d-flex align-items-end">
+                      <div
+                        class="widget-content-left center-elem mr-2 d-inline"
+                      >
                         <i class="pe-7s-timer text-muted fsize-2"></i>
                       </div>
                       <span style="color: #202020; font-size: 18px;"
                         >INSCRIT LE</span
                       >
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div
+                      class="col-md-6 ml-auto text-right mr-3 align-items-center"
+                    >
                       <span style="color: #787c80; font-size: 16px;">
-                        {{
-                          mAdmin.creationAt | date: "short":"fr"
-                        }}
+                        {{ mAdmin.creationAt | date: "short":"fr" }}
                       </span>
                     </div>
                   </div>
                   <hr />
                   <!-- <div class="my-4 row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 d-flex align-items-end">
                       <div class="widget-content-left center-elem mr-2 mt-4 d-inline">
                         <i class="pe-7s-info text-muted fsize-2"></i>
                       </div>
                       <span style="color: #202020; font-size: 18px;">REF</span>
                     </div>
-                    <div class="col-md-6 ml-auto text-right mr-3">
+                    <div class="col-md-6 ml-auto text-right mr-3 align-items-center">
                       <span style="color: #787c80; font-size: 16px;">
                         {{ mAdmin.autoID }}
                       </span>
@@ -204,7 +210,7 @@
                   </div>
                   <hr /> -->
                 </div>
-                <!-- <div class="col-md-5 ml-auto">
+                <!-- <div class="col-md-5 d-flex align-items-end ml-auto">
                   
                 </div> -->
               </div>
@@ -212,14 +218,14 @@
           </div>
           <div class="row mb-3 mt-4 mx-auto" style="width: 94%;">
             <div class="col-md-12 bg-light pt-4 pb-0 px-4">
-              <h2>Edit Information</h2>
+              <h2>Modifier les informations</h2>
               <div class="row mx-auto my-4" style="width: 94%;">
                 <div class="col-md-12 mr-auto">
                   <!-- <div class="py-2 row w-100 my-3">
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
                       Email
                     </h5>
-                    <div class="col-md-5 col-12 ml-auto">
+                    <div class="col-md-5 d-flex align-items-end col-12 ml-auto">
                       <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
@@ -255,7 +261,7 @@
                     <h5 class="col-md-3 mr-auto" style="color: #202020;">
                       Phone number
                     </h5>
-                    <div class="col-md-5 col-12 ml-auto">
+                    <div class="col-md-5 d-flex align-items-end col-12 ml-auto">
                       <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
@@ -309,7 +315,9 @@
                           class="form-control w-m-100"
                         />
                       </div>
-                      <div class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2">
+                      <div
+                        class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2"
+                      >
                         <button
                           title="Edit"
                           class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
