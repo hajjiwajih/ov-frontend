@@ -66,6 +66,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(document).on("click", () => {
+      this.displayProfile = false;
+    });
+
+    $('#showClientProfile').on("click", () => {
+      event.stopPropagation()
+    });
     this.clientId = localStorage.getItem("currentUserId");
     this.currentAgentEmail = localStorage.getItem("email");
     this.companyName = environment.companyName;
