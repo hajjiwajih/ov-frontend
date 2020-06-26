@@ -64,7 +64,9 @@ export class OrdersComponent implements OnInit {
   loaders = [false, false, false];
 
   amountStocks: string;
-  amountSails: string;
+  amountSails: any;
+
+  processAmountSails: any;
 
   orderHidden = false;
 
@@ -276,6 +278,10 @@ export class OrdersComponent implements OnInit {
             );
             $(".content a").tooltip({
               track: true,
+              // position: {
+              //   my: "left+15 bottom+100",
+              //   at: "center left-25"
+              // },
               open: function (event, ui) {
                 _self.userService
                   .getUserById(event.target.className)
@@ -675,7 +681,8 @@ export class OrdersComponent implements OnInit {
          * so i had to remove spaces using .replace() method and then convert it to number
          */
         this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
-        this.proccesAvailableTickets = Number(this.availableTickets);
+        this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
+        console.log(this.proccesAvailableTickets)
         if (this.proccesAvailableTickets)
           this.percents[index] = Math.round(
             (available.count / this.proccesAvailableTickets) * 100
@@ -700,12 +707,20 @@ export class OrdersComponent implements OnInit {
         console.log(this.percents[index], sold.count, amount, this.soldTickets);
         totalPerType = (sold.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        if (parseInt(this.amountSails))
+
+        console.log(parseInt(this.amountSails));
+        console.log(this.amountSails);
+        this.processAmountSails = this.amountSails.replace(/ /g, "");
+        this.processAmountSails = Number(this.processAmountSails);
+        console.log(this.processAmountSails);
+        if (this.processAmountSails)
           this.percents[index] = Math.round(
-            (sold.count / parseInt(this.amountSails)) * 100
+            (sold.count / this.processAmountSails) * 100
           );
         else this.percents[index] = 0;
+
         this.loaders[index] = false;
+        console.log(this.percents[index]);
       });
     });
   }
