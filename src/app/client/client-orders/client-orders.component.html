@@ -5,9 +5,8 @@
     <!-- <p-toast key="note"></p-toast> -->
   </div>
 
-  <!-- modal view -->
-
-  <p-dialog
+  <!-- Has been refactored below  -->
+  <!-- <p-dialog
     header="Détail Commande"
     [(visible)]="displayModal"
     [style]="{ width: '50vw' }"
@@ -74,6 +73,119 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="displayModal = false"
+        >
+          Annuler
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog> -->
+
+
+    <!-- modal view -->
+    <p-dialog
+    header="Détail Commande"
+    [(visible)]="displayModal"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="order_details_table">
+      <!-- <h2>Détails de la commande</h2> -->
+      <div class="container px-0">
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-user"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">Nombre Des Codes</p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              x {{ selectedOrder.nbCodes }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">
+              Montant Code de recharge
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              {{ selectedOrder.ticketAmount / 1000 }} DT
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row" *ngIf="!isValidated && !isRejected">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">
+              Totale Commande
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              <b>TOT </b>
+                  {{
+                    (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000
+                  }}
+                  DT
+            </h6>
+          </div>
+        </div>
+        <hr *ngIf="!isValidated && !isRejected"/>
+
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-calendar"></i>
+            <p class="ml-3 d-inline" style="font-size: 18px;">Date Émission</p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray;">
+              {{ selectedOrder.issueDate | date: "short":"fr" }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+        
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt;" class="fas fa-calendar"></i>
+            <p *ngIf="isValidated" class="ml-3 d-inline" style="font-size: 18px;">Date Validation</p>
+            <p *ngIf="isRejected" class="ml-3 d-inline" style="font-size: 18px;">Date Refus</p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center" *ngIf="isRejected || isValidated">
+            <h6 class="mb-0" style="color: gray;">
+              <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row">
+          <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
+            <i style="font-size: 14pt;" class="fas fa-comment"></i>
+            <p style="font-size: 18pt;" class="text-secondary ml-3">
+              Commentaire <span *ngIf="isRejected">[Refus]</span>
+            </p>
+          </div>
+          <div class="col-md-4 d-flex align-items-center">
+            <p [ngClass]="{ 'text-danger': isRejected }">
+              <b>{{ selectedOrder.comment }}</b>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     <p-footer>

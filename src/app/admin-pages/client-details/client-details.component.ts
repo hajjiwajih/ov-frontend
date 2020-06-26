@@ -23,6 +23,8 @@ export class ClientDetailsComponent implements OnInit {
 
   mClient: User;
 
+  isOrdersReady: boolean = false
+
   pipe = new DatePipe("fr-FR");
 
   clientId: string;
@@ -64,6 +66,7 @@ export class ClientDetailsComponent implements OnInit {
       this.initClientOrders(true, false); // validated
       this.initClientOrders(false, false); // non validated
       this.initClientOrders(false, true); // rejected
+
     });
   }
 
@@ -88,12 +91,15 @@ export class ClientDetailsComponent implements OnInit {
         if (valid) this.validOrders = orders;
         if (rejected) this.rejectedOrders = orders;
         if (!valid && !rejected) this.nonValidOrders = orders;
-        console.log(orders);
         // hide block loader
         setTimeout(() => {
           $(".block-loader").fadeOut(500);
           $(".sk-circle").fadeOut(500);
+          this.isOrdersReady = true;
         }, 700);
+        // setTimeout(() => {
+        //   // Show orders
+        // }, 900);
         if (valid) this.initDatatable("#validated-table");
         if (rejected) this.initDatatable("#rejected-table");
         if (!valid && !rejected) this.initDatatable("#non-validated-table");

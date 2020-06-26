@@ -22,10 +22,10 @@ export const environment = {
 //   enableDebug: true,
 //   // api routes
 //   api_url: "http://localhost:4200/api",
-//   api_url_users: "http://localhost:3500/api/users",
-//   api_url_orders: "http://localhost:3500/api/orders",
-//   api_url_tickets: "http://localhost:3500/api/tickets",
-//   api_url_vouchers: "http://localhost:3500/api/vouchers",
+//   api_url_users: "https://orange.ditriot.tn:8443/api/users",
+//   api_url_orders: "https://orange.ditriot.tn:8443/api/orders",
+//   api_url_tickets: "https://orange.ditriot.tn:8443/api/tickets",
+//   api_url_vouchers: "https://orange.ditriot.tn:8443/api/vouchers",
 //   // socket server
 //   socketIO_endpoint: "http://localhost:4000",
 // };
