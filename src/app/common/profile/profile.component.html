@@ -216,10 +216,20 @@
       <div class="grid-menu grid-menu-2col">
         <div class="no-gutters row">
           <div class="col-sm-6">
-            <div class="p-1">
+            <div class="p-1" *ngIf="user.role == 'client'">
               <button
                 class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success"
-                (click)="navigate('/portal/history')"
+                (click)="navigate('portal/history')"
+              >
+                <i class="lnr-bus text-success opacity-7 btn-icon-wrapper mb-2">
+                </i>
+                Activity
+              </button>
+            </div>
+            <div class="p-1" *ngIf="user.role == 'admin'">
+              <button
+                class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success"
+                (click)="navigate('monitor')"
               >
                 <i class="lnr-bus text-success opacity-7 btn-icon-wrapper mb-2">
                 </i>
