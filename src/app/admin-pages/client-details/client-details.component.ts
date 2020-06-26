@@ -97,9 +97,6 @@ export class ClientDetailsComponent implements OnInit {
           $(".sk-circle").fadeOut(500);
           this.isOrdersReady = true;
         }, 700);
-        // setTimeout(() => {
-        //   // Show orders
-        // }, 900);
         if (valid) this.initDatatable("#validated-table");
         if (rejected) this.initDatatable("#rejected-table");
         if (!valid && !rejected) this.initDatatable("#non-validated-table");
