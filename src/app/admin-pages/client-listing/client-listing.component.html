@@ -33,7 +33,10 @@
                   <span class="sr-only">Loading...</span>
                 </div>
                 <div id="all_clients">
-                  <span *ngIf="!isUsersLoading" style="font-size: 75%;"></span>
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
                 </div>
               </div>
             </div>
@@ -55,172 +58,164 @@
     </button> -->
   </div>
   <!-- (click)="openStockDetails('available')" -->
-  <<<<<<< HEAD
-  <div class="col-md-4 col-sm-6 col-12">
-    =======
-    <div class="col-md-6 col-sm-12 col-12 col-lg-4">
-      >>>>>>> origin/merge-requests/12
-      <div class="widget-chart widget-chart2 text-left mb-3 card">
-        <div class="container pr-0">
-          <div class="row">
-            <div class="col-2 px-0 ml-2 text-md-center mx-md-auto my-auto">
-              <img
-                src="../../../assets/icons/verified.png"
-                width="60px"
-                alt="validated_users"
-              />
-            </div>
-            <div
-              class="widget-content-wrapper col-9 px-0 ml-md-3"
-              style="margin-top: 8px; margin-bottom: 8px;"
-            >
-              <div class="widget-content-left">
-                <div class="widget-heading">Clients vérifiés</div>
-                <div class="widget-subheading">Nombre de clients vérifiés</div>
-              </div>
-              <div class="widget-content-right">
-                <div class="widget-numbers mb-0">
-                  <div
-                    *ngIf="isUsersLoading"
-                    class="spinner-border spinner-border"
-                    role="status"
-                  >
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <div id="checked_clients">
-                    <span
-                      *ngIf="!isUsersLoading"
-                      style="font-size: 75%;"
-                    ></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="col-md-6 col-sm-12 col-12 col-lg-4">
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
+      <div class="container pr-0">
+        <div class="row">
+          <div class="col-2 px-0 ml-2 text-md-center mx-md-auto my-auto">
+            <img
+              src="../../../assets/icons/verified.png"
+              width="60px"
+              alt="validated_users"
+            />
           </div>
-        </div>
-      </div>
-      <!-- <button
-      style="
-        float: right;
-        position: absolute;
-        bottom: 30%;
-        text-decoration: underline;
-        right: 5%;
-      "
-      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
-    >
-      Détail
-    </button> -->
-    </div>
-    <!-- (click)="openStockDetails('sold')" -->
-    <<<<<<< HEAD
-    <div class="col-md-4 col-sm-6 mx-sm-auto col-12">
-      =======
-      <div class="col-md-6 mx-md-auto col-sm-12 mx-sm-auto col-12 col-lg-4">
-        >>>>>>> origin/merge-requests/12
-        <div class="widget-chart widget-chart2 text-left mb-3 card">
-          <div class="container pr-0">
-            <div class="row">
-              <div class="col-2 px-0 ml-2 text-md-center mx-md-auto my-auto">
-                <img
-                  src="../../../assets/icons/not-verified.png"
-                  width="60px"
-                  alt="rejected_users"
-                />
-              </div>
-              <div
-                class="widget-content-wrapper col-9 px-0 ml-md-3"
-                style="margin-top: 8px; margin-bottom: 8px;"
-              >
-                <div class="widget-content-left">
-                  <div class="widget-heading">Clients non vérifié</div>
-                  <div class="widget-subheading">
-                    Nombre de clients non vérifiés
-                  </div>
-                </div>
-                <div class="widget-content-right">
-                  <div class="widget-numbers mb-0">
-                    <div
-                      *ngIf="isUsersLoading"
-                      class="spinner-border spinner-border"
-                      role="status"
-                    >
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                    <div id="rejected_clients">
-                      <span
-                        *ngIf="!isUsersLoading"
-                        style="font-size: 75%;"
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div
+            class="widget-content-wrapper col-9 px-0 ml-md-3"
+            style="margin-top: 8px; margin-bottom: 8px;"
+          >
+            <div class="widget-content-left">
+              <div class="widget-heading">Clients vérifiés</div>
+              <div class="widget-subheading">Nombre de clients vérifiés</div>
             </div>
-          </div>
-        </div>
-        <!-- <button
-      style="
-        float: right;
-        position: absolute;
-        bottom: 30%;
-        text-decoration: underline;
-        right: 5%;
-      "
-      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
-    >
-      Détail
-    </button> -->
-      </div>
-      <!-- (click)="openStockDetails('sold')" -->
-
-      <div class="col-md-12">
-        <div class="main-card mb-3 card">
-          <!-- loader screen -->
-          <div class="block-loader"></div>
-          <div class="sk-circle">
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-            <div class="sk-circle-dot"></div>
-          </div>
-
-          <div class="card-body">
-            <h3 class="ml-4 mt-4">
-              Liste Des Clients
-            </h3>
-
-            <div class="mr-4 mb-4">
-              <div class="card-body m-2">
-                <table
-                  style="width: 100%;"
-                  id="clientTables"
-                  class="table table-hover table-striped table-bordered"
+            <div class="widget-content-right">
+              <div class="widget-numbers mb-0">
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
                 >
-                  <thead>
-                    <tr>
-                      <th>REF CLIENT</th>
-                      <th>PATENTE</th>
-                      <th>CIN</th>
-                      <th>NOM & PRENOM</th>
-                      <th>INSCRIT LE</th>
-                      <th style="text-transform: uppercase;">état COMPTE</th>
-                      <th style="text-transform: uppercase;">
-                        dernière commande validée
-                      </th>
-                      <th>ACTIONS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- <tr *ngFor="let client of modifiedClients">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="checked_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
+    >
+      Détail
+    </button> -->
+  </div>
+  <!-- (click)="openStockDetails('sold')" -->
+  <div class="col-md-6 mx-md-auto col-sm-12 mx-sm-auto col-12 col-lg-4">
+    <div class="widget-chart widget-chart2 text-left mb-3 card">
+      <div class="container pr-0">
+        <div class="row">
+          <div class="col-2 px-0 ml-2 text-md-center mx-md-auto my-auto">
+            <img
+              src="../../../assets/icons/not-verified.png"
+              width="60px"
+              alt="rejected_users"
+            />
+          </div>
+          <div
+            class="widget-content-wrapper col-9 px-0 ml-md-3"
+            style="margin-top: 8px; margin-bottom: 8px;"
+          >
+            <div class="widget-content-left">
+              <div class="widget-heading">Clients non vérifié</div>
+              <div class="widget-subheading">
+                Nombre de clients non vérifiés
+              </div>
+            </div>
+            <div class="widget-content-right">
+              <div class="widget-numbers mb-0">
+                <div
+                  *ngIf="isUsersLoading"
+                  class="spinner-border spinner-border"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div id="rejected_clients">
+                  <span
+                    *ngIf="!isUsersLoading"
+                    style="font-size: 75%;"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <button
+      style="
+        float: right;
+        position: absolute;
+        bottom: 30%;
+        text-decoration: underline;
+        right: 5%;
+      "
+      class="mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-warning"
+    >
+      Détail
+    </button> -->
+  </div>
+  <!-- (click)="openStockDetails('sold')" -->
+
+  <div class="col-md-12">
+    <div class="main-card mb-3 card">
+      <!-- loader screen -->
+      <div class="block-loader"></div>
+      <div class="sk-circle">
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+        <div class="sk-circle-dot"></div>
+      </div>
+
+      <div class="card-body">
+        <h3 class="ml-4 mt-4">
+          Liste Des Clients
+        </h3>
+
+        <div class="mr-4 mb-4">
+          <div class="card-body m-2">
+            <table
+              style="width: 100%;"
+              id="clientTables"
+              class="table table-hover table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>REF CLIENT</th>
+                  <th>PATENTE</th>
+                  <th>CIN</th>
+                  <th>NOM & PRENOM</th>
+                  <th>INSCRIT LE</th>
+                  <th style="text-transform: uppercase;">état COMPTE</th>
+                  <th style="text-transform: uppercase;">
+                    dernière commande validée
+                  </th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let client of modifiedClients">
                   <td>{{ client.autoID }}</td>
                   <td>{{ client.username }}</td>
                   <td>{{ client.cin }}</td>
@@ -256,25 +251,23 @@
                     </button>
                   </td>
                 </tr> -->
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>REF CLIENT</th>
-                      <th>PATENTE</th>
-                      <th>CIN</th>
-                      <th>NOM & PRENOM</th>
-                      <th>INSCRIT LE</th>
-                      <th style="text-transform: uppercase;">état COMPTE</th>
-                      <th style="text-transform: uppercase;">
-                        dernière commande validée
-                      </th>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>REF CLIENT</th>
+                  <th>PATENTE</th>
+                  <th>CIN</th>
+                  <th>NOM & PRENOM</th>
+                  <th>INSCRIT LE</th>
+                  <th style="text-transform: uppercase;">état COMPTE</th>
+                  <th style="text-transform: uppercase;">
+                    dernière commande validée
+                  </th>
 
-                      <th>ACTIONS</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
+                  <th>ACTIONS</th>
+                </tr>
+              </tfoot>
+            </table>
           </div>
         </div>
       </div>
