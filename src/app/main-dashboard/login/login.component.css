@@ -28,3 +28,9 @@
     50% { margin-left: 25%; margin-right: 0%; }
     100% { margin-left: 100%; margin-right: 0; }
   }
+
+  @media (max-width: 576px) {
+    .logo__bg {
+      width: 54% !important;
+    }
+  }
