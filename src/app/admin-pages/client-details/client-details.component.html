@@ -359,7 +359,105 @@
               </div>
             </div>
           </div> -->
-          <p-dialog
+
+          <!-- modal view -->
+  <p-dialog
+  header="Détail Commande"
+  [(visible)]="displayModal"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="order_details_table">
+    <!-- <h2>Détails de la commande</h2> -->
+    <div class="container px-0">
+      <div class="row">
+        <div class="col-md-8 col-8 d-flex align-items-center">
+          <i style="font-size: 14pt;" class="fas fa-user"></i>
+          <p class=" para__text ml-3 d-inline" style="font-size: 18px;">Client</p>
+        </div>
+        <div class="col-md-4 col-4 d-flex align-items-center">
+          <h6 class="mb-0" style="color: gray;">
+            REF {{ selectedOrder.clientRef }}
+          </h6>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-8 col-8 d-flex align-items-center">
+          <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
+          <p class=" para__text ml-3 d-inline" style="font-size: 18px;">
+            Nombre Des Codes
+          </p>
+        </div>
+        <div class="col-md-4 col-4 d-flex align-items-center">
+          <h6 class="mb-0" style="color: gray;">
+            x {{ selectedOrder.nbCodes }}
+          </h6>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-8 col-8 d-flex align-items-center">
+          <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i>
+          <p class=" para__text ml-3 d-inline" style="font-size: 18px;">
+            Montant Code de recharge
+          </p>
+        </div>
+        <div class="col-md-4 col-4 d-flex align-items-center">
+          <h6 class="mb-0" style="color: gray;">
+            {{ selectedOrder.ticketAmount / 1000 }} DT
+          </h6>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-8 col-8 d-flex align-items-center">
+          <i style="font-size: 14pt;" class="fas fa-calendar"></i>
+          <p class=" para__text ml-3 d-inline" style="font-size: 18px;">Date Émission</p>
+        </div>
+        <div class="col-md-4 col-4 d-flex align-items-center">
+          <h6 class="mb-0" style="color: gray;">
+            {{ selectedOrder.issueDate | date: "short":"fr" }}
+          </h6>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
+          <i style="font-size: 14pt;" class="fas fa-comment"></i>
+          <p style="font-size: 18pt;" class="text-secondary ml-3">
+            Commentaire <span *ngIf="isRejected">[Refus]</span>
+          </p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+          <p [ngClass]="{ 'text-danger': isRejected }">
+            <b>{{ selectedOrder.comment }}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div role="group" class="btn-group-sm btn-group nav">
+      <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+        OK
+      </button> -->
+      <button
+        class="mb-2 mr-2 btn btn-shadow btn-primary"
+        (click)="displayModal = false"
+      >
+        OK
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+          <!-- <p-dialog
             header="Détail Commande"
             [(visible)]="displayModal"
             [style]="{ width: '50vw' }"
@@ -418,9 +516,7 @@
             </div>
             <p-footer>
               <div role="group" class="btn-group-sm btn-group nav">
-                <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
-          OK
-        </button> -->
+                
                 <button
                   class="mb-2 mr-2 btn btn-shadow btn-primary"
                   (click)="displayModal = false"
@@ -429,7 +525,7 @@
                 </button>
               </div>
             </p-footer>
-          </p-dialog>
+          </p-dialog> -->
           <div
             class="col-md-12 col-lg-12 col-xl-12 mx-auto my-2"
             style="width: 97%;"
