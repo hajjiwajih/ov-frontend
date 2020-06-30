@@ -4,6 +4,7 @@ pipeline {
     
     stage('Prepare') {
       steps {
+        sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && git checkout package-lock.json'"
         sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && git pull origin backup'"
       }
     }
