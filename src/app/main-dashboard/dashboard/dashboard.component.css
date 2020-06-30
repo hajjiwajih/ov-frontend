@@ -48,9 +48,4 @@
     .app-layout__sidebar-inner {
     display: none;
   }
-  .app-header-overlay,
-  .app-sidebar-overlay,
-  .app-drawer-overlay {
-    z-index: 1;
-  }
 }
