@@ -11183,7 +11183,7 @@ button,
   display: flex;
   align-items: center;
   align-content: center;
-  z-index: 10;
+  z-index: auto;
   height: 100px;
   width: 100%;
   padding: 0 30px;
@@ -38563,6 +38563,10 @@ span.multiselect-native-select select {
 @media (max-width: 576px) {
   .ui-dialog {
     width: 100% !important;
+  }
+
+  .para__text {
+    font-size: 16px !important;
   }
 }
 /* Override */

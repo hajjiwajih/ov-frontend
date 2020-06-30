@@ -154,7 +154,7 @@ export class OrdersComponent implements OnInit {
                  * Here i am giving priority to the actions buttons so it will apear in small screens
                  * P.s i don't know if it's good or not but i think it's the only solution there
                  */
-                { responsivePriority: 2, targets: -2 },
+                { responsivePriority: 2, targets: -1 },
                 {
                   targets: 2,
                   render: function (data, type, row) {
