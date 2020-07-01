@@ -62,7 +62,7 @@
               </button>
             </div>
           </div>
-          <div class="row w-50 m-auto text-center">
+          <div class="row w-50 my-3 m-auto text-center">
             <div  class="col-lg-3 col-md-6 col-sm-6 mr-auto">
               <h2 style="color: blue;">
                 <b  class="text-info">{{
@@ -77,7 +77,7 @@
               <h2 class="text-success">{{ validOrders.length }}</h2>
               <h6>Validées</h6>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mx-sm-auto ml-auto">
+            <div class="col-lg-3 col-md-6 col-sm-6 ml-auto">
               <h2 class="text-danger">{{ rejectedOrders.length }}</h2>
               <h6>Rejetées</h6>
             </div>
@@ -435,7 +435,10 @@
           </p>
         </div>
         <div class="col-md-4 d-flex align-items-center">
-          <p [ngClass]="{ 'text-danger': isRejected }">
+          <p class="text-warning" *ngIf="!selectedOrder.comment.length">
+            Pas de commentaires
+          </p>
+          <p *ngIf="selectedOrder.comment.length" [ngClass]="{ 'text-danger': isRejected }">
             <b>{{ selectedOrder.comment }}</b>
           </p>
         </div>

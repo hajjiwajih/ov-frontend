@@ -163,10 +163,12 @@
                   <th>VLIDE</th>
                 </tr>
                 <tr>
-                  <th class="d-s-none d-m-none"></th>
-                  <th class="d-s-none d-m-none"></th>
-                  <th style="text-align: right;">Total:</th>
-                  <th colspan="3" id="sum"></th>
+                  <!-- 
+                    Here i put the #sum inside th -> total because the first column in the table is too long 
+                    and if i put total in col & sum in seperate col the total will take too long and won't leave
+                    space for sum, so i had to put it inside so it will look better in smaller screens 
+                   -->
+                  <th colspan="5" style="text-align: right;">Total: &nbsp; &nbsp; &nbsp; <strong><span id="sum"></span></strong></th>
                 </tr>
               </tfoot>
             </table>

@@ -54,50 +54,51 @@ export class SignupComponent implements OnInit {
     // form validation
     $(document).ready(function () {
       /**
-       * When document is ready we are showing the user immediatly the X red icon
-       * which is not good for user so i had to move it to onSubmit() function 
-       * so once he submit then he can see if he has error
+       *  I commented those lines because they will show user the error once he opens the page
+       *  so now the error will only pop once he touch field or submit the form
        */
-      // var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
-      // var cinPattern = /^([0-9]{8})$/; // 8 digits
 
       // $("#cin")[0].setCustomValidity("cin empty");
       // $("#patente")[0].setCustomValidity("login empty");
       // $("#signupForm").addClass("was-validated");
 
-      // // input validation
-      // $("#patente").keyup(function () {
-      //   if ($(this).val().match(loginPattern)) {
-      //     this.setCustomValidity("");
-      //   } else {
-      //     this.setCustomValidity("Login field pattern didn't match");
-      //   }
-      // });
+      
+      var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
+      var cinPattern = /^([0-9]{8})$/; // 8 digits
 
-      // // input validation
-      // $("#cin").keyup(function () {
-      //   if ($(this).val().match(cinPattern)) {
-      //     this.setCustomValidity("");
-      //   } else {
-      //     this.setCustomValidity("CIN field pattern didn't match");
-      //   }
-      // });
+      // input validation
+      $("#patente").keyup(function () {
+        if ($(this).val().match(loginPattern)) {
+          this.setCustomValidity("");
+        } else {
+          this.setCustomValidity("Login field pattern didn't match");
+        }
+      });
 
-      // // input validation
-      // $("#password").keyup(function () {
-      //   _self.checkPasswordStrength();
-      // });
+      // input validation
+      $("#cin").keyup(function () {
+        if ($(this).val().match(cinPattern)) {
+          this.setCustomValidity("");
+        } else {
+          this.setCustomValidity("CIN field pattern didn't match");
+        }
+      });
 
-      // // input validation
-      // $("#confirm_password").keyup(function () {
-      //   if ($(this).val() == $("#password").val()) {
-      //     this.setCustomValidity("");
-      //   } else {
-      //     this.setCustomValidity("Passwords must match");
-      //   }
-      // });
+      // input validation
+      $("#password").keyup(function () {
+        _self.checkPasswordStrength();
+      });
 
-      // _self.togglePassword();
+      // input validation
+      $("#confirm_password").keyup(function () {
+        if ($(this).val() == $("#password").val()) {
+          this.setCustomValidity("");
+        } else {
+          this.setCustomValidity("Passwords must match");
+        }
+      });
+
+      _self.togglePassword();
     });
   }
 
@@ -114,46 +115,7 @@ export class SignupComponent implements OnInit {
     });
     // decorate form
     console.log(this.user);
-    var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
-    var cinPattern = /^([0-9]{8})$/; // 8 digits
 
-    $("#cin")[0].setCustomValidity("cin empty");
-    $("#patente")[0].setCustomValidity("login empty");
-    $("#signupForm").addClass("was-validated");
-
-    // input validation
-    $("#patente").keyup(function () {
-      if ($(this).val().match(loginPattern)) {
-        this.setCustomValidity("");
-      } else {
-        this.setCustomValidity("Login field pattern didn't match");
-      }
-    });
-
-    // input validation
-    $("#cin").keyup(function () {
-      if ($(this).val().match(cinPattern)) {
-        this.setCustomValidity("");
-      } else {
-        this.setCustomValidity("CIN field pattern didn't match");
-      }
-    });
-
-    // input validation
-    $("#password").keyup(function () {
-      this.checkPasswordStrength();
-    });
-
-    // input validation
-    $("#confirm_password").keyup(function () {
-      if ($(this).val() == $("#password").val()) {
-        this.setCustomValidity("");
-      } else {
-        this.setCustomValidity("Passwords must match");
-      }
-    });
-
-    this.togglePassword();
     // add user
     if (this.validateForm() && this.checkPasswordStrength()) {
       $(".progress-line").addClass("flex-display");
@@ -207,6 +169,9 @@ export class SignupComponent implements OnInit {
     console.log($("#signupForm"));
 
     // required fields
+    console.log(
+      this.signupForm.get("login").value && this.signupForm.get("cin").value
+    );
     if (
       !this.signupForm.get("login").value &&
       !this.signupForm.get("cin").value

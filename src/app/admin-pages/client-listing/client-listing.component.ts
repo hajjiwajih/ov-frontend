@@ -80,6 +80,7 @@ export class ClientListingComponent implements OnInit {
             modified.lastValidatedOrder = lastOrders.order || null;
             console.log(modified);
             this.modifiedClients.push(modified);
+            console.log(this.modifiedClients);
           });
           // console.log(this.modifiedClients);
           // hide block loader
@@ -375,8 +376,18 @@ export class ClientListingComponent implements OnInit {
    */
   subscribeToNewClients() {
     this.addedSub$ = this.userService.newClient.subscribe((voucher) => {
+      /**
+       * Here once we add new voucher it comes without 'lastValidatedOrder' property which will cause error
+       * to the table since it's realtime updateing so it will render in the table without the 'lastValidatedOrder'
+       * so i had to figure out a way to add it
+       * P.s: 'lastValidatedOrder' doesn't exist on type user so i had to do the same as you did before table init
+       */
       console.log("new voucher", voucher);
-      this.addRow(voucher);
+      let modified = Object.create(voucher);
+      modified = voucher;
+      modified.lastValidatedOrder = modified.lastValidatedOrder || null;
+      console.log(modified);
+      this.addRow(modified);
     });
   }
 
