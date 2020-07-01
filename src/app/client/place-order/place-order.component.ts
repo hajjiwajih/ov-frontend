@@ -24,7 +24,7 @@ export class PlaceOrderComponent implements OnInit {
 
   validationSub$: Subscription;
   rejectionSub$: Subscription;
-
+  isChartReady: boolean = false;
   orderForm = new FormGroup({
     nbCodes: new FormControl(""),
     comment: new FormControl(""),
@@ -226,6 +226,7 @@ export class PlaceOrderComponent implements OnInit {
         }
 
         // Creating the Chart
+        this.isChartReady = true
         this.createChart();
 
         /**
@@ -348,6 +349,7 @@ export class PlaceOrderComponent implements OnInit {
 
           this.myChart.update();
         }
+        console.log(this.isChartReady)
       });
 
     /** IMPORTANT

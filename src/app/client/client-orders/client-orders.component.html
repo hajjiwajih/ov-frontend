@@ -181,7 +181,10 @@
             </p>
           </div>
           <div class="col-md-4 d-flex align-items-center">
-            <p [ngClass]="{ 'text-danger': isRejected }">
+            <p class="text-warning" *ngIf="!selectedOrder.comment.length">
+              Pas de commentaires
+            </p>
+            <p *ngIf="selectedOrder.comment.length" [ngClass]="{ 'text-danger': isRejected }">
               <b>{{ selectedOrder.comment }}</b>
             </p>
           </div>
