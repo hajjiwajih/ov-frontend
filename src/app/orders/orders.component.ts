@@ -168,15 +168,6 @@ export class OrdersComponent implements OnInit {
                   },
                 },
                 {
-                  targets: 7,
-                  render: function (data, type, row) {
-                    return `
-                    <div class='content text-center'>
-                      <a class="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..'><img src="../../assets/icons/info.png" width="26px" /></a>
-                    </div>`;
-                  },
-                },
-                {
                   targets: 4,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
@@ -194,6 +185,15 @@ export class OrdersComponent implements OnInit {
                   targets: 6,
                   render: function (data, type, row) {
                     return _self.pipe.transform(data, "short");
+                  },
+                },
+                {
+                  targets: 7,
+                  render: function (data, type, row) {
+                    return `
+                      <div class='content text-center'>
+                        <a class="${row.clientId}" href="/monitor/clients/${row.clientId}" title='Please wait..'><img src="../../assets/icons/info.png" width="26px" /></a>
+                      </div>`;
                   },
                 },
               ],
@@ -292,13 +292,13 @@ export class OrdersComponent implements OnInit {
                       "content",
                       `<div>
                       <span>Username: </span>
-                        <span class="text-right text-success mt-2"> ${
+                        <strong class="text-right mt-2"> ${
                           clientInfo.fname + " " + clientInfo.lname
-                        }</span><br>
+                        }</strong><br>
                         <span>Email: </span>
-                        <span class="text-right text-success my-2">${
+                        <strong class="text-right my-2">${
                           clientInfo.email
-                        }</span><br>
+                        }</strong><br>
                         <span>User status: </span>
                         ${
                           clientInfo.emailVerified
@@ -379,6 +379,12 @@ export class OrdersComponent implements OnInit {
       if (this.isValidated || this.isRejected) {
         // });
       } else {
+        /**
+         * Here once we add new order it comes without 'validationDate' property which will cause error
+         * to the table since it's realtime updateing so it will render in the table without the 'validationDate'
+         * so i had to figure out a way to add it
+         */
+        order.validationDate = order.validationDate || "";
         this.addRow(order);
         // update stats
         this.totalOrders++;
@@ -683,13 +689,12 @@ export class OrdersComponent implements OnInit {
          */
         this.proccesAvailableTickets = this.availableTickets.replace(/ /g, "");
         this.proccesAvailableTickets = Number(this.proccesAvailableTickets);
-        console.log(this.proccesAvailableTickets)
-        if (this.proccesAvailableTickets) {      
+        console.log(this.proccesAvailableTickets);
+        if (this.proccesAvailableTickets) {
           this.percents[index] = Math.round(
             (available.count / this.proccesAvailableTickets) * 100
           );
-        }
-        else this.percents[index] = 0;
+        } else this.percents[index] = 0;
         this.loaders[index] = false;
       });
     });
@@ -709,10 +714,10 @@ export class OrdersComponent implements OnInit {
         console.log(this.percents[index], sold.count, amount, this.soldTickets);
         totalPerType = (sold.count * amount) / 1000;
         this.totalPerType[index] = numberWithSpaces(totalPerType);
-        
+
         this.processAmountSails = this.amountSails.replace(/ /g, "");
         this.processAmountSails = Number(this.processAmountSails);
-      
+
         if (this.processAmountSails) {
           /**
            * I think the problem here is you dividing sold.cost 'which is the number os sold items' on amountSails
@@ -721,7 +726,7 @@ export class OrdersComponent implements OnInit {
            * you can contact me for furhter explaination
            */
 
-          // Old Code 
+          // Old Code
           // this.percents[index] = Math.round(
           //   (sold.count / this.processAmountSails) * 100
           // );
@@ -730,9 +735,7 @@ export class OrdersComponent implements OnInit {
           this.percents[index] = Math.round(
             (totalPerType / this.processAmountSails) * 100
           );
-
-        }
-        else this.percents[index] = 0;
+        } else this.percents[index] = 0;
 
         this.loaders[index] = false;
         console.log(this.percents[index]);

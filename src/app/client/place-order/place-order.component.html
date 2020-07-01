@@ -87,7 +87,16 @@
   </div>
   <div class="col-md-6 mt-4 mt-sm-0">
     <div class="main-card card m-auto text-center" style="height: 100%;">
-      <span class="text-center pt-3" style="font-size: 1.4em; color: #968C8A;">- Orders Summary within 3 months -</span>
+      <h5 class="text-left pt-4" style="padding-left: 40px; font-size: 1.2em; color: rgba(31, 10, 6, 0.6);"
+        >Résumé des commandes dans un délai de 3 mois</h5
+      >
+      <div
+        *ngIf="!isChartReady"
+        class="spinner-border spinner-border mx-auto mt-5"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
       <div class="card-body">
         <canvas id="myChart" width="400" height="400"></canvas>
       </div>
