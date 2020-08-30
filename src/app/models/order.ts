@@ -2,6 +2,7 @@ export interface Order {
   idOrder?: string;
   orderAuto?: string;
   nbCodes?: number;
+  ticketType?: string;
   clientId?: string;
   clientRef?: string;
   issueDate?: any;
