@@ -57,11 +57,11 @@ export class OrdersComponent implements OnInit {
   displayDetails: boolean = false;
 
   // availbale stock details
-  amounts = [1000, 5000, 10000];
-  stocks = [0, 0, 0];
-  totalPerType = [0, 0, 0];
-  percents = [0, 0, 0];
-  loaders = [false, false, false];
+  amounts = [400, 1000, 5000, 10000];
+  stocks = [0, 0, 0, 0];
+  totalPerType = [0, 0, 0, 0];
+  percents = [0, 0, 0, 0];
+  loaders = [false, false, false, false];
 
   amountStocks: string;
   amountSails: any;
@@ -674,7 +674,7 @@ export class OrdersComponent implements OnInit {
   getStockDetails() {
     this.orderHidden = false;
     this.percents = [0, 0, 0];
-    this.loaders = [true, true, true];
+    this.loaders = [true, true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.countTicketsByAmount(amount).subscribe((available) => {
         this.stocks[index] = numberWithSpaces(available.count);
@@ -706,7 +706,7 @@ export class OrdersComponent implements OnInit {
   getSailsDetails() {
     this.orderHidden = false;
     this.percents = [0, 0, 0];
-    this.loaders = [true, true, true];
+    this.loaders = [true, true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.getSoldTicketsCount(amount).subscribe((sold) => {
         this.stocks[index] = numberWithSpaces(sold.count);
@@ -749,7 +749,7 @@ export class OrdersComponent implements OnInit {
 
   getOrderDetails() {
     this.orderHidden = true;
-    this.loaders = [true, true, true];
+    this.loaders = [true, true, true, true];
     this.amounts.forEach((amount, index) => {
       this.orderService.getOrderCount(amount).subscribe((orders) => {
         this.stocks[index] = orders.count;

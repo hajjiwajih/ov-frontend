@@ -41,6 +41,9 @@ export class ClientOrdersComponent implements OnInit {
   isRejected: boolean;
 
   displayModal: boolean = false;
+  displayPrintModal: boolean = false;
+
+  downloading: boolean = false;
 
   constructor(
     private messageService: MessageService,
@@ -218,7 +221,7 @@ export class ClientOrdersComponent implements OnInit {
               "click",
               "tr .btn-outline-success",
               function () {
-                _self.downloadPrintablePDF(
+                _self.choosePrintableFormat(
                   table.row($(this).parent().parent()).data()
                 );
               }
@@ -404,26 +407,41 @@ export class ClientOrdersComponent implements OnInit {
    * Download PDF printable format
    * @param order
    */
-  downloadPrintablePDF(order: Order) {
-    this.orderService.getOrderTicketsPDF(order.idOrder).subscribe((data) => {
-      // create the blob object with content-type "application/pdf"
-      var blob = new Blob([data], { type: "application/pdf" });
+  choosePrintableFormat(order: Order) {
+    this.displayPrintModal = true;
+    this.selectedOrder = order;
+  }
 
-      var d = new Date(Date.parse(order.validationDate));
-      var formatted = this.pipe.transform(d, "yyyyMMddHHmmss");
+  downloadPrintablePDF(formatCode: number) {
+    // display progress bar
+    this.downloading = true;
+    this.orderService
+      .getOrderTicketsPDF(this.selectedOrder.idOrder, formatCode)
+      .subscribe((data) => {
+        // create the blob object with content-type "application/pdf"
+        var blob = new Blob([data], { type: "application/pdf" });
 
-      // directly open in new window
-      var fileURL = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = fileURL;
-      a.target = "_blank";
-      a.title = "pdfFile.pdf";
-      document.body.appendChild(a);
-      a.click();
+        var d = new Date(Date.parse(this.selectedOrder.validationDate));
+        var formatted = this.pipe.transform(d, "yyyyMMddHHmmss");
 
-      // download file instead
-      // saveAs(blob, formatted + "-" + order.orderAuto + ".pdf");
-    });
+        // directly open in new window
+        var fileURL = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = fileURL;
+        a.target = "_blank";
+        a.title = "pdfFile.pdf";
+        document.body.appendChild(a);
+        a.click();
+
+        // hide progress bar
+        this.downloading = false;
+
+        // hide modal
+        this.displayPrintModal = false;
+
+        // download file instead
+        // saveAs(blob, formatted + "-" + order.orderAuto + ".pdf");
+      });
   }
 
   /**

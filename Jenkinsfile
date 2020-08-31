@@ -4,15 +4,17 @@ pipeline {
     
     stage('Prepare') {
       steps {
-        sh "ssh PRadmin@192.168.10.14 'cd ov-frontend && git pull origin master'"
+        sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && git checkout package-lock.json'"
+        sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && git pull origin backup'"
       }
     }
     
     stage('Build') {
       steps {
-        sh "ssh PRadmin@192.168.10.14 'cd ov-frontend && npm install'"
+        sh "ssh BUadmin@192.168.10.19 'cd ov-frontend && npm install'"
       }
     }
+    
 
   }
 }

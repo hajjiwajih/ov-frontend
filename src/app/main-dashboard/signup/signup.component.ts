@@ -62,7 +62,6 @@ export class SignupComponent implements OnInit {
       // $("#patente")[0].setCustomValidity("login empty");
       // $("#signupForm").addClass("was-validated");
 
-      
       var loginPattern = /^(([0-9]{8})|([0-9]{7}[A-Z]))$/; // 7 digits then 1 uppercase letter
       var cinPattern = /^([0-9]{8})$/; // 8 digits
 

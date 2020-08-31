@@ -4,12 +4,12 @@ export const environment = {
   // env [test]
   companyName: "Symtelecom",
   // api routes
-  api_url: "https://www.symvoucher.com/api",
-  api_url_users: "https://www.symvoucher.com/api/users",
-  api_url_orders: "https://www.symvoucher.com/api/orders",
-  api_url_tickets: "https://www.symvoucher.com/api/tickets",
-  api_url_vouchers: "https://www.symvoucher.com/api/vouchers",
+  api_url: "https://symvoucher.ditriot.tn/api",
+  api_url_users: "https://symvoucher.ditriot.tn/api/users",
+  api_url_orders: "https://symvoucher.ditriot.tn/api/orders",
+  api_url_tickets: "https://symvoucher.ditriot.tn/api/tickets",
+  api_url_vouchers: "https://symvoucher.ditriot.tn/api/vouchers",
   // socket server
-  socketIO_endpoint: "https://www.symvoucher.com",
+  socketIO_endpoint: "https://symvoucher.ditriot.tn",
 
 };
