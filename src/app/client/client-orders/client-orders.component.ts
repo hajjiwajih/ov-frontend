@@ -412,11 +412,11 @@ export class ClientOrdersComponent implements OnInit {
     this.selectedOrder = order;
   }
 
-  downloadPrintablePDF(format: number) {
+  downloadPrintablePDF(formatCode: number) {
     // display progress bar
     this.downloading = true;
     this.orderService
-      .getOrderTicketsPDF(this.selectedOrder.idOrder)
+      .getOrderTicketsPDF(this.selectedOrder.idOrder, formatCode)
       .subscribe((data) => {
         // create the blob object with content-type "application/pdf"
         var blob = new Blob([data], { type: "application/pdf" });

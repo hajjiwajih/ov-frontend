@@ -102,13 +102,16 @@ export class OrderService {
    * Fetch all related order tickets in PDF format
    * @param id
    */
-  getOrderTicketsPDF(id) {
+  getOrderTicketsPDF(id, formatCode: number) {
     let headers = new HttpHeaders();
     // headers = headers.set("Accept", "application/pdf");
-    return this.client.get<string>(this.ticketsUrl + "/orderTicketsPDF/" + id, {
-      headers: headers,
-      responseType: "blob" as "json",
-    });
+    return this.client.get<string>(
+      `${this.ticketsUrl}/orderTicketsPDF/${id}/${formatCode}`,
+      {
+        headers: headers,
+        responseType: "blob" as "json",
+      }
+    );
   }
   /**
    * Remove persisted order
