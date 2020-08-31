@@ -26,6 +26,7 @@ export class PlaceOrderComponent implements OnInit {
   rejectionSub$: Subscription;
   isChartReady: boolean = false;
   orderForm = new FormGroup({
+    ticketType: new FormControl(""),
     nbCodes: new FormControl(""),
     comment: new FormControl(""),
     amountCodes: new FormControl(""),
@@ -69,7 +70,14 @@ export class PlaceOrderComponent implements OnInit {
     "12": "Dec",
   };
 
-  amountOptions = [1, 5, 10];
+  amountOptions_1 = [1, 5, 10];
+  amountOptions_2 = [0.4];
+  amountOptions = this.amountOptions_1;
+
+  // Ticket type
+  MOBILE_TICKET_TYPE = "RECHARGE MOBILE";
+  INTERNET_TICKET_TYPE = "RECHARGE INTERNET";
+  INTERNET_TICKET_AMOUNT = 400;
 
   constructor(
     private orderService: OrderService,
@@ -77,6 +85,7 @@ export class PlaceOrderComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.order = {
+      ticketType: "",
       nbCodes: 0,
       clientId: "",
       issueDate: null,
@@ -226,7 +235,7 @@ export class PlaceOrderComponent implements OnInit {
         }
 
         // Creating the Chart
-        this.isChartReady = true
+        this.isChartReady = true;
         this.createChart();
 
         /**
@@ -349,7 +358,7 @@ export class PlaceOrderComponent implements OnInit {
 
           this.myChart.update();
         }
-        console.log(this.isChartReady)
+        console.log(this.isChartReady);
       });
 
     /** IMPORTANT
@@ -445,6 +454,16 @@ export class PlaceOrderComponent implements OnInit {
     $("#amount")[0].setCustomValidity("");
     this.order.ticketAmount =
       this.amountOptions[event.target.options.selectedIndex - 1] * 1000;
+  }
+
+  /**
+   * Amount / price change handler
+   * @param event
+   */
+  changeTicketType(event) {
+    this.amountOptions =
+      event.target.value == 1 ? this.amountOptions_1 : this.amountOptions_2;
+    this.order.ticketAmount = this.amountOptions[0] * 1000;
   }
 
   /**

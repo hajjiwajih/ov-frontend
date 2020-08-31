@@ -153,11 +153,12 @@ export class OrderService {
    */
   getOrderCount(amount?) {
     const headers = new Headers({ "Content-Type": "application/json" });
-    if (amount)
+    if (amount) {
+      let amountStr = this.numberLengthChecker(amount);
       return this.client.get<any>(
-        `${this.apiUrl}/count?where={"ticketAmount":${amount}}`
+        `${this.apiUrl}/count?where={"ticketAmount":"${amountStr}"}`
       );
-    else return this.client.get<any>(`${this.apiUrl}/count`);
+    } else return this.client.get<any>(`${this.apiUrl}/count`);
   }
 
   /**
@@ -166,11 +167,12 @@ export class OrderService {
    */
   getSoldTicketsCount(amount?) {
     const headers = new Headers({ "Content-Type": "application/json" });
-    if (amount)
+    if (amount) {
+      let amountStr = this.numberLengthChecker(amount);
       return this.client.get<any>(
-        `${this.ticketsUrl}/count?where={"and":[{"orderId":{"exists": true}}, {"orderId":{"neq": null}},{"amount":${amount}} ]}`
+        `${this.ticketsUrl}/count?where={"and":[{"orderId":{"exists": true}}, {"orderId":{"neq": null}},{"amount":"${amountStr}"} ]}`
       );
-    else
+    } else
       return this.client.get<any>(
         `${this.ticketsUrl}/count?where={"and":[{"orderId":{"exists": true}}, {"orderId":{"neq": null}} ]}`
       );
@@ -182,6 +184,8 @@ export class OrderService {
    */
   countTickets(amount?) {
     const headers = new Headers({ "Content-Type": "application/json" });
+    let amountStr = this.numberLengthChecker(amount);
+
     return this.client.get<any>(
       `${this.ticketsUrl}/count?where={"or": [{"orderId":{"exists": false}},{"orderId":null}]}`
     );
@@ -193,9 +197,10 @@ export class OrderService {
    */
   countTicketsByAmount(amount: number) {
     const headers = new Headers({ "Content-Type": "application/json" });
+    let amountStr = this.numberLengthChecker(amount);
 
     return this.client.get<any>(
-      `${this.ticketsUrl}/count?where={"and":[{"amount":${amount}},{"or": [{"orderId":{"exists": false}},{"orderId":null}]}]}`
+      `${this.ticketsUrl}/count?where={"and":[{"amount":"${amountStr}"},{"or": [{"orderId":{"exists": false}},{"orderId":null}]}]}`
     );
   }
 
@@ -231,10 +236,15 @@ export class OrderService {
    */
   updateTickets(orderId: string, ticketCount: number, amount: number) {
     const headers = new Headers({ "Content-Type": "application/json" });
-
+    let amountStr = this.numberLengthChecker(amount);
     return this.client.get(
-      `${this.ticketsUrl}/updateTickets?orderId=${orderId}&ticketsCount=${ticketCount}&amount=${amount}`
+      `${this.ticketsUrl}/updateTickets?orderId=${orderId}&ticketsCount=${ticketCount}&amount=${amountStr}`
     );
+  }
+
+  // utility function => test wether amount[number] < 1000 => return amount [string] with 4 digits length
+  numberLengthChecker(n: number) {
+    return String(n).padStart(4, "0");
   }
   // http://localhost:3500/api/tickets/updateTickets?orderId=12&ticketsCount=5&access_token=8eW6gEG01ShKKfMn5Cth4zyDuiZcwotVQklbFMwcnFaXNSV3RbO2tP8P8JhcVNeF
 }
