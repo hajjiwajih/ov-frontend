@@ -15,4 +15,20 @@ pipeline {
     }
 
   }
+post {
+        always {
+            script {
+                if (currentBuild.currentResult == 'FAILURE') { // Other values: SUCCESS, UNSTABLE
+                    // Send an email only if the build status has changed from green/unstable to red
+                    emailext subject: '$DEFAULT_SUBJECT',
+                        body: '$DEFAULT_CONTENT',
+                        replyTo: '$DEFAULT_REPLYTO',
+                        from: 'contact@ditriot.tn',
+                        to: '$DEFAULT_RECIPIENTS'
+                }
+            }
+        }
+    }
+
+
 }
