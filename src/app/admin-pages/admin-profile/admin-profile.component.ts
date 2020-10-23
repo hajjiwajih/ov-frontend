@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
 import { environment } from 'src/environments/environment';
 import Swal from "sweetalert2";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
 
 @Component({
   selector: "admin-profile",
@@ -17,7 +18,11 @@ export class AdminProfileComponent implements OnInit {
   companyName: string;
   currentAdminId: string;
   mAdmin: User;
-  constructor(private userService: UserService,  private router: Router, private orderService: OrderService) {}
+  constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
+    private userService: UserService, 
+    private router: Router, 
+    private orderService: OrderService) {}
 
   ngOnInit() {
     this.currentAdminEmail = localStorage.getItem("email");
@@ -47,6 +52,12 @@ export class AdminProfileComponent implements OnInit {
     this.router.navigateByUrl(route);
   }
 
+
+  sanitizeInputData(input) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, input) || '';
+  }
+
+  
   editInfo(attr) {
     switch (attr) {
       case "email":
@@ -79,10 +90,13 @@ export class AdminProfileComponent implements OnInit {
         confirmButtonText: "Oui, procéder!",
         showLoaderOnConfirm: true,
         preConfirm: (change) => {
-          if (change && change != this.mAdmin.email)
-            return new Promise<any>((resolve, reject) => {
+          if (change && change != this.mAdmin.email)  
+          return new Promise<any>((resolve, reject) => {
+              // sanitize input data
+              let newEmail = this.sanitizeInputData(change)
+              // submit safe data
               this.userService
-                .requestEmailChange(this.mAdmin.email, change)
+                .requestEmailChange(this.mAdmin.email, newEmail)
                 .subscribe(
                   (updatedUser) => {
                     console.log(updatedUser);

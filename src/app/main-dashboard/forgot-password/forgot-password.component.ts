@@ -1,7 +1,9 @@
 import { FormControl } from "@angular/forms";
 import { FormGroup } from "@angular/forms";
 import { UserService } from "./../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
+
 declare var $: any;
 
 @Component({
@@ -10,7 +12,10 @@ declare var $: any;
   styleUrls: ["./forgot-password.component.css"],
 })
 export class ForgotPasswordComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
+    ) {}
 
   resetPasswordForm = new FormGroup({
     email: new FormControl(""),
@@ -24,6 +29,9 @@ export class ForgotPasswordComponent implements OnInit {
   resetPassword() {
     $("#resetForm").addClass("was-validated");
     if (this.email) this.isLoading = true;
+    // sanitize input data
+    this.sanitizeInputData()
+    // submit safe data
     this.userService.requestResetPassword(this.email).subscribe(
       (res) => {
         console.log(res);
@@ -42,4 +50,9 @@ export class ForgotPasswordComponent implements OnInit {
       }
     );
   }
+
+  sanitizeInputData() {
+    this.email = this.sanitizer.sanitize(SecurityContext.HTML, this.email) || '';
+  }
+
 }

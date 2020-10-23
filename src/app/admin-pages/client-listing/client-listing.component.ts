@@ -11,8 +11,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Message } from "primeng/api/message";
 import { DatePipe } from "@angular/common";
 import { Subscription } from "rxjs";
-import { Component, OnInit } from "@angular/core";
 import Swal from "sweetalert2";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
+
 declare var $: any;
 
 @Component({
@@ -47,6 +49,7 @@ export class ClientListingComponent implements OnInit {
   displayModal: boolean = false;
 
   constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
     private userService: UserService,
     private orderService: OrderService,
     private notificationService: NotificationService,
@@ -317,7 +320,11 @@ export class ClientListingComponent implements OnInit {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Oui, procéder!",
           showLoaderOnConfirm: true,
-          preConfirm: (comment) => {
+          preConfirm: (input) => {
+          // sanitize input data
+          let comment = this.sanitizeInputData(input)
+          // submit safe data    
+
             return new Promise<any>((resolve, reject) => {
               this.orderService;
               this.userService.rejectAccount(client.id, comment).subscribe(
@@ -370,6 +377,11 @@ export class ClientListingComponent implements OnInit {
         }
       });
   }
+
+  sanitizeInputData(input) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, input) || '';
+  }
+
 
   /**
    * Subscribe to newly added customers
