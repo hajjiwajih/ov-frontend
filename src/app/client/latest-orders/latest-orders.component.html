@@ -168,123 +168,186 @@
 
   <!-- modal view -->
   <p-dialog
-  header="Détail Commande"
-  [(visible)]="displayModal"
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div class="order_details_table">
-    <!-- <h2>Détails de la commande</h2> -->
-    <div class="container px-0">
-      <div class="row">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">Nombre Des Codes</p>
+    header="Détail Commande"
+    [(visible)]="displayModal"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="order_details_table">
+      <!-- <h2>Détails de la commande</h2> -->
+      <div class="container px-0">
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-clipboard"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Nombre Des Codes
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              x {{ selectedOrder.nbCodes }}
+            </h6>
+          </div>
         </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            x {{ selectedOrder.nbCodes }}
-          </h6>
+        <hr />
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-file-invoice-dollar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Montant Code de recharge
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              {{ selectedOrder.ticketAmount / 1000 }} DT
+            </h6>
+          </div>
         </div>
-      </div>
-      <hr />
-      <div class="row">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i> 
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">
-            Montant Code de recharge
-          </p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            {{ selectedOrder.ticketAmount / 1000 }} DT
-          </h6>
-        </div>
-      </div>
-      <hr />
+        <hr />
 
-      <div class="row" *ngIf="!selectedOrder.validated && !selectedOrder.isRejected">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">
-            Totale Commande
-          </p>
+        <div
+          class="row"
+          *ngIf="!selectedOrder.validated && !selectedOrder.isRejected"
+        >
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-clipboard"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Totale Commande
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              <b>TOT </b>
+              {{ (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000 }}
+              DT
+            </h6>
+          </div>
         </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            <b>TOT </b>
-                {{
-                  (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000
-                }}
-                DT
-          </h6>
-        </div>
-      </div>
-      <hr *ngIf="!selectedOrder.validated && !selectedOrder.isRejected"/>
+        <hr *ngIf="!selectedOrder.validated && !selectedOrder.isRejected" />
 
-      <div class="row">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-calendar"></i>
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">Date Émission</p>
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-calendar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Date Émission
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              {{ selectedOrder.issueDate | date: "short":"fr" }}
+            </h6>
+          </div>
         </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            {{ selectedOrder.issueDate | date: "short":"fr" }}
-          </h6>
-        </div>
-      </div>
-      <hr />
-      
-      <div class="row" *ngIf="selectedOrder.validated || selectedOrder.isRejected">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-calendar"></i>
-          <p *ngIf="selectedOrder.validated" class="ml-3 d-inline" style="font-size: 18px;">Date Validation</p>
-          <p *ngIf="selectedOrder.isRejected" class="ml-3 d-inline" style="font-size: 18px;">Date Refus</p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center" *ngIf="selectedOrder.isRejected || selectedOrder.validated">
-          <h6 class="mb-0" style="color: gray;">
-            <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
-          </h6>
-        </div>
-      </div>
-      <hr *ngIf="selectedOrder.validated || selectedOrder.isRejected" />
+        <hr />
 
-      <div class="row">
-        <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
-          <i style="font-size: 14pt;" class="fas fa-comment"></i>
-          <p style="font-size: 18pt;" class="text-secondary ml-3">
-            Commentaire <span *ngIf="isRejected">[Refus]</span>
-          </p>
+        <div
+          class="row"
+          *ngIf="selectedOrder.validated || selectedOrder.isRejected"
+        >
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-calendar"></i>
+            <p
+              *ngIf="selectedOrder.validated"
+              class="ml-3 d-inline"
+              style="font-size: 18px"
+            >
+              Date Validation
+            </p>
+            <p
+              *ngIf="selectedOrder.isRejected"
+              class="ml-3 d-inline"
+              style="font-size: 18px"
+            >
+              Date Refus
+            </p>
+          </div>
+          <div
+            class="col-md-4 col-4 d-flex align-items-center"
+            *ngIf="selectedOrder.isRejected || selectedOrder.validated"
+          >
+            <h6 class="mb-0" style="color: gray">
+              <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
+            </h6>
+          </div>
         </div>
-        <div class="col-md-4 d-flex align-items-center">
-          <p class="text-warning" *ngIf="!selectedOrder.comment.length">
-            Pas de commentaires
-          </p>
-          <p *ngIf="selectedOrder.comment.length" [ngClass]="{ 'text-danger': isRejected }">
-            <b>{{ selectedOrder.comment }}</b>
-          </p>
+        <hr *ngIf="selectedOrder.validated || selectedOrder.isRejected" />
+
+        <div class="row">
+          <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
+            <i style="font-size: 14pt" class="fas fa-comment"></i>
+            <p style="font-size: 18pt" class="text-secondary ml-3">
+              Commentaire <span *ngIf="isRejected">[Refus]</span>
+            </p>
+          </div>
+          <div class="col-md-4 d-flex align-items-center">
+            <p class="text-warning" *ngIf="!selectedOrder.comment.length">
+              Pas de commentaires
+            </p>
+            <p
+              *ngIf="selectedOrder.comment.length"
+              [ngClass]="{ 'text-danger': isRejected }"
+            >
+              <b>{{ selectedOrder.comment }}</b>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <p-footer>
-    <div role="group" class="btn-group-sm btn-group nav">
-      <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
         OK
       </button> -->
-      <button
-        class="mb-2 mr-2 btn btn-shadow btn-primary"
-        (click)="displayModal = false"
-      >
-        OK
-      </button>
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="displayModal = false"
+        >
+          OK
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
+  <!-- modal view -->
+  <p-dialog
+    header="Inspecter Voucher"
+    [(visible)]="displaySearchModal"
+    [style]="{ width: '40vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="position-relative form-group">
+      <label for="exampleEmail" class=""
+        >Chercher un voucher à partir de son N° de série</label
+      ><input
+        name="serial"
+        id="serial_exp"
+        placeholder="Entrer N° de Série"
+        type="text"
+        [(ngModel)]="ticketSerial"
+        class="form-control"
+      />
     </div>
-  </p-footer>
-</p-dialog>
 
+    {{ ticketInfos }}
 
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+        OK
+      </button> -->
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="fetchTicketBySerial()"
+        >
+          OK
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
 
   <!-- <p-dialog
     header="Détail Commande"
@@ -394,9 +457,7 @@
       </div>
 
       <div class="card-body">
-        <h4 class="ml-4 mt-4">
-          Parcourir les dernières commandes effectuées
-        </h4>
+        <h4 class="ml-4 mt-4">Parcourir les dernières commandes effectuées</h4>
         <h6 class="ml-4 mt-4">
           Dernière mise à jour : <b>{{ currentDate | date: "medium":"fr" }}</b>
         </h6>
@@ -408,7 +469,15 @@
             </i
             >Mes Commandes
           </div>
-
+          <div class="btn-actions-pane-right text-capitalize mb-2">
+            <button
+              class="btn-wide btn-outline-2x mr-md-2 btn-icon btn btn-info btn-lg"
+              (click)="displaySearchModal = true"
+            >
+              <i class="fa fa-search-plus"> </i>
+              Inspecter Voucher
+            </button>
+          </div>
           <!-- <div class="btn-actions-pane-right mr-2">
             <div role="group" class="btn-group-sm btn-group">
               <button
@@ -425,7 +494,7 @@
         <div class="mr-4 mb-4">
           <div class="card-body m-2">
             <table
-              style="width: 100%;"
+              style="width: 100%"
               id="orderTables"
               class="table table-hover table-striped table-bordered"
             >
