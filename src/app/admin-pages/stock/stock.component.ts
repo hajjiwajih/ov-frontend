@@ -1,3 +1,4 @@
+import { OrderService } from './../../services/order.service';
 import { NotificationService } from "./../../services/notification.service";
 import { VoucherService } from "./../../services/voucher.service";
 import { DatePipe } from "@angular/common";
@@ -26,9 +27,32 @@ export class StockComponent implements OnInit {
   displayModal: boolean = false;
 
   addedSub$: Subscription;
+
+  ticketSerial: string;
+  
+  ticketInfos: any;
+
+  validationSub$: Subscription;
+  rejectionSub$: Subscription;
+
+  title = "Non Validées";
+
+  orderivatedLink: string;
+
+  isValidated: boolean;
+
+  isRejected: boolean;
+
+  displaySearchModal: boolean = false;
+  
+  isExisted: boolean = false;
+  
+  isLoading: boolean = false;
+
   constructor(
     private voucherService: VoucherService,
     private router: Router,
+    private orderService: OrderService,
     private notificationService: NotificationService
   ) {
     this.selectedVoucher = {};
@@ -219,4 +243,26 @@ export class StockComponent implements OnInit {
       $(addedRowNode).removeClass("highlight");
     }, 2000);
   }
+
+  // exp -> 410141733719 / 410141733897 
+  fetchTicketBySerial() {
+    this.ticketInfos = null
+    this.isLoading = true
+    this.orderService.fetchTicket(this.ticketSerial).subscribe((infos) => {
+      this.isExisted = true;
+      this.isLoading = false;
+       this.ticketInfos = infos
+    },
+    (err) => {
+     this.isExisted = false;
+     this.isLoading = false;
+     this.ticketInfos = {}
+ 
+    }) 
+   }
+ 
+   resetForm() {
+   this.ticketSerial = ""
+   this.ticketInfos = null
+   }
 }

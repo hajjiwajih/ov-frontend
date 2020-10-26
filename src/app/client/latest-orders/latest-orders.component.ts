@@ -29,10 +29,6 @@ export class LatestOrdersComponent implements OnInit {
 
   currentDate: Date;
 
-  ticketSerial: string;
-  
-  ticketInfos: any;
-
   validationSub$: Subscription;
   rejectionSub$: Subscription;
 
@@ -49,10 +45,6 @@ export class LatestOrdersComponent implements OnInit {
   isRejected: boolean;
 
   displayModal: boolean = false;
-
-  displaySearchModal: boolean = false;
-  
-  isExisted: boolean = false;
 
   // availbale stock details
   stats = [0, 0, 0];
@@ -322,16 +314,5 @@ export class LatestOrdersComponent implements OnInit {
     this.selectedOrder = order;
     this.displayModal = true;
   }
-  
-  fetchTicketBySerial() {
-   this.orderService.fetchTicket(this.ticketSerial).subscribe((infos) => {
-     this.isExisted = true;
-      this.ticketInfos = JSON.stringify(infos)
-   },
-   (err) => {
-    this.isExisted = false;
-   }) 
-  }
-
 
 }

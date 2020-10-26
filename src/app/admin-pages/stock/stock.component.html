@@ -1,9 +1,253 @@
 <!-- Notifications -->
-
-<!-- <div class="p-2">
-  <p-toast key="note"></p-toast>
-</div> -->
 <div class="row">
+  <!-- modal view -->
+  <p-dialog
+    header="Inspecter Voucher"
+    [(visible)]="displaySearchModal"
+    [style]="{ width: '40vw' }"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="position-relative form-group">
+      <label for="exampleEmail" class=""
+        >Chercher un voucher à partir de son N° de série</label
+      ><input
+        name="serial"
+        id="serial_exp"
+        placeholder="Entrer N° de Série"
+        type="text"
+        [(ngModel)]="ticketSerial"
+        class="form-control"
+      />
+    </div>
+
+    <div class="mb-3 progress-bar-animated-alt progress" *ngIf="isLoading">
+      <div
+        class="progress-bar bg-secondary"
+        role="progressbar"
+        aria-valuenow="100"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        style="width: 100%"
+      ></div>
+    </div>
+
+    <div class="order_details_table" *ngIf="ticketInfos && isExisted">
+      <!-- <h2>Détails du Ticket </h2> -->
+      <div class="container px-0">
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-clipboard"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Type de Ticket
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              {{ ticketInfos.ticketType }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-file-invoice-dollar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Montant Code de recharge
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              {{ ticketInfos.ticketAmount / 1000 }} DT
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-calendar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Date Délivrance
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              <b>
+                {{
+                  ticketInfos.ticketIssueDate.slice(0, 4) +
+                    "-" +
+                    ticketInfos.ticketIssueDate.slice(4, 6) +
+                    "-" +
+                    ticketInfos.ticketIssueDate.slice(6, 8)
+                }}
+              </b>
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-calendar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Date Expiration
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              <b>
+                {{
+                  ticketInfos.ticketExpiryDate.slice(0, 4) +
+                    "-" +
+                    ticketInfos.ticketExpiryDate.slice(4, 6) +
+                    "-" +
+                    ticketInfos.ticketExpiryDate.slice(6, 8)
+                }}
+              </b>
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <section class="sold-item-infos" *ngIf="ticketInfos.isSold">
+          <div class="row">
+            <div class="col-md-8 col-8 d-flex align-items-center">
+              <i style="font-size: 14pt" class="fas fa-key"></i>
+              <p class="ml-3 d-inline" style="font-size: 18px">
+                Référence Commande
+              </p>
+            </div>
+            <div class="col-md-4 col-4 d-flex align-items-center">
+              <h6 class="mb-0" style="color: gray">
+                <p>{{ ticketInfos.orderRef }}</p>
+              </h6>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-md-8 col-8 d-flex align-items-center">
+              <i style="font-size: 14pt" class="fas fa-calendar"></i>
+              <p class="ml-3 d-inline" style="font-size: 18px">Date Création</p>
+            </div>
+            <div class="col-md-4 col-4 d-flex align-items-center">
+              <h6 class="mb-0" style="color: gray">
+                <b> {{ ticketInfos.orderIssueDate | date: "short":"fr" }} </b>
+              </h6>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-md-8 col-8 d-flex align-items-center">
+              <i style="font-size: 14pt" class="fas fa-calendar"></i>
+              <p class="ml-3 d-inline" style="font-size: 18px">
+                Date Validation
+              </p>
+            </div>
+            <div class="col-md-4 col-4 d-flex align-items-center">
+              <h6 class="mb-0" style="color: gray">
+                <b>
+                  {{ ticketInfos.orderValidationDate | date: "short":"fr" }}
+                </b>
+              </h6>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-md-8 col-8 d-flex align-items-center">
+              <i style="font-size: 14pt" class="fas fa-user"></i>
+              <p class="ml-3 d-inline" style="font-size: 18px">
+                Référence Client
+              </p>
+            </div>
+            <div class="col-md-4 col-4 d-flex align-items-center">
+              <h6 class="mb-0" style="color: gray">
+                <p>{{ ticketInfos.clientRef }}</p>
+              </h6>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-md-8 col-8 d-flex align-items-center">
+              <i style="font-size: 14pt" class="fas fa-key"></i>
+              <p class="ml-3 d-inline" style="font-size: 18px">
+                Identifiant Client (N° Patente / CIN)
+              </p>
+            </div>
+            <div class="col-md-4 col-4 d-flex align-items-center">
+              <h6 class="mb-0" style="color: gray">
+                <p>{{ ticketInfos.cusotmerID }}</p>
+              </h6>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-md-8 col-8 d-flex align-items-center">
+              <i style="font-size: 14pt" class="fas fa-address-book"></i>
+              <p class="ml-3 d-inline" style="font-size: 18px">
+                Intitulé Client
+              </p>
+            </div>
+            <div class="col-md-4 col-4 d-flex align-items-center">
+              <h6 class="mb-0" style="color: gray">
+                <p>
+                  {{ ticketInfos.fname + " " + ticketInfos.lname | titlecase }}
+                </p>
+              </h6>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div
+      class="order_details_table"
+      style="background-color: rgb(240, 148, 128)"
+      *ngIf="ticketInfos && !isExisted"
+    >
+      <!-- <h2>Détails du Ticket </h2> -->
+      <div class="container px-0">
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 18pt" class="fas fa-exclamation-triangle"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Numéro de Série Introuvable
+            </p>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+
+    <p-footer>
+      <div role="group" class="btn-group-sm btn-group nav">
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+    OK
+  </button> -->
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="fetchTicketBySerial()"
+          [disabled]="isLoading"
+        >
+          OK
+        </button>
+        <button
+          class="mb-2 mr-2 btn btn-shadow btn-secondary"
+          [disabled]="!ticketInfos"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
   <div class="col-md-6 col-xl-6">
     <div class="widget-chart widget-chart2 text-left mb-3 card">
       <div class="container">
@@ -17,7 +261,7 @@
           </div>
           <div
             class="widget-content-wrapper col-md-9 col-7 px-0 ml-auto"
-            style="margin-top: 8px; margin-bottom: 8px;"
+            style="margin-top: 8px; margin-bottom: 8px"
           >
             <div class="widget-content-left">
               <div class="widget-heading">Bons reçus</div>
@@ -32,8 +276,8 @@
                 >
                   <span class="sr-only">Loading...</span>
                 </div>
-                <div id="total_count" >
-                  <span  *ngIf="!isVoucherLoading" style="font-size: 75%;"></span>
+                <div id="total_count">
+                  <span *ngIf="!isVoucherLoading" style="font-size: 75%"></span>
                 </div>
               </div>
             </div>
@@ -68,7 +312,7 @@
           </div>
           <div
             class="widget-content-wrapper col-md-9 col-7 px-0 ml-auto"
-            style="margin-top: 8px; margin-bottom: 8px;"
+            style="margin-top: 8px; margin-bottom: 8px"
           >
             <div class="widget-content-left">
               <div class="widget-heading">Montant total</div>
@@ -83,8 +327,8 @@
                 >
                   <span class="sr-only">Loading...</span>
                 </div>
-                <div id="total_amount" >
-                  <span  *ngIf="!isVoucherLoading" style="font-size: 65%;"></span>
+                <div id="total_amount">
+                  <span *ngIf="!isVoucherLoading" style="font-size: 65%"></span>
                 </div>
               </div>
             </div>
@@ -127,14 +371,30 @@
       </div>
 
       <div class="card-body">
-        <h3 class="ml-4 mt-4">
-          Liste Des Vouchers Reçus
-        </h3>
+        <div class="card-header-tab card-header">
+          <div
+            class="card-header-title font-size-lg text-capitalize font-weight-normal"
+          >
+            <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6">
+            </i
+            >Liste Des Vouchers Reçus
+          </div>
+          <div class="btn-actions-pane-right text-capitalize mb-2">
+            <button
+              class="btn-wide btn-outline-2x mr-md-2 btn-icon btn btn-info btn-lg"
+              (click)="displaySearchModal = true"
+            >
+              <i class="fa fa-search-plus"> </i>
+              Inspecter Voucher
+            </button>
+          </div>
+        </div>
+        <!-- <h3 class="ml-4 mt-4">Liste Des Vouchers Reçus</h3> -->
 
         <div class="mr-4 mb-4">
           <div class="card-body m-2 table-responsive">
             <table
-              style="width: 100%;"
+              style="width: 100%"
               id="voucherTables"
               class="table table-hover table-striped table-bordered"
             >
@@ -144,9 +404,7 @@
                   <th>NB CODES</th>
                   <th>MONTANT CODE RECHARGE</th>
                   <th>MONTANT TOTALE</th>
-                  <th style="text-transform: uppercase;">
-                    reçu LE
-                  </th>
+                  <th style="text-transform: uppercase">reçu LE</th>
                   <th>VLIDE</th>
                 </tr>
               </thead>
@@ -157,9 +415,7 @@
                   <th>NB CODES</th>
                   <th>MONTANT CODE RECHARGE</th>
                   <th>MONTANT TOTALE</th>
-                  <th style="text-transform: uppercase;">
-                    reçu LE
-                  </th>
+                  <th style="text-transform: uppercase">reçu LE</th>
                   <th>VLIDE</th>
                 </tr>
                 <tr>
@@ -168,7 +424,10 @@
                     and if i put total in col & sum in seperate col the total will take too long and won't leave
                     space for sum, so i had to put it inside so it will look better in smaller screens 
                    -->
-                  <th colspan="5" style="text-align: right;">Total: &nbsp; &nbsp; &nbsp; <strong><span id="sum"></span></strong></th>
+                  <th colspan="5" style="text-align: right">
+                    Total: &nbsp; &nbsp; &nbsp;
+                    <strong><span id="sum"></span></strong>
+                  </th>
                 </tr>
               </tfoot>
             </table>
@@ -178,6 +437,7 @@
             </small>
           </div>
         </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>
