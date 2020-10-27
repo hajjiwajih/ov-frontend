@@ -231,9 +231,17 @@
     OK
   </button> -->
         <button
-          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          *ngIf="!ticketInfos"
+          class="mb-2 mr-2 btn btn-shadow btn-info"
           (click)="fetchTicketBySerial()"
           [disabled]="isLoading"
+        >
+          Load
+        </button>
+        <button
+          *ngIf="ticketInfos"
+          class="mb-2 mr-2 btn btn-shadow btn-primary"
+          (click)="displaySearchModal = false"
         >
           OK
         </button>
@@ -382,7 +390,9 @@
           <div class="btn-actions-pane-right text-capitalize mb-2">
             <button
               class="btn-wide btn-outline-2x mr-md-2 btn-icon btn btn-info btn-lg"
-              (click)="displaySearchModal = true"
+              (click)="
+                ticketInfos = null; ticketSerial = ''; displaySearchModal = true
+              "
             >
               <i class="fa fa-search-plus"> </i>
               Inspecter Voucher

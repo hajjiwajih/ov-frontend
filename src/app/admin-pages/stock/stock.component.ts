@@ -244,7 +244,9 @@ export class StockComponent implements OnInit {
     }, 2000);
   }
 
-  // exp -> 410141733719 / 410141733897 
+  /**
+   * Fetch Ticket infos -> input serial given by the admin 
+   */ 
   fetchTicketBySerial() {
     this.ticketInfos = null
     this.isLoading = true
