@@ -1,8 +1,9 @@
-import { FormControl } from "@angular/forms";
-import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "./../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { catchError } from "rxjs/operators";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
@@ -12,6 +13,7 @@ declare var $: any;
 })
 export class ChangePasswordComponent implements OnInit {
   constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
@@ -51,9 +53,11 @@ export class ChangePasswordComponent implements OnInit {
   changePassword() {
     this.isComplete = true;
     // validate password
-
     if (this.validateForm() && this.checkPasswordStrength()) {
       this.isLoading = true;
+      // sanitize input data
+      // this.sanitizeInputData()
+      // submit safe data
       this.userService.changePassword(this.old, this.password).subscribe(
         (res) => {
           console.log(res);
@@ -76,6 +80,11 @@ export class ChangePasswordComponent implements OnInit {
         }
       );
     }
+  }
+
+  sanitizeInputData() {
+    this.old = this.sanitizer.sanitize(SecurityContext.HTML, this.old) || '';
+    this.password = this.sanitizer.sanitize(SecurityContext.HTML, this.password) || '';
   }
 
   validateForm() {

@@ -7,11 +7,12 @@ import { Message } from "primeng/api/message";
 import { MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
 import { Order } from "./../models/order";
-import { Component, OnInit } from "@angular/core";
 import Swal from "sweetalert2";
 import { appendDtActions } from "../helpers/datatable-fonctions";
 import { numberWithSpaces } from "../helpers/format-stocks";
 import { User } from "../models/user";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
 
 declare var $: any;
 
@@ -72,6 +73,7 @@ export class OrdersComponent implements OnInit {
   orderHidden = false;
 
   constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
     private messageService: MessageService,
     private orderService: OrderService,
     private userService: UserService,
@@ -598,7 +600,10 @@ export class OrdersComponent implements OnInit {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Oui, procéder!",
         showLoaderOnConfirm: true,
-        preConfirm: (comment) => {
+        preConfirm: (input) => {
+          // sanitize input data
+          let comment = this.sanitizeInputData(input)
+          // submit safe data    
           return new Promise<any>((resolve, reject) => {
             this.orderService;
             order.isRejected = true;
@@ -667,6 +672,11 @@ export class OrdersComponent implements OnInit {
     this.selectedOrder = order;
     this.displayModal = true;
   }
+
+  sanitizeInputData(input) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, input) || '';
+  }
+
 
   /**
    * Count available ticket per amount / price type

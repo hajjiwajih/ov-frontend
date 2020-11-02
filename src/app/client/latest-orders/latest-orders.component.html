@@ -168,125 +168,6 @@
 
   <!-- modal view -->
   <p-dialog
-  header="Détail Commande"
-  [(visible)]="displayModal"
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div class="order_details_table">
-    <!-- <h2>Détails de la commande</h2> -->
-    <div class="container px-0">
-      <div class="row">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">Nombre Des Codes</p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            x {{ selectedOrder.nbCodes }}
-          </h6>
-        </div>
-      </div>
-      <hr />
-      <div class="row">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-file-invoice-dollar"></i> 
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">
-            Montant Code de recharge
-          </p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            {{ selectedOrder.ticketAmount / 1000 }} DT
-          </h6>
-        </div>
-      </div>
-      <hr />
-
-      <div class="row" *ngIf="!selectedOrder.validated && !selectedOrder.isRejected">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-clipboard"></i>
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">
-            Totale Commande
-          </p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            <b>TOT </b>
-                {{
-                  (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000
-                }}
-                DT
-          </h6>
-        </div>
-      </div>
-      <hr *ngIf="!selectedOrder.validated && !selectedOrder.isRejected"/>
-
-      <div class="row">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-calendar"></i>
-          <p class="para__text ml-3 d-inline" style="font-size: 18px;">Date Émission</p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center">
-          <h6 class="mb-0" style="color: gray;">
-            {{ selectedOrder.issueDate | date: "short":"fr" }}
-          </h6>
-        </div>
-      </div>
-      <hr />
-      
-      <div class="row" *ngIf="selectedOrder.validated || selectedOrder.isRejected">
-        <div class="col-md-8 col-8 d-flex align-items-center">
-          <i style="font-size: 14pt;" class="fas fa-calendar"></i>
-          <p *ngIf="selectedOrder.validated" class="ml-3 d-inline" style="font-size: 18px;">Date Validation</p>
-          <p *ngIf="selectedOrder.isRejected" class="ml-3 d-inline" style="font-size: 18px;">Date Refus</p>
-        </div>
-        <div class="col-md-4 col-4 d-flex align-items-center" *ngIf="selectedOrder.isRejected || selectedOrder.validated">
-          <h6 class="mb-0" style="color: gray;">
-            <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
-          </h6>
-        </div>
-      </div>
-      <hr *ngIf="selectedOrder.validated || selectedOrder.isRejected" />
-
-      <div class="row">
-        <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
-          <i style="font-size: 14pt;" class="fas fa-comment"></i>
-          <p style="font-size: 18pt;" class="text-secondary ml-3">
-            Commentaire <span *ngIf="isRejected">[Refus]</span>
-          </p>
-        </div>
-        <div class="col-md-4 d-flex align-items-center">
-          <p class="text-warning" *ngIf="!selectedOrder.comment.length">
-            Pas de commentaires
-          </p>
-          <p *ngIf="selectedOrder.comment.length" [ngClass]="{ 'text-danger': isRejected }">
-            <b>{{ selectedOrder.comment }}</b>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <p-footer>
-    <div role="group" class="btn-group-sm btn-group nav">
-      <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
-        OK
-      </button> -->
-      <button
-        class="mb-2 mr-2 btn btn-shadow btn-primary"
-        (click)="displayModal = false"
-      >
-        OK
-      </button>
-    </div>
-  </p-footer>
-</p-dialog>
-
-
-
-  <!-- <p-dialog
     header="Détail Commande"
     [(visible)]="displayModal"
     [style]="{ width: '50vw' }"
@@ -295,75 +176,130 @@
     [resizable]="false"
   >
     <div class="order_details_table">
-      <h2>Détails de la commande</h2>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Nombre Des Codes</th>
-              <th scope="col">Montant Code de recharge</th>
-              <th
-                scope="col"
-                *ngIf="!selectedOrder.validated && !selectedOrder.isRejected"
-              >
-                Totale Commande
-              </th>
-              <th scope="col">Date Émission</th>
-              <th scope="col" *ngIf="selectedOrder.validated">
-                Date Validation
-              </th>
-              <th scope="col" *ngIf="selectedOrder.isRejected">Date Refus</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <h5>x {{ selectedOrder.nbCodes }}</h5>
-              </td>
-              <td>
-                <h5>{{ selectedOrder.ticketAmount / 1000 }} DT</h5>
-              </td>
-              <td *ngIf="!selectedOrder.validated && !selectedOrder.isRejected">
-                <p>
-                  <b>TOT </b>
-                  {{
-                    (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000
-                  }}
-                  DT
-                </p>
-              </td>
+      <!-- <h2>Détails de la commande</h2> -->
+      <div class="container px-0">
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-clipboard"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Nombre Des Codes
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              x {{ selectedOrder.nbCodes }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-file-invoice-dollar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Montant Code de recharge
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              {{ selectedOrder.ticketAmount / 1000 }} DT
+            </h6>
+          </div>
+        </div>
+        <hr />
 
-              <td>
-                <p>{{ selectedOrder.issueDate | date: "short":"fr" }}</p>
-              </td>
-              <td *ngIf="selectedOrder.isRejected || selectedOrder.validated">
-                <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
-              </td>
-            </tr>
+        <div
+          class="row"
+          *ngIf="!selectedOrder.validated && !selectedOrder.isRejected"
+        >
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-clipboard"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Totale Commande
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              <b>TOT </b>
+              {{ (selectedOrder.ticketAmount * selectedOrder.nbCodes) / 1000 }}
+              DT
+            </h6>
+          </div>
+        </div>
+        <hr *ngIf="!selectedOrder.validated && !selectedOrder.isRejected" />
 
-            <tr>
-              <td>
-                <h4 class="text-secondary">
-                  Commentaire
-                  <span *ngIf="selectedOrder.isRejected">[Refus]</span>
-                </h4>
-              </td>
-              <td>
-                <h5></h5>
-              </td>
-              <td>
-                <p [ngClass]="{ 'text-danger': selectedOrder.isRejected }">
-                  <b>{{ selectedOrder.comment }}</b>
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row">
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-calendar"></i>
+            <p class="para__text ml-3 d-inline" style="font-size: 18px">
+              Date Émission
+            </p>
+          </div>
+          <div class="col-md-4 col-4 d-flex align-items-center">
+            <h6 class="mb-0" style="color: gray">
+              {{ selectedOrder.issueDate | date: "short":"fr" }}
+            </h6>
+          </div>
+        </div>
+        <hr />
+
+        <div
+          class="row"
+          *ngIf="selectedOrder.validated || selectedOrder.isRejected"
+        >
+          <div class="col-md-8 col-8 d-flex align-items-center">
+            <i style="font-size: 14pt" class="fas fa-calendar"></i>
+            <p
+              *ngIf="selectedOrder.validated"
+              class="ml-3 d-inline"
+              style="font-size: 18px"
+            >
+              Date Validation
+            </p>
+            <p
+              *ngIf="selectedOrder.isRejected"
+              class="ml-3 d-inline"
+              style="font-size: 18px"
+            >
+              Date Refus
+            </p>
+          </div>
+          <div
+            class="col-md-4 col-4 d-flex align-items-center"
+            *ngIf="selectedOrder.isRejected || selectedOrder.validated"
+          >
+            <h6 class="mb-0" style="color: gray">
+              <p>{{ selectedOrder.validationDate | date: "short":"fr" }}</p>
+            </h6>
+          </div>
+        </div>
+        <hr *ngIf="selectedOrder.validated || selectedOrder.isRejected" />
+
+        <div class="row">
+          <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
+            <i style="font-size: 14pt" class="fas fa-comment"></i>
+            <p style="font-size: 18pt" class="text-secondary ml-3">
+              Commentaire <span *ngIf="isRejected">[Refus]</span>
+            </p>
+          </div>
+          <div class="col-md-4 d-flex align-items-center">
+            <p class="text-warning" *ngIf="!selectedOrder.comment.length">
+              Pas de commentaires
+            </p>
+            <p
+              *ngIf="selectedOrder.comment.length"
+              [ngClass]="{ 'text-danger': isRejected }"
+            >
+              <b>{{ selectedOrder.comment }}</b>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     <p-footer>
       <div role="group" class="btn-group-sm btn-group nav">
-        
+        <!-- <button class="mb-2 mr-2 btn btn-shadow btn-secondary">
+        OK
+      </button> -->
         <button
           class="mb-2 mr-2 btn btn-shadow btn-primary"
           (click)="displayModal = false"
@@ -372,7 +308,7 @@
         </button>
       </div>
     </p-footer>
-  </p-dialog> -->
+  </p-dialog>
 
   <div class="col-md-12">
     <div class="main-card mb-3 card">
@@ -394,9 +330,7 @@
       </div>
 
       <div class="card-body">
-        <h4 class="ml-4 mt-4">
-          Parcourir les dernières commandes effectuées
-        </h4>
+        <h4 class="ml-4 mt-4">Parcourir les dernières commandes effectuées</h4>
         <h6 class="ml-4 mt-4">
           Dernière mise à jour : <b>{{ currentDate | date: "medium":"fr" }}</b>
         </h6>
@@ -425,7 +359,7 @@
         <div class="mr-4 mb-4">
           <div class="card-body m-2">
             <table
-              style="width: 100%;"
+              style="width: 100%"
               id="orderTables"
               class="table table-hover table-striped table-bordered"
             >

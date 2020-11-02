@@ -2,12 +2,14 @@ import { NotificationService } from "./../../services/notification.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { OrderService } from "./../../services/order.service";
-import { FormControl } from "@angular/forms";
-import { FormGroup } from "@angular/forms";
 import { Order } from "./../../models/order";
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { catchError } from "rxjs/operators";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
 import { DatePipe } from "@angular/common";
 import Chart from "chart.js";
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 declare var $: any;
 
 @Component({
@@ -80,6 +82,7 @@ export class PlaceOrderComponent implements OnInit {
   INTERNET_TICKET_AMOUNT = 400;
 
   constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
     private orderService: OrderService,
     private router: Router,
     private notificationService: NotificationService
@@ -358,7 +361,6 @@ export class PlaceOrderComponent implements OnInit {
 
           this.myChart.update();
         }
-        console.log(this.isChartReady);
       });
 
     /** IMPORTANT
@@ -440,8 +442,12 @@ export class PlaceOrderComponent implements OnInit {
   placeOrder(comments) {
     if (this.validateForm()) {
       this.order.comment = comments;
+      // sanitize input data
+      this.sanitizeInputData()
+      // submit safe data
       this.router.navigate(["portal/confirm"], {
-        queryParams: { order: JSON.stringify(this.order) },
+        // encode as base64 string to uglify data in the browser header
+        queryParams: { order: btoa(JSON.stringify(this.order)) },
       });
     }
   }
@@ -464,6 +470,12 @@ export class PlaceOrderComponent implements OnInit {
     this.amountOptions =
       event.target.value == 1 ? this.amountOptions_1 : this.amountOptions_2;
     this.order.ticketAmount = this.amountOptions[0] * 1000;
+  }
+
+  sanitizeInputData() {
+    this.order.ticketType = this.sanitizer.sanitize(SecurityContext.HTML, this.order.ticketType) || '';
+    this.order.clientId = this.sanitizer.sanitize(SecurityContext.HTML, this.order.clientId) || '';
+    this.order.comment = this.sanitizer.sanitize(SecurityContext.HTML, this.order.comment) || '';
   }
 
   /**

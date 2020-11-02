@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
 import { environment } from "./../../../environments/environment";
 import { User } from "./../../models/user";
 import { Order } from "./../../models/order";
@@ -24,6 +25,7 @@ export class ClientProfileComponent implements OnInit {
   currentAgentEmail: string;
   companyName: string;
   constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
     private userService: UserService,
     private router: Router,
     private orderService: OrderService
@@ -75,6 +77,11 @@ export class ClientProfileComponent implements OnInit {
     this.router.navigateByUrl(route);
   }
 
+  sanitizeInputData(input) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, input) || '';
+  }
+
+
   editMail() {
     console.log(this.mClient);
     let status = false;
@@ -98,8 +105,11 @@ export class ClientProfileComponent implements OnInit {
         preConfirm: (change) => {
           if (change && change != this.mClient.email)
             return new Promise<any>((resolve, reject) => {
+              // sanitize input data
+              let newEmail = this.sanitizeInputData(change)
+              // submit safe data
               this.userService
-                .requestEmailChange(this.mClient.email, change)
+                .requestEmailChange(this.mClient.email, newEmail)
                 .subscribe(
                   (updatedUser) => {
                     console.log(updatedUser);

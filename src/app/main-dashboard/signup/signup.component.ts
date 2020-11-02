@@ -2,9 +2,11 @@ import { Message } from "primeng/api";
 import { Router } from "@angular/router";
 import { User } from "../../models/user";
 import { UserService } from "../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
 import { FormGroup, FormControl, AbstractControl } from "@angular/forms";
 import { catchError } from "rxjs/operators";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
+
 declare var $: any;
 
 @Component({
@@ -29,7 +31,10 @@ export class SignupComponent implements OnInit {
 
   msgs: Message[] = [];
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
+    private userService: UserService, 
+    private router: Router) {
     this.user = {
       _id: "",
       username: "",
@@ -119,6 +124,11 @@ export class SignupComponent implements OnInit {
     if (this.validateForm() && this.checkPasswordStrength()) {
       $(".progress-line").addClass("flex-display");
       $("button:submit").attr("disabled", true);
+
+      // Sanitize DOM-input & prevent XSS attack 
+      this.sanitizeInputData()
+       
+      // submit safe data
       this.userService.addUser(this.user).subscribe(
         (createdUser) => {
           this.isSubmitted = true;
@@ -210,6 +220,18 @@ export class SignupComponent implements OnInit {
 
     return true;
   }
+
+  sanitizeInputData() {
+    this.user._id = this.sanitizer.sanitize(SecurityContext.HTML, this.user._id) || '';
+    this.user.username = this.sanitizer.sanitize(SecurityContext.HTML, this.user.username) || '';
+    this.user.cin = this.sanitizer.sanitize(SecurityContext.HTML, this.user.cin) || '';
+    this.user.fname = this.sanitizer.sanitize(SecurityContext.HTML, this.user.fname) || '';
+    this.user.lname = this.sanitizer.sanitize(SecurityContext.HTML, this.user.lname) || '';
+    this.user.email = this.sanitizer.sanitize(SecurityContext.HTML, this.user.email) || '';
+    // this.user.password = this.sanitizer.sanitize(SecurityContext.HTML, this.user.password) || '';
+    this.user.role = this.sanitizer.sanitize(SecurityContext.HTML, this.user.role) || '';
+  }
+
 
   checkPasswordStrength() {
     this.checkedPwd = true;

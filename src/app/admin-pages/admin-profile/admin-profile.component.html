@@ -3,7 +3,7 @@
     <div class="main-card">
       <div class="card-body p-0 m-0">
         <div *ngIf="!mAdmin">
-          <div class="m-auto text-center bg-transparent" style="width: 10%;">
+          <div class="m-auto text-center bg-transparent" style="width: 10%">
             <!-- loader screen -->
             <div class="block-loader"></div>
             <div class="sk-circle">
@@ -30,18 +30,18 @@
             height="140px"
             alt="profile-cover"
           />
-          <div class="user_img text-center" style="margin-top: -55px;">
+          <div class="user_img text-center" style="margin-top: -55px">
             <img
               src="../../../assets/images/user img.png"
               class="bg-white p-2"
-              style="border-radius: 50%; border-color: gray;"
+              style="border-radius: 50%; border-color: gray"
               alt="user_img"
               width="120px"
             />
           </div>
           <div class="text-center mb-3">
             <h3 class="my-2">Admin admin</h3>
-            <h6 class="my-3" style="color: gray; letter-spacing: 2px;">
+            <h6 class="my-3" style="color: gray; letter-spacing: 2px">
               {{ mAdmin.email }}
             </h6>
             <div class="menu-header-btn-pane">
@@ -74,7 +74,7 @@
             </div>
           </div> -->
 
-          <div class="row my-3 mx-auto" style="width: 94%;">
+          <div class="row my-3 mx-auto" style="width: 94%">
             <div class="col-md-12 bg-light pt-4 pb-0 px-4">
               <h2>Informations sur les comptes</h2>
               <div class="row mx-auto my-4">
@@ -107,17 +107,15 @@
                       >
                         <i
                           class="pe-7s-mail text-muted fsize-2"
-                          style="cursor: pointer;"
+                          style="cursor: pointer"
                         ></i>
                       </div>
-                      <span style="color: #202020; font-size: 18px;"
-                        >Email</span
-                      >
+                      <span style="color: #202020; font-size: 18px">Email</span>
                     </div>
                     <div
                       class="col-md-6 ml-auto text-right mr-3 align-items-center"
                     >
-                      <span style="color: #787c80; font-size: 16px;">
+                      <span style="color: #787c80; font-size: 16px">
                         {{ mAdmin.email }}
                       </span>
                     </div>
@@ -130,12 +128,14 @@
                       >
                         <i class="pe-7s-phone text-muted fsize-2"></i>
                       </div>
-                      <span style="color: #202020; font-size: 18px;">Tél </span>
+                      <span style="color: #202020; font-size: 18px"
+                        >Téléphone
+                      </span>
                     </div>
                     <div
                       class="col-md-6 ml-auto text-right mr-3 align-items-center"
                     >
-                      <span style="color: #787c80; font-size: 16px;">
+                      <span style="color: #787c80; font-size: 16px">
                         (+216) {{ mAdmin.phone || "---------" }}
                       </span>
                     </div>
@@ -182,14 +182,14 @@
                       >
                         <i class="pe-7s-timer text-muted fsize-2"></i>
                       </div>
-                      <span style="color: #202020; font-size: 18px;"
+                      <span style="color: #202020; font-size: 18px"
                         >INSCRIT LE</span
                       >
                     </div>
                     <div
                       class="col-md-6 ml-auto text-right mr-3 align-items-center"
                     >
-                      <span style="color: #787c80; font-size: 16px;">
+                      <span style="color: #787c80; font-size: 16px">
                         {{ mAdmin.creationAt | date: "short":"fr" }}
                       </span>
                     </div>
@@ -216,36 +216,38 @@
               </div>
             </div>
           </div>
-          <div class="row mb-3 mt-4 mx-auto" style="width: 94%;">
+          <div class="row mb-3 mt-4 mx-auto" style="width: 94%">
             <div class="col-md-12 bg-light pt-4 pb-0 px-4">
               <h2>Modifier les informations</h2>
-              <div class="row mx-auto my-4" style="width: 94%;">
+              <div class="row mx-auto my-4" style="width: 94%">
                 <div class="col-md-12 mr-auto">
                   <div class="py-2 row w-100 my-3">
-                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
-                      Email
+                    <h5 class="col-md-3 mr-auto" style="color: #202020">
+                      Adresse Email
                     </h5>
                     <div class="col-md-5 col-12 ml-auto d-flex">
                       <div class="input-group mb-2 mr-sm-2 d-l-content">
-                        <div class="input-group-prepend ">
+                        <div class="input-group-prepend">
                           <div class="input-group-text">
                             <i
                               class="fa fa-user-circle"
-                              style="cursor: pointer;"
+                              style="cursor: pointer"
                             ></i>
                           </div>
                         </div>
 
                         <input
                           disabled
-                          style="width: 240px;"
+                          style="width: 240px"
                           name="email"
                           [value]="mAdmin.email"
                           type="email"
                           class="form-control w-m-100"
                         />
                       </div>
-                      <div class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2">
+                      <div
+                        class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2"
+                      >
                         <button
                           title="Edit"
                           class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
@@ -258,30 +260,29 @@
                   </div>
 
                   <div class="py-2 row w-100 my-3">
-                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
-                      Tél
+                    <h5 class="col-md-3 mr-auto" style="color: #202020">
+                      Téléphone
                     </h5>
                     <div class="col-md-5 col-12 ml-auto d-flex">
                       <div class="input-group mb-2 mr-sm-2 d-l-content">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
-                            <i
-                              class="fas fa-phone"
-                              style="cursor: pointer;"
-                            ></i>
+                            <i class="fas fa-phone" style="cursor: pointer"></i>
                           </div>
                         </div>
 
                         <input
                           disabled
-                          style="width: 240px;"
+                          style="width: 240px"
                           name="phone"
                           [value]="mAdmin.phone ? mAdmin.phone : ''"
                           type="text"
                           class="form-control w-m-100"
                         />
                       </div>
-                      <div class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2">
+                      <div
+                        class="widget-content-right widget-content-actions responsive-edit-widget ml-2 ml-sm-0 ml-md-2"
+                      >
                         <button
                           title="Edit"
                           class="mr-1 btn-icon btn-icon-only btn btn-primary py-2 btn-sm"
@@ -293,20 +294,20 @@
                     </div>
                   </div>
                   <div class="py-2 row w-100 my-3">
-                    <h5 class="col-md-3 mr-auto" style="color: #202020;">
+                    <h5 class="col-md-3 mr-auto" style="color: #202020">
                       Password
                     </h5>
                     <div class="col-md-5 col-12 ml-auto d-flex">
                       <div class="input-group mb-2 mr-sm-2 d-l-content">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
-                            <i class="fas fa-lock" style="cursor: pointer;"></i>
+                            <i class="fas fa-lock" style="cursor: pointer"></i>
                           </div>
                         </div>
 
                         <input
                           disabled
-                          style="width: 240px;"
+                          style="width: 240px"
                           name="password"
                           value="********"
                           type="password"

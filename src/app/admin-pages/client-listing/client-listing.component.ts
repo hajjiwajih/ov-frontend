@@ -9,10 +9,12 @@ import { User } from "./../../models/user";
 import { UserService } from "./../../services/user.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Message } from "primeng/api/message";
-import { DatePipe } from "@angular/common";
+import { DatePipe, TitleCasePipe } from "@angular/common";
 import { Subscription } from "rxjs";
-import { Component, OnInit } from "@angular/core";
 import Swal from "sweetalert2";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
+
 declare var $: any;
 
 @Component({
@@ -33,6 +35,8 @@ export class ClientListingComponent implements OnInit {
   addedSub$: Subscription;
 
   pipe = new DatePipe("fr-FR");
+  
+  titlePipe = new TitleCasePipe();
 
   msgs: Message[] = [];
 
@@ -47,6 +51,7 @@ export class ClientListingComponent implements OnInit {
   displayModal: boolean = false;
 
   constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
     private userService: UserService,
     private orderService: OrderService,
     private notificationService: NotificationService,
@@ -66,7 +71,6 @@ export class ClientListingComponent implements OnInit {
 
       // map customer ids to fetch their last orders
       let ids = this.clients.map((user) => user.id);
-      console.log(ids);
       this.mappingObs$ = this.orderService
         .getLastValidatedOrders(ids)
         .subscribe((mapping) => {
@@ -78,9 +82,7 @@ export class ClientListingComponent implements OnInit {
               (item) => item.id == client.id
             );
             modified.lastValidatedOrder = lastOrders.order || null;
-            console.log(modified);
             this.modifiedClients.push(modified);
-            console.log(this.modifiedClients);
           });
           // console.log(this.modifiedClients);
           // hide block loader
@@ -127,9 +129,21 @@ export class ClientListingComponent implements OnInit {
               columnDefs: [
                 { responsivePriority: 2, targets: -1 },
                 {
+                  targets: 1,
+                  render: function (data, type, row) {
+                    return data == row.cin ? "-------------" : data;
+                  },
+                },
+                {
+                  targets: 2,
+                  render: function (data, type, row) {
+                    return data ? data : "-------------" ;
+                  },
+                },
+                {
                   targets: 3,
                   render: function (data, type, row) {
-                    return data + " " + row.lname;
+                    return _self.titlePipe.transform(data + " " + row.lname);
                   },
                 },
                 {
@@ -237,7 +251,6 @@ export class ClientListingComponent implements OnInit {
             return new Promise<any>((resolve, reject) => {
               this.userService.verifyAccount(client.id).subscribe(
                 (res) => {
-                  console.log(res);
                   resolve(res);
                 },
                 (err) => {
@@ -253,7 +266,6 @@ export class ClientListingComponent implements OnInit {
             })
               .then(
                 (verif) => {
-                  console.log(verif);
                   Swal.insertQueueStep({
                     title: "Terminé",
                     text: "Compte Client Validé avec succès",
@@ -281,7 +293,6 @@ export class ClientListingComponent implements OnInit {
           allowOutsideClick: () => !Swal.isLoading(),
         },
       ]).then((result) => {
-        console.log(result);
         if (status) {
           // this.router.navigateByUrl("monitor/validated");
           window.location.reload();
@@ -317,12 +328,15 @@ export class ClientListingComponent implements OnInit {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Oui, procéder!",
           showLoaderOnConfirm: true,
-          preConfirm: (comment) => {
+          preConfirm: (input) => {
+          // sanitize input data
+          let comment = this.sanitizeInputData(input)
+          // submit safe data    
+
             return new Promise<any>((resolve, reject) => {
               this.orderService;
               this.userService.rejectAccount(client.id, comment).subscribe(
                 (res) => {
-                  console.log(res);
                   resolve(res);
                 },
                 (err) => {
@@ -336,7 +350,6 @@ export class ClientListingComponent implements OnInit {
             })
               .then(
                 (reject) => {
-                  console.log(reject);
                   Swal.insertQueueStep({
                     title: "Terminé",
                     text: "Compte Client rejeté avec succès",
@@ -371,6 +384,11 @@ export class ClientListingComponent implements OnInit {
       });
   }
 
+  sanitizeInputData(input) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, input) || '';
+  }
+
+
   /**
    * Subscribe to newly added customers
    */
@@ -382,11 +400,9 @@ export class ClientListingComponent implements OnInit {
        * so i had to figure out a way to add it
        * P.s: 'lastValidatedOrder' doesn't exist on type user so i had to do the same as you did before table init
        */
-      console.log("new voucher", voucher);
       let modified = Object.create(voucher);
       modified = voucher;
       modified.lastValidatedOrder = modified.lastValidatedOrder || null;
-      console.log(modified);
       this.addRow(modified);
     });
   }

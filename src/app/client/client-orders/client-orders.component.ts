@@ -364,43 +364,45 @@ export class ClientOrdersComponent implements OnInit {
    * @param order
    */
   downloadCSV(order: Order) {
-    this.orderService.getOrderTickets(order.idOrder).subscribe((tickets) => {
-      console.log(tickets);
-      var csv;
-      var json = JSON.parse(JSON.stringify(tickets));
-      var fields = Object.keys(json[0]);
-      fields = fields.filter(
-        (item) =>
+    if(!this.downloading) {
+      this.downloading = true
+      this.orderService.getOrderTickets(order.idOrder).subscribe((tickets) => {
+        var csv;
+        var json = JSON.parse(JSON.stringify(tickets));
+        var fields = Object.keys(json[0]);
+        fields = fields.filter(
+          (item) =>
           !item.includes("issueDate") &&
           !item.includes("agent") &&
           !item.includes("orderId") &&
           !item.includes("ID") &&
           !item.includes("_hash")
-      );
-      var replacer = function (key, value) {
-        return value === null ? "" : value;
-      };
-      csv = json.map(function (row) {
-        return fields
-          .map(function (fieldName) {
-            return JSON.stringify(row[fieldName], replacer).replace(
-              /^"(.+(?="$))"$/,
-              "$1"
-            );
-          })
-          .join(",");
-      });
-      csv.unshift(fields.join(",")); // add header column
-      csv = csv.join("\r\n");
-      console.log(csv);
-      const blob = new Blob([csv], {
-        type: "application/vnd.ms-excel;charset=utf-8",
-      });
-      var d = new Date(Date.parse(order.validationDate));
-      var formatted = this.pipe.transform(d, "yyyyMMddHHmmss");
-
-      saveAs(blob, formatted + "-" + order.orderAuto + ".csv");
-    });
+          );
+          var replacer = function (key, value) {
+            return value === null ? "" : value;
+          };
+          csv = json.map(function (row) {
+            return fields
+            .map(function (fieldName) {
+              return JSON.stringify(row[fieldName], replacer).replace(
+                /^"(.+(?="$))"$/,
+                "$1"
+                );
+              })
+              .join(",");
+            });
+            csv.unshift(fields.join(",")); // add header column
+            csv = csv.join("\r\n");
+            const blob = new Blob([csv], {
+              type: "application/vnd.ms-excel;charset=utf-8",
+            });
+            var d = new Date(Date.parse(order.validationDate));
+            var formatted = this.pipe.transform(d, "yyyyMMddHHmmss");
+            
+            saveAs(blob, formatted + "-" + order.orderAuto + ".csv");
+            this.downloading = false
+          });
+        }
   }
 
   /**

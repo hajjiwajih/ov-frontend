@@ -24,7 +24,8 @@ export class ConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.order = JSON.parse(params["order"]);
+      // decode base64 string and return object 
+      this.order = JSON.parse(atob(params["order"]));
     });
     this.id = localStorage.getItem("currentUserId");
     this.ref = localStorage.getItem("currentUserRef");

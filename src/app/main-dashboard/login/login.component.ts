@@ -2,9 +2,11 @@ import { Message } from "primeng/api";
 import { Router } from "@angular/router";
 import { User } from "../../models/user";
 import { UserService } from "../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, SecurityContext } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { catchError } from "rxjs/operators";
+import { DomSanitizer, SafeValue} from '@angular/platform-browser';
+
 declare var $: any;
 
 const PWD_EXPIRED_CODE = 402;
@@ -24,7 +26,10 @@ export class LoginComponent implements OnInit {
 
   msgs: Message[] = [];
 
-  constructor(private loginService: UserService, private router: Router) {
+  constructor(
+    @Inject(DomSanitizer) private readonly sanitizer: DomSanitizer, 
+    private loginService: UserService, 
+    private router: Router) {
     this.user = {
       username: "",
       password: "",
@@ -50,6 +55,9 @@ export class LoginComponent implements OnInit {
     $("button:submit").attr("disabled", true);
     this.msgs.pop();
     this._this = this;
+    // Sanitize DOM-input & prevent XSS attack 
+    this.sanitizeInputData()
+    // submit data
     this.loginService.login(this.user).subscribe(
       (_loginToken) => {
         localStorage.setItem("token", _loginToken.id);
@@ -80,7 +88,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("email", user.email);
           localStorage.setItem("currentUserId", _loginToken.userId); // we need to store the id so that we can get it directly from localStorage to use getUserById
           localStorage.setItem("currentUserRef", user.autoID); // we need to store the ref so that we can get it directly from localStorage to use getUserByRef
-          sessionStorage.setItem("password", this.loginForm.value.password); // we need the password since we can't update a user later without a pwd in case he didn't change it
           const token = localStorage.getItem("token");
           if (token === "") {
             console.log("You cannot connect now! server unavailable");
@@ -169,6 +176,11 @@ export class LoginComponent implements OnInit {
         }
       }
     );
+  }
+
+  sanitizeInputData() {
+    this.user.username = this.sanitizer.sanitize(SecurityContext.HTML, this.user.username) || '';
+    // this.user.password = this.sanitizer.sanitize(SecurityContext.HTML, this.user.password) || '';
   }
 
   togglePassword() {

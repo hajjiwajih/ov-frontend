@@ -245,6 +245,19 @@ export class OrderService {
     );
   }
 
+  /**
+   * Fetch ticket infos by serial @serial
+   * @param serial
+   */
+  fetchTicket(serial: string) {
+    const headers = new Headers({ "Content-Type": "application/json" });
+
+    return this.client.get<Ticket[]>(
+      `${this.ticketsUrl}/fetchTicket/${serial}`
+    );
+  }
+
+
   // utility function => test wether amount[number] < 1000 => return amount [string] with 4 digits length
   numberLengthChecker(n: number) {
     return String(n).padStart(4, "0");
