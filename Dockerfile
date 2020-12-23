@@ -12,5 +12,5 @@ RUN ng build --prod
 FROM nginx
 COPY --from=builder /app/dist/OrangeVoucher-frontend /usr/share/nginx/html/
 
-//EXPOSE 4200
+EXPOSE 80
 
