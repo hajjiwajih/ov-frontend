@@ -7,9 +7,10 @@ RUN npm cache clean --force
 RUN npm install
 RUN npm install -g @angular/cli@9.1.7
 COPY . .
-RUN  npm run build
+RUN ng build --prod
 
 FROM nginx
 COPY --from=builder /app/dist/OrangeVoucher-frontend /usr/share/nginx/html/
-EXPOSE 4200
+
+//EXPOSE 4200
 
