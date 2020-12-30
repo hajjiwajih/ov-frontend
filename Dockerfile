@@ -9,7 +9,7 @@ RUN npm install -g @angular/cli@9.1.7
 COPY . .
 RUN ng build --prod
 
-FROM nginx
+FROM nginxinc/nginx-unprivileged
 COPY --from=builder /app/dist/OrangeVoucher-frontend /usr/share/nginx/html/
 
 EXPOSE 80
