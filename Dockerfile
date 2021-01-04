@@ -10,7 +10,7 @@ COPY . .
 RUN ng build --prod
 
 FROM nginx:1.17
-RUN rm /etc/nginx/nginx.conf
+#RUN rm /etc/nginx/nginx.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/OrangeVoucher-frontend /usr/share/nginx/html/
 CMD ["nginx", "-g", "daemon off;"]
