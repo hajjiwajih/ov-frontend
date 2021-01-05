@@ -9,6 +9,7 @@ COPY . .
 RUN ng build --prod
 #RUN npm run ng build  --prod
 FROM nginxinc/nginx-unprivileged
+RUN rm /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/OrangeVoucher-frontend  /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
