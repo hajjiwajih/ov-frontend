@@ -10,8 +10,9 @@ COPY . .
 RUN ng build --prod
 
 FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/dist/OrangeVoucher-frontend /usr/share/nginx/html/
+COPY --from=builder /app/dist/OrangeVoucher-frontend .
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
