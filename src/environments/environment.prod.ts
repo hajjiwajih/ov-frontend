@@ -10,6 +10,6 @@ export const environment = {
   api_url_tickets: "https://www.symvoucher.com/api/tickets",
   api_url_vouchers: "https://www.symvoucher.com/api/vouchers",
   // socket server
-  socketIO_endpoint: "https://www.symvoucher.com",
+  socketIO_endpoint: "http://socket-server-test.192.168.0.142.nip.io",
 
 };
