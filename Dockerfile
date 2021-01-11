@@ -10,7 +10,7 @@ RUN npm install -g @angular/cli@9.1.7
 COPY . .
 RUN ng build --prod
 
-FROM nginx:1.17
+FROM nginx:1.13.3-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/OrangeVoucher-frontend /usr/share/nginx/html/
 EXPOSE 8080
