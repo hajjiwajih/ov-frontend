@@ -10,10 +10,10 @@ export const environment = {
   api_url: "http://localhost:3500/api",
   api_url_users: "http://localhost:3500/api/users",
   api_url_orders: "http://localhost:3500/api/orders",
-  api_url_tickets: "http://localhost:3500/api/tickets",
-  api_url_vouchers: "http://localhost:3500/api/vouchers",
+  //api_url_tickets: "http://localhost:3500/api/tickets",
+  //api_url_vouchers: "http://localhost:3500/api/vouchers",
   // socket server
-  socketIO_endpoint: "http://localhost:4000",
+  //socketIO_endpoint: "http://localhost:4000",
 };
 
 // export const environment = {
