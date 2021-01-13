@@ -17,5 +17,5 @@ RUN set -x \
 	&& chmod go+w /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /app/dist/OrangeVoucher-frontend  /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 4200
 CMD ["nginx", "-g", "daemon off;"]
