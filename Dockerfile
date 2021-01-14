@@ -6,7 +6,7 @@ COPY package-lock.json /app/package-lock.json
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
 COPY . .
-RUN  npm run build
+RUN  ng build --prod --base-href
 #RUN npm run ng build  --prod
 FROM  xmlking/openshift-nginx:1.13.9-alpine
 COPY nginx.conf /etc/nginx/conf.d/nginx.conf.tmpl
