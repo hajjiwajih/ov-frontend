@@ -10,6 +10,6 @@ export const environment = {
   api_url_tickets: "http://ov-backend.test.svc:3500/api/tickets",
   api_url_vouchers: "http://ov-backend.test.svc:3500/api/vouchers",
   // socket server
-  socketIO_endpoint: "http://socket-server.test.svc",
+  socketIO_endpoint: "http://172.30.138.140:4000",
 
 };
