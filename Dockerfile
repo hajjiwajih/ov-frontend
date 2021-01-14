@@ -6,16 +6,13 @@ COPY package-lock.json /app/package-lock.json
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
 COPY . .
-RUN  ng build --prod 
+RUN ng build --prod
 #RUN npm run ng build  --prod
-FROM xmlking/openshift-nginx:1.13.9-alpine
-COPY nginx.conf.tmp1  /etc/nginx/conf.d/nginx.conf.tmpl
-RUN set -x \
-	&& rm -rf /usr/share/nginx/html/* \
-	&& chmod go+w /etc/nginx/conf.d/default.conf
-
+FROM nginx:1.13.3-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
 #RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist/OrangeVoucher-frontend  /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+
 
