@@ -8,8 +8,12 @@ RUN npm install -g @angular/cli@7.3.9
 COPY . .
 RUN  ng build --prod 
 #RUN npm run ng build  --prod
-FROM nginx:1.17
-COPY ./nginx.conf /etc/nginx/nginx.conf
+FROM xmlking/openshift-nginx:1.13.9-alpine
+COPY nginx.conf.tmp1  /etc/nginx/conf.d/nginx.conf.tmpl
+RUN set -x \
+	&& rm -rf /usr/share/nginx/html/* \
+	&& chmod go+w /etc/nginx/conf.d/default.conf
+
 #RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist/OrangeVoucher-frontend  /usr/share/nginx/html
 EXPOSE 8080
