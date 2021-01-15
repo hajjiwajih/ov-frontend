@@ -4,12 +4,12 @@ export const environment = {
   // env [test]
   companyName: "Symtelecom",
   // api routes
-  api_url: "https://ov-backend-voucherapp.192.168.0.142.nip.io/api",
-  api_url_users: "https://ov-backend-voucherapp.192.168.0.142.nip.io/api/users",
-  api_url_orders: "https://ov-backend-voucherapp.192.168.0.142.nip.io/api/orders",
-  api_url_tickets: "https://ov-backend-voucherapp.192.168.0.142.nip.io/api/tickets",
-  api_url_vouchers: "https://ov-backend-voucherapp.192.168.0.142.nip.io/api/vouchers",
+  api_url: "https://symvoucher.192.168.0.142.nip.io/api",
+  api_url_users: "http://symvoucher.192.168.0.142.nip.io/api/users",
+  api_url_orders: "http://symvoucher.192.168.0.142.nip.io/api/orders",
+  api_url_tickets: "http://symvoucher.192.168.0.142.nip.io/api/tickets",
+  api_url_vouchers: "http://symvoucher.192.168.0.142.nip.io/api/vouchers",
   // socket server
-  socketIO_endpoint: "https://socket-server.192.168.0.142.nip.io",
+  socketIO_endpoint: "http://symvoucher.192.168.0.142.nip.io",
 
 };
