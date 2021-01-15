@@ -14,7 +14,7 @@ RUN rm -rf /etc/nginx/nginx.conf.default && rm -rf /etc/nginx/conf.d/default.con
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY nnginx.conf /etc/nginx/conf.d/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 
 RUN rm -rf /usr/share/nginx/html/*
 
