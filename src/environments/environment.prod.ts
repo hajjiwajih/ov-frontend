@@ -10,6 +10,6 @@ export const environment = {
   api_url_tickets: "http://ov-backend-voucherapp.192.168.0.142.nip.io/api/tickets",
   api_url_vouchers: "http://ov-backend-voucherapp.192.168.0.142.nip.io/api/vouchers",
   // socket server
-  socketIO_endpoint: "http://socket-server.voucherapp.svc:4000",
+  socketIO_endpoint: "http://socket-server-vooucherapp.192.168.0.142.nip.io",
 
 };
