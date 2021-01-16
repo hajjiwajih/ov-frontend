@@ -21,10 +21,10 @@ export class AuthGuard implements CanActivate {
       if (roles) {
         var match = this.userService.roleMatch(roles);
         if (match) return true;
-        //else {
-          //this.router.navigate(["/forbidden"]);
-          //return false;
-        //}
+        else {
+          this.router.navigate(["/forbidden"]);
+          return false;
+        }
       } else return true;
     }
 
