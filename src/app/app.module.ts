@@ -46,6 +46,9 @@ import { PasswordExpiryComponent } from "./main-dashboard/password-expiry/passwo
 import { ClientProfileComponent } from './client/client-profile/client-profile.component'
 import { AdminProfileComponent } from './admin-pages/admin-profile/admin-profile.component';
 import { ClientStatsComponent } from './common/client-stats/client-stats.component'
+import { Inject } from '@angular/core'
+import { Routes, Router, RouterModule } from '@angular/router'
+import { ApmService } from '@elastic/apm-rum-angular'
 // fr local binding
 registerLocaleData(localeFr, "fr-FR", localeFrExtra);
 
@@ -95,6 +98,7 @@ const config: SocketIoConfig = {
     DialogModule,
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config),
+    RouterModule.forRoot(routes)
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "fr-FR" },
