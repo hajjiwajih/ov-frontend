@@ -46,9 +46,9 @@ import { PasswordExpiryComponent } from "./main-dashboard/password-expiry/passwo
 import { ClientProfileComponent } from './client/client-profile/client-profile.component'
 import { AdminProfileComponent } from './admin-pages/admin-profile/admin-profile.component';
 import { ClientStatsComponent } from './common/client-stats/client-stats.component'
-import { Inject } from '@angular/core'
-import { Routes, Router, RouterModule } from '@angular/router'
-import { ApmService } from '@elastic/apm-rum-angular'
+//import { Inject } from '@angular/core'
+//import { Routes, Router, RouterModule } from '@angular/router'
+//import { ApmService } from '@elastic/apm-rum-angular'
 // fr local binding
 registerLocaleData(localeFr, "fr-FR", localeFrExtra);
 
@@ -98,11 +98,11 @@ const config: SocketIoConfig = {
     DialogModule,
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config),
-    RouterModule.forRoot(routes)
+    //RouterModule.forRoot(routes)
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "fr-FR" },
-    { provide: ApmService, useClass: ApmService },
+    //{ provide: ApmService, useClass: ApmService },
     AuthGuard,
     LogoutGuard,
     UserService,
@@ -115,18 +115,18 @@ const config: SocketIoConfig = {
   ],
   bootstrap: [AppComponent],
 })
-//export class AppModule {}
-export class AppModule {
-  constructor(@Inject(ApmService) service: ApmService) {
+export class AppModule {}
+//export class AppModule {
+  //constructor(@Inject(ApmService) service: ApmService) {
     // API is exposed through this apm instance
-    const apm = service.init({
-      serviceName: 'angular-app',
-      serverUrl: 'http://172.30.182.65:8200'
-    })
+    //const apm = service.init({
+      //serviceName: 'angular-app',
+      //serverUrl: 'http://172.30.182.65:8200'
+    //})
 
-    apm.setUserContext({
-      'username': 'foo',
-      'id': 'bar'
-    })
-  }
-}
+    //apm.setUserContext({
+      //'username': 'foo',
+      //'id': 'bar'
+    //})
+  //}
+//}
