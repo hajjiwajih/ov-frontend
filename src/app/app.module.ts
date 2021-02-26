@@ -102,6 +102,7 @@ const config: SocketIoConfig = {
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "fr-FR" },
+    { provide: ApmService, useClass: ApmService },
     AuthGuard,
     LogoutGuard,
     UserService,
@@ -114,4 +115,18 @@ const config: SocketIoConfig = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+//export class AppModule {}
+export class AppModule {
+  constructor(@Inject(ApmService) service: ApmService) {
+    // API is exposed through this apm instance
+    const apm = service.init({
+      serviceName: 'angular-app',
+      serverUrl: 'http://172.30.182.65:8200'
+    })
+
+    apm.setUserContext({
+      'username': 'foo',
+      'id': 'bar'
+    })
+  }
+}
