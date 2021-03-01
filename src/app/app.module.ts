@@ -115,29 +115,5 @@ const config: SocketIoConfig = {
   ],
   bootstrap: [AppComponent],
 })
-//const apm = initApm({
 
-  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-  serviceName: 'test',
-
-  // Set custom APM Server URL (default: http://localhost:8200)
-  serverUrl: 'http://172.30.20.235:8200',
-
-  // Set service version (required for sourcemap feature)
-  serviceVersion: ''
-})
 export class AppModule {}
-//export class AppModule {
-  //constructor(@Inject(ApmService) service: ApmService) {
-    // API is exposed through this apm instance
-    //const apm = service.init({
-      //serviceName: 'angular-app',
-      //serverUrl: 'http://172.30.182.65:8200'
-    //})
-
-    //apm.setUserContext({
-      //'username': 'foo',
-      //'id': 'bar'
-    //})
-  //}
-//}
