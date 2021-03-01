@@ -115,7 +115,7 @@ const config: SocketIoConfig = {
   ],
   bootstrap: [AppComponent],
 })
-const apm = initApm({
+//const apm = initApm({
 
   // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
   serviceName: 'test',
