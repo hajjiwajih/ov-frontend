@@ -48,7 +48,7 @@ import { AdminProfileComponent } from './admin-pages/admin-profile/admin-profile
 import { ClientStatsComponent } from './common/client-stats/client-stats.component'
 //import { Inject } from '@angular/core'
 //import { Routes, Router, RouterModule } from '@angular/router'
-//import { ApmService } from '@elastic/apm-rum-angular'
+import { ApmService } from '@elastic/apm-rum-angular'
 // fr local binding
 registerLocaleData(localeFr, "fr-FR", localeFrExtra);
 
@@ -114,6 +114,17 @@ const config: SocketIoConfig = {
     },
   ],
   bootstrap: [AppComponent],
+})
+const apm = initApm({
+
+  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+  serviceName: 'test',
+
+  // Set custom APM Server URL (default: http://localhost:8200)
+  serverUrl: 'http://172.30.183.27:8200',
+
+  // Set service version (required for sourcemap feature)
+  serviceVersion: ''
 })
 export class AppModule {}
 //export class AppModule {
