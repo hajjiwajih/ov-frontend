@@ -48,7 +48,7 @@ import { AdminProfileComponent } from './admin-pages/admin-profile/admin-profile
 import { ClientStatsComponent } from './common/client-stats/client-stats.component'
 //import { Inject } from '@angular/core'
 //import { Routes, Router, RouterModule } from '@angular/router'
-import { ApmService } from '@elastic/apm-rum-angular'
+//import { ApmService } from '@elastic/apm-rum-angular'
 // fr local binding
 registerLocaleData(localeFr, "fr-FR", localeFrExtra);
 
