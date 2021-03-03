@@ -32,6 +32,16 @@
 <body>
   <app-root></app-root>
   <script type="text/javascript" src="./assets/scripts/main.js"></script>
+  <script src="https://unpkg.com/@elastic/apm-rum@4.0.1/dist/bundles/elastic-apm-rum.umd.min.js">
+</script>
+<script>
+  elasticApm.init({
+    serviceName: 'carfront',
+    serverUrl: 'http://172.30.48.69:8200',
+    serviceVersion: '0.90'
+  })
+</script>
+
 </body>
 
 </html
