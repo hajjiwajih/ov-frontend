@@ -4,11 +4,11 @@ export const environment = {
   // env [test]
   companyName: "Symtelecom",
   // api routes
-  api_url: "http://172.21.95.232/api",
-  api_url_users: "http://172.21.95.232/api/users",
-  api_url_orders: "http://172.21.95.232/api/orders",
-  api_url_tickets: "http://172.21.95.232/api/tickets",
-  api_url_vouchers: "http://172.21.95.232/api/vouchers",
+  api_url: "ov-backend-symtest.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud /api",
+  api_url_users: "ov-backend-symtest.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud /api/users",
+  api_url_orders: "ov-backend-symtest.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud /api/orders",
+  api_url_tickets: "ov-backend-symtest.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud /api/tickets",
+  api_url_vouchers: "ov-backend-symtest.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud /api/vouchers",
   // socket server
   //socketIO_endpoint: "http://172.21.168.197",
   socketIO_endpoint: "socket-server-symtest.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud",
