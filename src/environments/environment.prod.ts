@@ -10,7 +10,8 @@ export const environment = {
   api_url_tickets: "http://ov-backend-voucher.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud/api/tickets",
   api_url_vouchers: "http://ov-backend-voucher.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud/api/vouchers",
   // socket server
-  socketIO_endpoint: "socket-server-symvoucherapp.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud",
+    socketIO_endpoint: "172.21.70.240",
+  //socketIO_endpoint: "socket-server-symvoucherapp.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud",
 
 };
 //http://socket-server-voucherapp.192.168.20.12.nip.io
