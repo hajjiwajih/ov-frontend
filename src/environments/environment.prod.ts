@@ -10,8 +10,8 @@ export const environment = {
   api_url_tickets: "http://172.21.95.232/api/tickets",
   api_url_vouchers: "http://172.21.95.232/api/vouchers",
   // socket server
-  socketIO_endpoint: "http://172.21.168.197",
-  //socketIO_endpoint: "socket-server-symvoucherapp.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud",
+  //socketIO_endpoint: "http://172.21.168.197",
+  socketIO_endpoint: "socket-server-test.symvoucherpreprod-32b3324939abd6931214ec409bc8bcf6-0000.eu-de.containers.appdomain.cloud",
 
 };
 //http://socket-server-voucherapp.192.168.20.12.nip.io
